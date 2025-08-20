@@ -8,7 +8,7 @@
 ![MTV diagram](images/django_2.webp)  
 *Model–Template–View o‘rtasidagi aloqalar sxemasi*
 
-![Request-Response flow](images/django-3.webp)  
+![Request-Response flow](images/django_3.webp)  
 *So‘rov va javob oqimining bosqichma-bosqich ketma-ketligi*
 
 
