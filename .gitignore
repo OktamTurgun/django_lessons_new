@@ -1,0 +1,31 @@
+# Virtual muhit
+venv/
+*.env
+*.venv
+
+# PyCharm
+.idea/
+
+# Python fayllari
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Django
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Pipenv
+Pipfile.lock
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
