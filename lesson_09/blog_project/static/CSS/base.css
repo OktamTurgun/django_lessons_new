@@ -1,0 +1,67 @@
+/* Asosiy stillar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+    padding: 0;
+    margin: 0;
+}
+
+/* Sarlavha stillari */
+header {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    padding: 1.5rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: block;
+    max-width: 800px;
+    margin: 0;
+    padding: 0 2rem;
+    transition: all 0.3s ease;
+}
+
+header a:hover {
+    color: #f0f0f0;
+    transform: translateX(5px);
+}
+
+/* Umumiy kontent */
+.content {
+   padding: 0 2rem;
+}
+
+/* Postlar */
+.post {
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+}
+
+h2 a {
+  color: #0f172a;
+  text-decoration: none;
+}
+
+p {
+    margin-bottom: 2rem;
+    color: #778290;
+}
