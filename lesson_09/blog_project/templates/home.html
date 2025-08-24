@@ -1,0 +1,14 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+
+  {% for post in posts %}
+  <div class="post">
+    <h2><a href="">{{ post.title }}</a></h2>
+    <p>{{ post.author.username }}</p>
+  </div>
+  
+  {% endfor %} 
+
+{% endblock content %}
+
