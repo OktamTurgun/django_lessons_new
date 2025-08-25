@@ -4,7 +4,7 @@
 
   {% for post in posts %}
   <div class="post">
-    <h2><a href="">{{ post.title }}</a></h2>
+    <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
     <p>{{ post.author.username }}</p>
   </div>
   
