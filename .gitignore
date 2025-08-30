@@ -20,6 +20,7 @@ db.sqlite3
 *.pyo
 *.pyd
 __pycache__/
+media/
 
 # Pipenv
 Pipfile.lock
