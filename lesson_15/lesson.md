@@ -1,4 +1,4 @@
-# Django Lesson 14: Django QuerySet va Model Manager
+# Django Lesson 15: Django QuerySet va Model Manager
 
 ## 1. Asosiy Tushunchalar
 
