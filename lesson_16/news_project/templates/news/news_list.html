@@ -1,18 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/news_app.css' %}">
     <title>News List</title>
 </head>
 <body>
     <h1>News List</h1>
-    <ul>
+
+    <div class="news-container">
         {% for item in news %}
-          <a href="{% url 'news_detail' item.id %}">
-            <li>{{ item.title }} - {{ item.category.name }}</li>
-          </a>
+            <a href="{% url 'news_detail' item.id %}" class="news-card">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                {% endif %}
+                <div class="news-content">
+                    <span class="category">{{ item.category.name }}</span>
+                    <h3>{{ item.title|truncatewords:10 }}</h3>
+                    <p>{{ item.content|truncatewords:20 }}</p>
+                </div>
+            </a>
         {% endfor %}
-    </ul>
+    </div>
 </body>
-</html> 
+</html>
