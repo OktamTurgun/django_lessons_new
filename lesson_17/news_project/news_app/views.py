@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import News, Category
 
 # Create your views here.
@@ -40,6 +40,30 @@ class NewsDetailView(DetailView):
     queryset = News.published.all()
     
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related_news'] = News.published.filter(
+            category=self.object.category,
+        ).exclude(id=self.object.id)[:3]
+        return context
+    
+class HomePageView(ListView):
+    model = News
+    template_name = 'news/home.html'
+    context_object_name = 'news'
+    queryset = News.published.all()
+    paginate_by = 6 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['current_category'] = self.request.GET.get('category')
+        return context
+    
+class ContactPageView(TemplateView):
+    model = News
+    template_name = 'news/contact.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['related_news'] = News.published.filter(
