@@ -61,12 +61,7 @@ class HomePageView(ListView):
         return context
     
 class ContactPageView(TemplateView):
-    model = News
     template_name = 'news/contact.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['related_news'] = News.published.filter(
-            category=self.object.category,
-        ).exclude(id=self.object.id)[:3]
-        return context
+def custom_404_view(request, exception):
+    return render(request, 'news/404.html', status=404)
