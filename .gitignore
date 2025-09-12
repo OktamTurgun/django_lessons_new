@@ -22,9 +22,6 @@ db.sqlite3
 __pycache__/
 media/
 
-# Pipenv
-Pipfile.lock
-
 # Jupyter Notebook
 .ipynb_checkpoints/
 
