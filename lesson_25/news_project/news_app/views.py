@@ -61,9 +61,11 @@ class HomePageView(ListView):
         context = super().get_context_data(**kwargs)
         # Slider / "latest" uchun kesma (paginationni buzmaslik uchun object_list ni o'zgartirmaymiz)
         context['news_list'] = News.published.all().order_by('-created_at')[:6]
-        context['latest_news'] = News.published.order_by('-published_at')[:10] 
-        context['local_news_one'] = News.published.filter(category__name__iexact='Mahalliy').order_by('-published_at')[:1]
-        context['local_news'] = News.published.filter(category__name__iexact='Mahalliy').order_by('-published_at')[1:6]
+        context['latest_news'] = News.published.order_by('-published_at')[:6] 
+        context['local_news'] = News.published.filter(category__name__iexact='Mahalliy').order_by('-published_at')[:5]
+        context['xorij_news'] = News.published.filter(category__name__iexact='Xorij').order_by('-published_at')[:5]
+        context['texnologiya'] = News.published.filter(category__name__iexact='Texnologiya').order_by('-published_at')[:5]
+        context['sport'] = News.published.filter(category__name__iexact='Sport').order_by('-published_at')[:5]
         context['categories'] = Category.objects.all()
         context['current_category'] = self.request.GET.get('category')
         return context
@@ -144,3 +146,8 @@ class SinglePageView(DetailView):
         context['sponsor_image'] = getattr(news_item, 'sponsor_image', None)
 
         return context
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = "news/category_detail.html"
+    context_object_name = "category"
