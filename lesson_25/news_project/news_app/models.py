@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -7,6 +8,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+
 
     def __str__(self):
         return self.name
