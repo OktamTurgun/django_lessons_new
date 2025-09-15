@@ -13,7 +13,7 @@
           <h2><span>{{ category.name }}</span></h2>
           <div class="single_post_content_left">
             <ul class="business_catgnav wow fadeInDown">
-              {% for news_item in category_news %}
+              {% for news_item in news_list %}
                 {% if forloop.first %}
                   <li>
                     <figure class="bsbig_fig">
@@ -37,7 +37,7 @@
           <!-- Qolgan yangiliklar -->
           <div class="single_post_content_right">
             <ul class="spost_nav">
-              {% for news_item in category_news %}
+              {% for news_item in news_list %}
                 {% if forloop.counter > 1 %}
                   <li>
                     <div class="media wow fadeInDown">
