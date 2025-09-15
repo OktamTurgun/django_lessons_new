@@ -151,3 +151,11 @@ class CategoryDetailView(DetailView):
     model = Category
     template_name = "news/category_detail.html"
     context_object_name = "category"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Shu kategoriyaga tegishli yangiliklar
+        context['news_list'] = News.published.filter(category=self.object).order_by('-published_at')
+        # Barcha kategoriyalar (sidebar uchun)
+        context['categories'] = Category.objects.all()
+        return context
