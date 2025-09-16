@@ -42,11 +42,11 @@
                             {% for item in related_news %}
                             <li>
                                 <div class="media">
-                                    <a class="media-left" href="{% url 'news_detail' item.slug %}">
+                                    <a class="media-left" href="{{ item.get_absolute_url }}">
                                         <img src="{{ item.image.url }}" alt="{{ item.title }}">
                                     </a>
                                     <div class="media-body">
-                                        <a class="catg_title" href="{% url 'news_detail' item.slug %}">{{ item.title }}</a>
+                                        <a class="catg_title" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                                     </div>
                                 </div>
                             </li>
@@ -65,11 +65,11 @@
                         {% for item in popular_news %}
                         <li>
                             <div class="media">
-                                <a href="{% url 'news_detail' item.slug %}" class="media-left">
+                                <a href="{{ item.get_absolute_url }}" class="media-left">
                                     <img src="{{ item.image.url }}" alt="{{ item.title }}">
                                 </a>
                                 <div class="media-body">
-                                    <a href="{% url 'news_detail' item.slug %}" class="catg_title">{{ item.title }}</a>
+                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a>
                                 </div>
                             </div>
                         </li>
