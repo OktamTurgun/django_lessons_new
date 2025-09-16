@@ -42,12 +42,13 @@ urlpatterns = [
     path('', include('news.urls', namespace='news')),
 ]
 
+# Media fayllar uchun (development rejimida)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
 #### 2.2 News ilovasi uchun urls.py yarating
-**news/urls.py** faylini yarating:
+**news/urls.py** faylini yarating va quyidagi kodlarni yozing:
 
 ```python
 from django.urls import path
@@ -56,17 +57,33 @@ from . import views
 app_name = 'news'
 
 urlpatterns = [
-    # TO DO: Bu yerga barcha URL'larni qo'shing
-    # Masalan: path('', views.HomePageView.as_view(), name='home'),
+    # Bosh sahifa
+    path('', views.HomePageView.as_view(), name='home'),
+    
+    # Yangiliklar ro'yxati
+    path('news/', views.NewsListView.as_view(), name='news_list'),
+    
+    # Yangilik batafsil
+    path('news/<slug:slug>/', views.NewsDetailView.as_view(), name='news_detail'),
+    
+    # Kategoriya bo'yicha yangiliklar
+    path('category/<slug:category_slug>/', views.CategoryNewsView.as_view(), name='category_news'),
+    
+    # Qidiruv
+    path('search/', views.SearchView.as_view(), name='search'),
+    
+    # Kontakt sahifasi
+    path('contact/', views.ContactView.as_view(), name='contact'),
+    
+    # About sahifasi
+    path('about/', views.AboutView.as_view(), name='about'),
 ]
 ```
-
-**Vazifa:** Darsda ko'rsatilgan barcha URL'larni qo'shing.
 
 ### 3-bosqich: View'larni yaratish
 
 #### 3.1 Kerakli import'larni qo'shing
-**news/views.py** faylining boshiga:
+**news/views.py** faylining boshiga quyidagi import'larni qo'shing:
 
 ```python
 from django.shortcuts import render, get_object_or_404
@@ -74,45 +91,177 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.db.models import Q, Count
-# TO DO: Qolgan import'larni qo'shing
+from django.core.paginator import Paginator
+from .models import News, Category
+from .forms import ContactForm
 ```
 
 #### 3.2 HomePageView yarating
 ```python
 class HomePageView(TemplateView):
+    """Bosh sahifa view'i"""
     template_name = 'news/home.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # TO DO: Context ma'lumotlarini qo'shing
+        
+        # Kategoriyalar bo'yicha yangiliklar
+        categories = Category.objects.all()
+        news_by_category = {}
+        
+        for category in categories[:4]:  # Faqat 4 ta kategoriya
+            news_list = News.published.filter(category=category)[:3]  # Har kategoriyadan 3 ta
+            if news_list:
+                news_by_category[category] = news_list
+        
+        # So'nggi yangiliklar
+        latest_news = News.published.order_by('-publish_time')[:5]
+        
+        # Mashhur yangiliklar (ko'p ko'rilgan)
+        popular_news = News.published.order_by('-views')[:5]
+        
+        context.update({
+            'news_by_category': news_by_category,
+            'latest_news': latest_news,
+            'popular_news': popular_news,
+            'categories': categories,
+        })
+        
         return context
 ```
-
-**Vazifa:** 
-- Kategoriyalar bo'yicha yangiliklarni oling
-- So'nggi 5 ta yangiliklarni qo'shing
-- Mashhur yangiliklarni qo'shing
 
 #### 3.3 NewsListView yarating
 ```python
 class NewsListView(ListView):
+    """Barcha yangiliklar sahifasi"""
     model = News
     template_name = 'news/news_list.html'
-    # TO DO: Qolgan xususiyatlarni qo'shing
+    context_object_name = 'news_list'
+    paginate_by = 6  # Har sahifada 6 ta yangilik
+    
+    def get_queryset(self):
+        queryset = News.published.select_related('category', 'author')
+        
+        # Kategoriya bo'yicha filtrlash
+        category_id = self.request.GET.get('category')
+        if category_id:
+            queryset = queryset.filter(category__id=category_id)
+        
+        # Saralash
+        sort_by = self.request.GET.get('sort', '-publish_time')
+        queryset = queryset.order_by(sort_by)
+        
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 ```
 
-**Vazifa:**
-- Sahifalashni qo'shing (6 ta yangilik)
-- Filtrlash va saralashni amalga oshiring
-- Context'ga kategoriyalarni qo'shing
+#### 3.4 NewsDetailView yarating
+```python
+class NewsDetailView(DetailView):
+    """Yangilik batafsil sahifasi"""
+    model = News
+    template_name = 'news/news_detail.html'
+    context_object_name = 'news'
+    
+    def get_queryset(self):
+        return News.published.select_related('category', 'author')
+    
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        # Ko'rishlar sonini oshirish
+        obj.views += 1
+        obj.save(update_fields=['views'])
+        return obj
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news = self.object
+        
+        # O'xshash yangiliklar (bir xil kategoriyadan)
+        related_news = News.published.filter(
+            category=news.category
+        ).exclude(id=news.id)[:4]
+        
+        context['related_news'] = related_news
+        return context
+```
 
-#### 3.4 Qolgan view'larni yarating
-**Vazifa:** Darsda ko'rsatilgan barcha view'larni yarating:
-- NewsDetailView
-- CategoryNewsView  
-- SearchView
-- ContactView
-- AboutView
+#### 3.5 CategoryNewsView yarating
+```python
+class CategoryNewsView(ListView):
+    """Kategoriya bo'yicha yangiliklar"""
+    model = News
+    template_name = 'news/category_news.html'
+    context_object_name = 'news_list'
+    paginate_by = 8
+    
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, slug=self.kwargs['category_slug'])
+        return News.published.filter(category=self.category).select_related('author')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        context['news_count'] = self.get_queryset().count()
+        return context
+```
+
+#### 3.6 SearchView yarating
+```python
+class SearchView(ListView):
+    """Qidiruv sahifasi"""
+    model = News
+    template_name = 'news/search.html'
+    context_object_name = 'news_list'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return News.published.filter(
+                Q(title__icontains=query) | Q(body__icontains=query)
+            ).select_related('category', 'author')
+        return News.objects.none()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        context['total_results'] = self.get_queryset().count()
+        return context
+```
+
+#### 3.7 ContactView yarating
+```python
+class ContactView(FormView):
+    """Kontakt sahifasi"""
+    template_name = 'news/contact.html'
+    form_class = ContactForm
+    success_url = '/contact/'
+    
+    def form_valid(self, form):
+        # Formani saqlash
+        form.save()
+        messages.success(self.request, 'Xabaringiz muvaffaqiyatli yuborildi!')
+        return super().form_valid(form)
+```
+
+#### 3.8 AboutView yarating
+```python
+class AboutView(TemplateView):
+    """Biz haqimizda sahifasi"""
+    template_name = 'news/about.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Statistika ma'lumotlari
+        context['total_news'] = News.published.count()
+        context['total_categories'] = Category.objects.count()
+        return context
+```
 
 ### 4-bosqich: Forms yaratish
 
@@ -124,37 +273,78 @@ from django import forms
 from .models import Contact
 
 class ContactForm(forms.ModelForm):
+    """Kontakt formasi"""
     class Meta:
         model = Contact
         fields = ['name', 'email', 'subject', 'message']
-        # TO DO: Widget'larni qo'shing
-```
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ismingizni kiriting'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Email manzilingizni kiriting'
+            }),
+            'subject': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Xabar mavzusi'
+            }),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 5,
+                'placeholder': 'Xabaringizni yozing'
+            }),
+        }
+        
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if len(name) < 2:
+            raise forms.ValidationError('Ism kamida 2 ta belgidan iborat bo\'lishi kerak.')
+        return name
+    
+    def clean_message(self):
+        message = self.cleaned_data.get('message')
+        if len(message) < 10:
+            raise forms.ValidationError('Xabar kamida 10 ta belgidan iborat bo\'lishi kerak.')
+        return message
 
-**Vazifa:**
-- Widget'larga CSS klasslarini qo'shing
-- Validation'larni qo'shing
-- SearchForm yarating
+class SearchForm(forms.Form):
+    """Qidiruv formasi"""
+    q = forms.CharField(
+        max_length=255,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Qidirish...',
+            'required': True,
+        })
+    )
+```
 
 ### 5-bosqich: Models yaratish/yangilash
 
 #### 5.1 Contact modelini qo'shing
-**news/models.py ga qo'shing:**
+**news/models.py ga quyidagi Contact modelini qo'shing:**
 
 ```python
 class Contact(models.Model):
+    """Kontakt formasi modeli"""
     name = models.CharField(max_length=100, verbose_name="Ism")
-    # TO DO: Qolgan fieldlarni qo'shing
+    email = models.EmailField(verbose_name="Email")
+    subject = models.CharField(max_length=200, verbose_name="Mavzu")
+    message = models.TextField(verbose_name="Xabar")
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan vaqt")
     
     class Meta:
-        # TO DO: Meta ma'lumotlarini qo'shing
-        pass
-        
+        verbose_name = "Kontakt xabari"
+        verbose_name_plural = "Kontakt xabarlari"
+        ordering = ['-created_time']
+    
     def __str__(self):
-        # TO DO: __str__ metodini yozing
-        pass
+        return f"{self.name} - {self.subject}"
 ```
 
-#### 5.2 Migration'larni yarating
+#### 5.2 Migration'larni yarating va qo'llang
 ```bash
 python manage.py makemigrations
 python manage.py migrate
@@ -170,81 +360,127 @@ python manage.py migrate
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <!-- TO DO: Meta teglarni qo'shing -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Yangiliklar Sayti{% endblock %}</title>
-    
-    <!-- Bootstrap CSS -->
+    {% load static %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- TO DO: Static CSS faylini qo'shing -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <!-- TO DO: Navbar, main content va footer qo'shing -->
-    
-    <!-- Bootstrap JS -->
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'news:home' %}">Yangiliklar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:home' %}">Bosh sahifa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:news_list' %}">Yangiliklar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:about' %}">Biz haqimizda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:contact' %}">Aloqa</a>
+                    </li>
+                </ul>
+                <form class="d-flex" method="get" action="{% url 'news:search' %}">
+                    <input class="form-control me-2" type="search" name="q" 
+                           placeholder="Qidirish..." value="{{ request.GET.q }}">
+                    <button class="btn btn-outline-light" type="submit">Qidirish</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="py-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Yangiliklar Sayti</h5>
+                    <p>Eng so'nggi va dolzarb yangiliklar bilan tanishing.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Kategoriyalar</h5>
+                    <ul class="list-unstyled">
+                        {% for category in categories %}
+                        <li><a href="{% url 'news:category_news' category.slug %}" class="text-light">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Yangiliklar Sayti. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 ```
 
 #### 6.2 Home sahifa template'ini yarating
-**templates/news/home.html:**
+**templates/news/home.html:** (Lesson.md dagi to'liq kodni oling)
 
-```html
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Bosh sahifa - Yangiliklar{% endblock %}
-
-{% block content %}
-<div class="container">
-    <!-- TO DO: Hero section qo'shing -->
-    
-    <!-- TO DO: Kategoriyalar bo'yicha yangiliklarni ko'rsating -->
-    
-    <!-- TO DO: Sidebar qo'shing -->
-</div>
-{% endblock %}
-```
-
-**Vazifa:** Darsda ko'rsatilgan barcha template'larni yarating:
-- news_list.html
-- news_detail.html
-- category_news.html
-- search.html
-- contact.html
-- about.html
+#### 6.3 Qolgan template'larni yarating
+Lesson.md dagi kodni ishlatib quyidagi template'larni yarating:
+- **templates/news/news_list.html**
+- **templates/news/news_detail.html** 
+- **templates/news/category_news.html**
+- **templates/news/search.html**
+- **templates/news/contact.html**
+- **templates/news/about.html**
 
 ### 7-bosqich: Admin panelini sozlash
 
 #### 7.1 Contact modelini admin'ga qo'shing
-**news/admin.py:**
+**news/admin.py ga qo'shing:**
 
 ```python
+from django.contrib import admin
 from .models import Category, News, Contact
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    # TO DO: Admin sozlamalarini qo'shing
-    pass
+    list_display = ['name', 'email', 'subject', 'created_time']
+    list_filter = ['created_time']
+    search_fields = ['name', 'email', 'subject']
+    readonly_fields = ['created_time']
+    
+    def has_add_permission(self, request):
+        return False  # Admin paneldan qo'shishni cheklash
 ```
 
 ### 8-bosqich: Static fayllar qo'shish
 
 #### 8.1 CSS faylini yarating
-**static/css/style.css:**
-
-```css
-/* TO DO: Asosiy stillarni qo'shing */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* TO DO: Navbar stillarini qo'shing */
-
-/* TO DO: Card stillarini qo'shing */
-
-/* TO DO: Responsive stillarni qo'shing */
-```
+**static/css/style.css:** (Lesson.md dagi to'liq CSS kodini oling)
 
 ### 9-bosqich: Test qilish
 
@@ -255,13 +491,11 @@ python manage.py runserver
 
 #### 9.2 Sahifalarni test qiling
 Quyidagi sahifalarni tekshiring:
-- [ ] Bosh sahifa (`/`)
-- [ ] Yangiliklar ro'yxati (`/news/`)
-- [ ] Yangilik batafsil (`/news/slug/`)
-- [ ] Kategoriya sahifasi (`/category/slug/`)
-- [ ] Qidiruv (`/search/`)
-- [ ] Kontakt (`/contact/`)
-- [ ] About (`/about/`)
+- [ ] Bosh sahifa (`http://127.0.0.1:8000/`)
+- [ ] Yangiliklar ro'yxati (`http://127.0.0.1:8000/news/`)
+- [ ] Qidiruv (`http://127.0.0.1:8000/search/`)
+- [ ] Kontakt (`http://127.0.0.1:8000/contact/`)
+- [ ] About (`http://127.0.0.1:8000/about/`)
 
 ### 10-bosqich: Ma'lumot qo'shish
 
@@ -274,6 +508,7 @@ http://127.0.0.1:8000/admin/
 - 3-4 ta kategoriya yarating
 - Har kategoriyada 5-6 ta yangilik qo'shing
 - Yangiliklarga rasm qo'shing
+- Slug fieldlarni to'ldiring
 
 ### 11-bosqich: Xatoliklarni tuzatish
 
@@ -281,352 +516,133 @@ http://127.0.0.1:8000/admin/
 
 **Xato 1:** `NoReverseMatch` - URL nom xatosi
 ```python
-# Noto'g'ri:
-path('news/<slug>/', views.NewsDetailView.as_view(), name='detail'),
-
-# To'g'ri:
-path('news/<slug:slug>/', views.NewsDetailView.as_view(), name='news_detail'),
+# Template'da to'g'ri URL nomlarini ishlatganingizni tekshiring
+{% url 'news:news_detail' news.slug %}
 ```
 
 **Xato 2:** Template topilmadi
 ```python
-# views.py da template nomini tekshiring:
-template_name = 'news/home.html'  # To'g'ri yo'l
+# views.py da template yo'llarini tekshiring:
+template_name = 'news/home.html'  # templates papka ichida news/home.html
 ```
 
-**Xato 3:** Context xatosi
+**Xato 3:** Static fayllar yuklanmayapti
 ```python
-# Context'da kalit nomlarini tekshiring:
-context['news_list'] = news_list  # Template'da news_list ishlatilgan
+# settings.py da STATIC_URL va STATICFILES_DIRS to'g'ri sozlanganini tekshiring
 ```
 
-### 12-bosqich: Qo'shimcha funksiyalar (Ixtiyoriy)
-
-#### 12.1 Ko'rishlar sonini oshirish
-NewsDetailView'da:
-```python
-def get_object(self, queryset=None):
-    obj = super().get_object(queryset)
-    # TO DO: Views fieldini oshiring
-    return obj
-```
-
-#### 12.2 Qidiruv algoritmini yaxshilash
-```python
-def get_queryset(self):
-    query = self.request.GET.get('q')
-    if query:
-        # TO DO: Title va body bo'yicha qidiring
-        pass
-```
-
-#### 12.3 Pagination'ni sozlash
-```python
-class NewsListView(ListView):
-    paginate_by = 6  # Har sahifada 6 ta
-    # TO DO: Pagination'ni template'da ko'rsating
+**Xato 4:** Context variable topilmadi
+```html
+<!-- Template'da context variable nomlarini to'g'ri ishlatganingizni tekshiring -->
+{{ news_list }} <!-- views.py da context_object_name bilan mos kelishi kerak -->
 ```
 
 ## Yakuniy tekshirish
 
 ### ✅ Tekshirish ro'yxati:
 
-- [ ] Barcha URL'lar ishlaydi
+- [ ] Barcha URL'lar ishlaydi va to'g'ri sahifalarga olib boradi
 - [ ] Template'lar to'g'ri ko'rsatiladi  
-- [ ] Form'lar ishlaydi
-- [ ] Ma'lumotlar to'g'ri ko'rsatiladi
-- [ ] Responsive design ishlaydi
+- [ ] Kontakt formasi ishlaydi va ma'lumotlar saqlanadi
+- [ ] Qidiruv funksiyasi ishlaydi
+- [ ] Pagination ko'rsatiladi (6+ yangilik bo'lsa)
+- [ ] Ma'lumotlar to'g'ri ko'rsatiladi (sarlavha, matn, sana)
+- [ ] Responsive design ishlaydi (mobil qurilmalarda test qiling)
 - [ ] Admin panel to'g'ri sozlangan
-- [ ] Static fayllar yuklanyapti
-- [ ] Xatolik sahifalari mavjud
+- [ ] Static fayllar (CSS) yuklanyapti
+- [ ] Rasm fayllar ko'rsatiladi
 
 ### Maslahatlar:
 
-1. **Dastlab oddiy variant yarating** - murakkab design'dan keyin
-2. **Har bosqichni test qiling** - keyingi bosqichga o'tmaydi
-3. **Xatoliklarni yozib boring** - keyinroq tuzatish uchun
-4. **Code'ni izohlab yozing** - o'zingiz va boshqalar uchun
-5. **Git'da saqlang** - har muhim o'zgarishni commit qiling
+1. **Har bosqichni ketma-ket bajaring** - bir bosqichni tugatmasdan keyingisiga o'tmang
+2. **Xatoliklarni darhol tuzating** - kichik xatolar katta muammolarga aylanishi mumkin  
+3. **Browser console'ni tekshiring** - JavaScript xatolari bo'lishi mumkin
+4. **Django error sahifalarini o'qing** - aniq xato ma'lumotlari beradi
+5. **Code'ni izohlab yozing** - keyinroq tushunish uchun
 
-## Qo'shimcha vazifalar
+## Qo'shimcha vazifalar (Ixtiyoriy)
 
 ### Oson daraja:
 1. 404 va 500 xatolik sahifalarini yarating
 2. Breadcrumb navigation qo'shing  
-3. Social media share tugmalarini qo'shing
+3. Footer'ga social media linklar qo'shing
 
 ### O'rta daraja:
+1. Ko'rishlar soni (views count) funksiyasini qo'shing
+2. O'xshash yangiliklar ko'rsatish
+3. Kategoriya bo'yicha yangiliklar soni
+
+### Qiyin daraja:
 1. AJAX bilan ko'proq yangiliklar yuklash
 2. Tag'lar funksiyasini qo'shing
 3. Comment tizimini yarating
 
-### Qiyin daraja:
-1. Elasticsearch bilan qidiruvni yaxshilash
-2. Redis bilan caching qo'shish
-3. API yaratish (REST/GraphQL)
+## Yakuniy loyiha strukturasi
 
-## Xulosa
+```
+mysite/
+├── mysite/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── news/
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   └── forms.py
+├── templates/
+│   ├── base.html
+│   └── news/
+│       ├── home.html
+│       ├── news_list.html
+│       ├── news_detail.html
+│       ├── category_news.html
+│       ├── search.html
+│       ├── contact.html
+│       └── about.html
+├── static/
+│   └── css/
+│       └── style.css
+├── media/
+│   └── news/
+└── manage.py
+```
 
-Bu amaliyotni tamomlaganingizdan keyin sizda to'liq funksional yangiliklar sayti bo'ladi. Siz o'rgangan asosiy kontseptsiyalar:
+## Debug maslahatlar
 
-### 📚 O'rgangan bilimlar:
-- **URL routing** - sayt navigatsiyasini boshqarish
-- **Class-based views** - kodni tashkil qilish
-- **Template inheritance** - kodni qayta ishlatish
-- **Form handling** - foydalanuvchi ma'lumotlarini qabul qilish
-- **Database queries** - ma'lumotlar bilan ishlash
-- **Pagination** - katta ro'yxatlarni bo'lish
-- **Static files** - CSS, JS va rasm fayllar bilan ishlash
+**1. Server ishlamayapti:**
+```bash
+# Virtual environment faollashtirilganini tekshiring
+# Kerakli paketlar o'rnatilganini tekshiring
+pip list
+```
 
-### 🎯 Keyingi maqsadlar:
-1. **Performance optimization** - sayt tezligini oshirish
-2. **User authentication** - foydalanuvchi tizimi
-3. **Advanced features** - qo'shimcha funksiyalar
-4. **Deployment** - saytni internetga joylashtirish
-
-### 💡 Best Practice'lar:
-
-#### 1. Code Organization
+**2. Template topilmayapti:**
 ```python
-# View'larni mantiqiy guruhlarga ajrating
-class NewsViews:
-    # Barcha news bilan bog'liq view'lar
-    pass
-
-class UserViews:
-    # Foydalanuvchi view'lari
-    pass
-```
-
-#### 2. Template Structure
-```
-templates/
-├── base.html
-├── includes/
-│   ├── navbar.html
-│   ├── footer.html
-│   └── sidebar.html
-└── news/
-    ├── home.html
-    ├── news_list.html
-    └── news_detail.html
-```
-
-#### 3. URL Naming
-```python
-# Konsistent nomlardan foydalaning
-urlpatterns = [
-    path('', views.HomeView.as_view(), name='home'),
-    path('news/', views.NewsListView.as_view(), name='news_list'),
-    path('news/<slug:slug>/', views.NewsDetailView.as_view(), name='news_detail'),
-    # news_ prefix bilan
-]
-```
-
-#### 4. Model Methods
-```python
-class News(models.Model):
-    # ...
-    
-    def get_absolute_url(self):
-        return reverse('news:news_detail', kwargs={'slug': self.slug})
-    
-    def get_excerpt(self, word_count=20):
-        return truncatewords(self.body, word_count)
-    
-    @property
-    def reading_time(self):
-        word_count = len(self.body.split())
-        return max(1, word_count // 200)  # 200 so'z/daqiqa
-```
-
-#### 5. Security Best Practices
-```python
-# Form validation
-def clean_title(self):
-    title = self.cleaned_data.get('title')
-    if len(title) < 5:
-        raise ValidationError('Sarlavha juda qisqa')
-    return title
-
-# SQL injection prevention
-# Har doim ORM ishlatiladi, raw SQL emas
-queryset = News.objects.filter(title__icontains=search_term)
-```
-
-### 🔧 Troubleshooting Guide
-
-#### Keng uchraydigan muammolar va yechimlari:
-
-**1. Template topilmadi xatosi**
-```python
-# Xato:
-template_name = 'home.html'
-
-# To'g'ri:
-template_name = 'news/home.html'
-
 # settings.py da TEMPLATES sozlamalarini tekshiring
+'DIRS': [BASE_DIR / 'templates'],
 ```
 
-**2. Static fayllar yuklanmayapti**
+**3. Static fayllar ishlamayapti:**
 ```python
 # settings.py
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# URL'larda:
+# urls.py (development uchun)
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ```
 
-**3. Media fayllar ko'rinmayapti**
+**4. Ma'lumotlar ko'rinmayapti:**
 ```python
-# settings.py
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# urls.py
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Admin paneldan ma'lumotlar mavjudligini tekshiring
+# Models da published manager to'g'ri ishlayotganini tekshiring
 ```
 
-**4. Pagination ishlamayapti**
-```html
-<!-- Template'da -->
-{% if is_paginated %}
-    <!-- Pagination kodlari -->
-    {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-{% endif %}
-```
-
-**5. Form validation xatolari**
-```python
-# views.py
-def form_invalid(self, form):
-    messages.error(self.request, 'Formada xatoliklar mavjud!')
-    return super().form_invalid(form)
-
-# Template'da
-{% if form.errors %}
-    {% for error in form.errors %}
-        <div class="alert alert-danger">{{ error }}</div>
-    {% endfor %}
-{% endif %}
-```
-
-### 📊 Performance Tips
-
-#### 1. Database Optimization
-```python
-# Select related ishlatish
-class NewsListView(ListView):
-    def get_queryset(self):
-        return News.objects.select_related('category', 'author')
-
-# Prefetch related
-class CategoryNewsView(ListView):
-    def get_queryset(self):
-        return News.objects.prefetch_related('tags')
-```
-
-#### 2. Caching
-```python
-# views.py
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
-
-@method_decorator(cache_page(60 * 15), name='get')  # 15 daqiqa
-class HomePageView(TemplateView):
-    # ...
-```
-
-#### 3. Image Optimization
-```python
-# models.py
-def get_resized_image_url(self, width=300, height=200):
-    if self.photo:
-        # Pillow yordamida rasmni o'lchamini o'zgartirish
-        pass
-```
-
-### 🚀 Deployment Checklist
-
-#### Production'ga tayyorlanish:
-- [ ] `DEBUG = False` qo'yish
-- [ ] `ALLOWED_HOSTS` to'ldirish
-- [ ] Database'ni production'ga o'tkazish
-- [ ] Static fayllarni to'plash (`collectstatic`)
-- [ ] HTTPS sozlash
-- [ ] Security settings qo'shish
-- [ ] Error logging sozlash
-
-#### Environment Variables
-```python
-# .env fayl yarating
-SECRET_KEY=your-secret-key
-DEBUG=False
-DATABASE_URL=postgres://...
-
-# settings.py
-import os
-from decouple import config
-
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-```
-
-### 📝 Code Review Checklist
-
-Kodni tekshirish uchun:
-
-**✅ Functionality**
-- [ ] Barcha sahifalar to'g'ri ishlaydi
-- [ ] Form'lar validatsiyani o'taydi  
-- [ ] Database queries optimallashgan
-- [ ] Error handling mavjud
-
-**✅ Code Quality**
-- [ ] DRY principle bajarilgan
-- [ ] Functions va classlar aniq vazifaga ega
-- [ ] Izohlar yozilgan
-- [ ] Naming convention'lar bir xil
-
-**✅ Security**
-- [ ] CSRF protection faol
-- [ ] SQL injection'dan himoyalangan
-- [ ] User input validation qilingan
-- [ ] Sensitive ma'lumotlar yashirilgan
-
-**✅ Performance**
-- [ ] Database query'lari optimallashgan
-- [ ] Caching qo'llanilgan (kerak bo'lsa)
-- [ ] Static fayllar minimized
-- [ ] Images optimized
-
-### 🎓 Keyingi darslar uchun tayyorgarlik
-
-Bu loyiha tugagandan keyin siz quyidagilarni o'rganishingiz mumkin:
-
-1. **Django REST Framework** - API yaratish
-2. **Celery** - background task'lar
-3. **Docker** - containerization
-4. **Testing** - unit va integration testlar
-5. **CI/CD** - automated deployment
-
-### 📞 Yordam olish
-
-Qiynalgan holatda:
-
-1. **Django documentation** - https://docs.djangoproject.com/
-2. **Stack Overflow** - konkret muammolar uchun
-3. **Django community** - forum va chat'lar
-4. **GitHub repositories** - o'xshash loyihalar
-5. **Video tutorials** - vizual o'rganish uchun
-
-### 🎉 Tabriklaymiz!
-
-Siz Django bilan to'liq funksional web-sayt yaratdingiz! Bu katta yutuq va web development sohasidagi muhim qadam. Davom eting va yangi texnologiyalarni o'rganing!
-
----
+Bu amaliyotni muvaffaqiyatli tugatganingizdan keyin sizda to'liq funksional yangiliklar sayti bo'ladi!
