@@ -36,7 +36,7 @@ class NewsListView(ListView):
     
 class NewsDetailView(DetailView):
     model = News
-    template_name = "news/news_detail.html"
+    template_name = "news/news_deatil.html"
     context_object_name = 'news_item'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
@@ -45,9 +45,14 @@ class NewsDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['related_news'] = News.published.filter(
-            category=self.object.category,
-        ).exclude(id=self.object.id)[:3]
+        # Related news
+        context["related_news"] = News.objects.filter(
+            category=self.object.category
+        ).exclude(id=self.object.id)[:4]
+        # Popular news
+        context["popular_news"] = News.objects.order_by("-views")[:5]
+        # Categories
+        context["categories"] = Category.objects.all()
         return context
     
 class HomePageView(ListView):
@@ -112,7 +117,7 @@ class ContactPageView(FormView):
 
 class SinglePageView(DetailView):
     model = News
-    template_name = 'news/single_page.html'
+    template_name = 'news/news_detail.html'
     context_object_name = 'news_item'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
