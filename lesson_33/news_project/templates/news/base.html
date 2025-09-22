@@ -62,8 +62,10 @@
                                         <div class="dropdown-divider"></div>
                                         <form method="post" action="{% url 'logout' %}" class="d-inline">
                                             {% csrf_token %}
-                                            <button type="submit" class="dropdown-item text-danger">
-                                                <i class="fa fa-sign-out"></i> Chiqish
+                                            <button type="submit" class="dropdown-item text-danger"
+                                                    onclick="return confirm('Rostdan ham chiqmoqchimisiz?')">
+                                                <i class="fa fa-sign-out me-2"></i> 
+                                                Chiqish
                                             </button>
                                         </form>
                                     </div>
