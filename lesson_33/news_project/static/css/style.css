@@ -504,6 +504,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .btn {
   transition: all 0.3s ease;
   font-weight: 500;
+  margin-top: 10px;
 }
 
 .btn:hover {
@@ -525,6 +526,23 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 
 .card-body {
   padding: 1.5rem;
+}
+
+.card-body.d-flex form {
+  margin: 0;
+}
+.card-body.d-flex form,
+.card-body.d-flex a {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Password change button hover */
+.btn-outline-primary:hover {
+  background-color: #d083cf !important;
+  border-color: #d083cf !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(208, 131, 207, 0.3) !important;
 }
 
 .fs-7 {
@@ -550,6 +568,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     text-align: center;
   }
 }
+
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
