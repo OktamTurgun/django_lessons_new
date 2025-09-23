@@ -24,7 +24,7 @@ from django.conf.urls import handler404
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("news_app.urls", namespace="news")),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 handler404 = "news_app.views.custom_404_view"

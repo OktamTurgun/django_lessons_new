@@ -17,7 +17,7 @@ def user_login(request):
       )
       if user is not None:
         login(request, user)
-        return redirect('home')
+        return redirect('news:home')
       else:
         return render(request, 'accounts/login.html', {
           'form': form,
