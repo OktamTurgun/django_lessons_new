@@ -34,8 +34,8 @@
             <ul class="spost_nav">
               {% for item in popular_news %}
               <li>
-                <div class="media wow fadeInDown"> <a href="{% url 'news_detail' item.slug %}" class="media-left"> <img alt="" src="{{ item.image.url }}"> </a>
-                  <div class="media-body"> <a href="{% url 'news_detail' item.slug %}" class="catg_title">{{ item.title }}</a> </div>
+                <div class="media wow fadeInDown"> <a href="{% url 'news:news_detail' item.slug %}" class="media-left"> <img alt="" src="{{ item.image.url }}"> </a>
+                  <div class="media-body"> <a href="{% url 'news:news_detail' item.slug %}" class="catg_title">{{ item.title }}</a> </div>
                 </div>
               </li>
               {% endfor %}

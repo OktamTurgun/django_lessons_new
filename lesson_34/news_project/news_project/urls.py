@@ -23,7 +23,7 @@ from django.conf.urls import handler404
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', include('news_app.urls')),
+    path("", include("news_app.urls", namespace="news")),
     path('accounts/', include('accounts.urls')),
 ]
 
@@ -32,3 +32,4 @@ handler404 = "news_app.views.custom_404_view"
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
