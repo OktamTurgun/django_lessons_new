@@ -1,0 +1,128 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} About - NewsFeed {% endblock %}
+
+{% block content %}
+<section id="contentSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="left_content">
+                <div class="single_page">
+                    <h1>Biz Haqimizda</h1>
+                    <div class="post_commentbox">
+                        <a href="#"><i class="fa fa-user"></i>Admin</a>
+                        <a href="#"><i class="fa fa-calendar"></i>{% now "F j, Y" %}</a>
+                        <a href="#"><i class="fa fa-tags"></i>About Us</a>
+                    </div>
+                    
+                    <div class="single_page_content">
+                        <img class="img-center" src="{% static 'images/about_us.jpg' %}" alt="About Us">
+                        
+                        <h2>Bizning Missiyamiz</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        
+                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</blockquote>
+                        
+                        <h2>Bizning Jamoamiz</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua:</p>
+                        
+                        <ul>
+                            <li>Qualified professionals</li>
+                            <li>Years of experience</li>
+                            <li>Modern technologies</li>
+                            <li>Customer satisfaction</li>
+                        </ul>
+                        
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    
+                    <div class="social_link">
+                        <ul class="sociallink_nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <aside class="right_content">
+                <div class="single_sidebar">
+                    <h2><span>Bizning Jamoa</span></h2>
+                    <ul class="spost_nav">
+                        <li>
+                            <div class="media wow fadeInDown"> 
+                                <a href="#" class="media-left"> 
+                                    <img alt="" src="{% static 'images/rasm_011.jpg' %}"> 
+                                </a>
+                                <div class="media-body"> 
+                                    <a href="#" class="catg_title">John Doe - Bosh Muharrir</a> 
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media wow fadeInDown"> 
+                                <a href="#" class="media-left"> 
+                                    <img alt="" src="{% static 'images/rasm_022.jpg' %}"> 
+                                </a>
+                                <div class="media-body"> 
+                                    <a href="#" class="catg_title">Jane Smith - Jurnalist</a> 
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media wow fadeInDown"> 
+                                <a href="#" class="media-left"> 
+                                    <img alt="" src="{% static 'images/rasm_033.jpg' %}"> 
+                                </a>
+                                <div class="media-body"> 
+                                    <a href="#" class="catg_title">Mike Johnson - Fotograf</a> 
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="single_sidebar">
+                    <h2><span>Ko'p O'qilgan Yangiliklar</span></h2>
+                    <ul class="spost_nav">
+                        <li>
+                            <div class="media wow fadeInDown"> 
+                                <a href="#" class="media-left"> 
+                                    <img alt="" src="{% static 'images/post_img1.jpg' %}"> 
+                                </a>
+                                <div class="media-body"> 
+                                    <a href="#" class="catg_title">Eng Mashhur Yangilik 1</a> 
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media wow fadeInDown"> 
+                                <a href="#" class="media-left"> 
+                                    <img alt="" src="{% static 'images/post_img2.jpg' %}"> 
+                                </a>
+                                <div class="media-body"> 
+                                    <a href="#" class="catg_title">Eng Mashhur Yangilik 2</a> 
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="single_sidebar wow fadeInDown">
+                    <h2><span>Reklama</span></h2>
+                    <a class="sideAdd" href="#"><img src="{% static 'images/add_img.jpg' %}" alt=""></a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}
