@@ -22,7 +22,7 @@ class Category(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"slug": self.slug})
+        return reverse("news:category_detail", kwargs={"slug": self.slug})
 
 
 # Custom Manager (PublishedManager) ni tashqarida aniqlaymiz
@@ -64,7 +64,7 @@ class News(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("news_detail", kwargs={"slug": self.slug})
+        return reverse("news:news_detail", kwargs={"slug": self.slug})
     
     def save(self, *args, **kwargs):
         if not self.slug:  

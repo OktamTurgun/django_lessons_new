@@ -87,7 +87,7 @@ class HomePageView(ListView):
 class ContactPageView(TemplateView):
     template_name = 'news/contact.html'
 
-def custom_404_view(request, exception):
+def custom_404_view(request, exception=None):
     
     return render(request, 'news/404.html', status=404)
     
@@ -201,3 +201,14 @@ class NewsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         news = self.get_object()
         return self.request.user == news.author or self.request.user.is_superuser
+    
+def search_view(request):
+    query = request.GET.get("q")
+    results = []
+    if query:
+        results = News.objects.filter(title__icontains=query)  # sarlavhadan qidiradi
+
+    return render(request, "news/search_results.html", {
+        "query": query,
+        "results": results
+    })
