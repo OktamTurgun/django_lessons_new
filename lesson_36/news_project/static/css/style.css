@@ -209,7 +209,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .single_sidebar .spost_nav li a{border-bottom:none; float:left}
 #footer{display:inline; float:left; width:100%; margin-bottom:20px}
 .footer_top{background-color:#252525; color:#ddd; display:inline; float:left; padding:10px 30px 48px; width:100%}
-.footer_widget{display:inline; float:left; width:100%; min-height:310px}
+.footer_widget{display:inline; float:left; width:100%; min-height:200px}
 .footer_widget > h2{border-bottom:3px solid #666; font-family:Oswald,arial,Georgia,serif; font-size:16px; padding:10px 0; text-transform:uppercase}
 .tag_nav li a{border-bottom:1px solid #ddd; color:#ccc; display:block; padding:6px 6px 6px 0; -webkit-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
 .tag_nav li a:hover{padding-left:10px}
@@ -296,7 +296,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .footer_bottom {
     background-color: #222;
     color: #fff;
-    padding: 20px 0;
+    padding: 10px 0;
     border-top: 1px solid #444;
 }
 
@@ -406,20 +406,62 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     color: white;
 }
 
-/* Headerning o‘ng qismi (sana, vaqt va login/logout) */
+/* Header o‘ng qismi (sana, qidiruv, auth menyu) */
 .header_top_right {
     display: flex;
     align-items: center;
-    gap: 10px; /* elementlar orasidagi masofa */
+    justify-content: flex-end;
 }
 
-/* Login / Logout tugmalari normal holatda */
-.header_top_right a,
-.header_top_right button {
-    color: #fff !important;          /* oq rang yozuv */
-    background-color: #d083cf;       /* asosiy pushti rang */
+/* Sana/vaqt */
+.header_top_right p {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Qidiruv formasi */
+.navbar-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+}
+
+.navbar-form .form-control {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    min-width: 180px; /* input kengligi */
+}
+
+.navbar-form button {
+    background-color: #d083cf;
     border: none;
-    padding: 6px 14px;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.navbar-form button:hover {
+    background-color: #a64ca6;
+}
+
+/* Auth menyu (Login/Signup) */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.navbar-right a.btn {
+    color: #fff !important;
+    background-color: #d083cf;
+    border: none;
+    padding: 7px 14px;
     border-radius: 4px;
     text-transform: uppercase;
     font-weight: 500;
@@ -427,18 +469,176 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     transition: all 0.3s ease;
 }
 
-/* Hover paytida tugmalar */
-.header_top_right a:hover,
-.header_top_right button:hover {
-    background-color: #a64ca6 !important; /* to‘qroq pushti */
+.navbar-right a.btn:hover {
+    background-color: #a64ca6 !important;
     color: #fff !important;
 }
-.header_top_right {
-    display: flex;
-    justify-content: flex-end;  /* hammasini o‘ng tomonga yig‘adi */
-    align-items: center;
-    gap: 15px;
+/* Sana va vaqt */
+.navbar-date {
+    margin-right: 15px;
+    color: #fff;
+    font-weight: 500;
 }
+
+/* Qidiruv formasi */
+.search-btn {
+    background-color: #d083cf;
+    border: none;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #a64ca6;
+}
+
+/* Profil rasmi */
+.avatar-img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+/* Login tugma */
+.login-btn {
+    margin-right: 5px;
+}
+
+/* ==================== USER PROFILE CIRCLE AVATAR STYLES ==================== */
+
+/* Circle avatar with user initial */
+.user-avatar-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #d083cf, #b366af);
+    color: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-right .dropdown > a:hover .user-avatar-circle {
+    background: linear-gradient(135deg, #b366af, #9c5496);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(208, 131, 207, 0.3);
+}
+
+/* Username text bilan circle birgalikda */
+.user-info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* User profile dropdown link styling */
+.navbar-right .dropdown > a {
+    color: #fff !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-right .dropdown > a:hover,
+.navbar-right .dropdown > a:focus,
+.navbar-right .dropdown.open > a {
+    color: #d083cf !important;
+    background-color: transparent !important;
+    text-decoration: none;
+}
+
+/* Dropdown menu styling */
+.navbar-right .dropdown-menu {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 200px;
+    margin-top: 5px;
+}
+
+.navbar-right .dropdown-menu li a {
+    color: #fff;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-right .dropdown-menu li a:hover {
+    background-color: #d083cf;
+    color: #fff;
+}
+
+.navbar-right .dropdown-menu .dropdown-header {
+    color: #d083cf;
+    font-weight: bold;
+    padding: 10px 15px 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.navbar-right .dropdown-menu .divider {
+    background-color: #444;
+    margin: 5px 0;
+}
+
+/* Logout button styling */
+.logout-btn {
+    background: none !important;
+    border: none !important;
+    color: #fff !important;
+    padding: 10px 15px !important;
+    width: 100%;
+    text-align: left;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #d083cf !important;
+    color: #fff !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+    .navbar-right .dropdown > a {
+        padding: 10px 15px;
+    }
+    
+    .user-avatar-circle {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .navbar-right .dropdown-menu {
+        position: static !important;
+        float: none !important;
+        width: 100% !important;
+        margin-top: 0;
+        background-color: #333;
+        border: none;
+        box-shadow: none;
+    }
+}
+
 
 /* Enhanced Styles */
 .card {
@@ -504,7 +704,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .btn {
   transition: all 0.3s ease;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .btn:hover {
