@@ -1,0 +1,78 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Qidiruv formasi -->
+    <div class="row mb-4">
+        <div class="col-md-8 offset-md-2">
+            <form method="get" action="{% url 'news:search' %}" class="input-group">
+                <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Qidiruv...">
+                <button class="btn btn-primary" type="submit">Qidirish</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Qidiruv natijalari sarlavhasi -->
+    <h3 class="mb-4">
+        Qidiruv natijalari{% if query %}: "{{ query }}"{% endif %}
+    </h3>
+
+    {% if results %}
+        <div class="row">
+            {% for item in results %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" style="height: 30rem; object-fit: cover; width: 100%;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ item.get_absolute_url }}" class="text-decoration-none">{{ item.title }}</a>
+                            </h5>
+                            <p class="card-text text-truncate">{{ item.content|truncatechars:120 }}</p>
+                        </div>
+                        <div class="card-footer text-muted d-flex justify-content-between" style="margin-top: 10px; font-size: 16px; padding-left: 15px; color: #888">
+                            <small>{{ item.published_at|date:"d M Y" }}</small>
+                            <small>{{ item.category.name }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if results.has_other_pages %}
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if results.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ results.previous_page_number }}">Oldingi</a>
+                </li>
+                {% endif %}
+
+                {% for num in results.paginator.page_range %}
+                    {% if results.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?q={{ query }}&page={{ num }}&q={{ query }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if results.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ results.next_page_number }}">Keyingi</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+    {% else %}
+        <div class="alert alert-warning text-center mt-4" role="alert">
+            Hech narsa topilmadi.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
