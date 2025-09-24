@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
 
 # Create your views here.
 def user_login(request):
@@ -36,3 +36,13 @@ def dashboard_view(request):
   }
 
   return render(request, 'pages/user_profile.html', context)
+
+def signup_view(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # user saqlanadi
+            return render(request, "accounts/register_done.html")  
+    else:
+        form = UserRegistrationForm()
+    return render(request, "accounts/register.html", {"form": form})

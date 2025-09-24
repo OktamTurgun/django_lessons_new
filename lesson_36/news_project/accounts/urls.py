@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
-from .views import dashboard_view, user_login
+from .views import dashboard_view, user_login, signup_view
 from .forms import CustomPasswordChangeForm
 from django.views.generic import TemplateView
 
@@ -20,6 +20,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="registration/logged_out.html"),
         name="logged_out",
     ),
+    path('signup/', signup_view, name='register'),
     path(
         'password_change/', 
         PasswordChangeView.as_view(
