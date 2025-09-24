@@ -1,0 +1,131 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}{{ news_item.title }} - NewsFeed{% endblock %}
+
+{% block content %}
+<section id="contentSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="left_content">
+                <div class="single_page">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="#">{{ news_item.category.name }}</a></li>
+                        <li class="active">{{ news_item.title }}</li>
+                    </ol>
+
+                    <h1>{{ news_item.title }}</h1>
+                    <div class="post_commentbox">
+                        <a href="#"><i class="fa fa-user"></i>{{ news_item.author }}</a>
+                        <span><i class="fa fa-calendar"></i>{{ news_item.published_at|date:"F d, Y" }}</span>
+                        <a href="#"><i class="fa fa-tags"></i>{{ news_item.category.name }}</a>
+                    </div>
+
+                    <div class="single_page_content">
+                        <img class="img-center" src="{{ news_item.image.url }}" alt="{{ news_item.title }}">
+                        <p>{{ news_item.content|safe }}</p>
+                    </div>
+
+                    <div class="social_link">
+                        <ul class="sociallink_nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="related_post">
+                        <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>
+                        <ul class="spost_nav">
+                            {% for item in related_news %}
+                            <li>
+                                <div class="media">
+                                    <a class="media-left" href="{{ item.get_absolute_url }}">
+                                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                                    </a>
+                                    <div class="media-body">
+                                        <a class="catg_title" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <aside class="right_content">
+                <div class="single_sidebar">
+                    <h2><span>Popular Post</span></h2>
+                    <ul class="spost_nav">
+                        {% for item in popular_news %}
+                        <li>
+                            <div class="media">
+                                <a href="{{ item.get_absolute_url }}" class="media-left">
+                                    <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                                </a>
+                                <div class="media-body">
+                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="single_sidebar">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#category" role="tab" data-toggle="tab">Category</a></li>
+                        <li role="presentation"><a href="#video" role="tab" data-toggle="tab">Video</a></li>
+                        <li role="presentation"><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="category">
+                            <ul>
+                                {% for cat in categories %}
+                                <li class="cat-item"><a href="#">{{ cat.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="video">
+                            <div class="vide_area">
+                                <iframe width="100%" height="250"
+                                        src="https://www.youtube.com/embed/NOstxDBAzxk"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="comments">
+                            <ul class="spost_nav">
+                                {% for comment in latest_comments %}
+                                <li>
+                                    <div class="media">
+                                        <a href="{% url 'news_detail' comment.news.slug %}" class="media-left">
+                                            <img src="{{ comment.news.image.url }}" alt="{{ comment.news.title }}">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="{% url 'news_detail' comment.news.slug %}" class="catg_title">{{ comment.news.title }}</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="single_sidebar">
+                    <h2><span>Sponsor</span></h2>
+                    <a class="sideAdd" href="#"><img src="{% static 'images/add_img.jpg' %}" alt=""></a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}
