@@ -178,7 +178,7 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
     model = News
     form_class = NewsForm
     template_name = 'crud/news_create.html'
-    success_url = reverse_lazy('news_list')
+    success_url = reverse_lazy('news:home')
 
     def form_valid(self, form):
         form.instance.author = self.request.user 
@@ -196,7 +196,7 @@ class NewsUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class NewsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = News
     template_name = 'crud/news_delete.html'
-    success_url = reverse_lazy('news_deatil')
+    success_url = reverse_lazy('news:home')
 
     def test_func(self):
         news = self.get_object()

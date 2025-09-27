@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, ProfileEditForm, UserEditForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.views import View
+from .models import Profile
 
 # Create your views here.
 def user_login(request):
@@ -73,3 +74,30 @@ class SignUpView(CreateView):
 #             form.save()  # user saqlanadi
 #             return render(request, "accounts/register_done.html")  
 #         return render(request, "accounts/register.html", {"form": form})
+
+def edit_profile(request):
+    user = request.user
+
+    # Agar profil bo'lmasa, yaratib qo'yamiz
+    if not hasattr(user, 'profile'):
+        Profile.objects.create(user=user)
+
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=user, data=request.POST)
+        profile_form = ProfileEditForm(
+            instance=user.profile,
+            data=request.POST,
+            files=request.FILES
+        )
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('accounts:user_profile')
+    else:
+        user_form = UserEditForm(instance=user)
+        profile_form = ProfileEditForm(instance=user.profile)
+
+    return render(request, 'accounts/edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
