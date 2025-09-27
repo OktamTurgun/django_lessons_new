@@ -28,7 +28,6 @@
 
           <!-- User Info -->
           <h3 class="mb-2 fw-bold text-dark">{{ user.get_full_name|default:user.username|title }}</h3>
-          <p class="text-muted mb-3 fs-6">@{{ user.username }}</p>
           
           <div class="mb-4">
             <span class="badge bg-success rounded-pill px-3 py-2 fs-7">
@@ -44,35 +43,41 @@
           </div>
           {% endif %}
 
-          <!-- Stats Card -->
+          <!-- Stats Card - Horizontal Layout -->
           <div class="stats-container bg-light rounded-3 p-3">
-            <div class="row text-center g-0">
-              <div class="col-4">
-                <div class="stat-item py-2">
-                  <div class="stat-number text-primary fw-bold">
-                    {{ user.date_joined|timesince|truncatewords:1 }}
-                  </div>
-                  <small class="text-muted d-block mt-1">A'zo bo'lgan</small>
-                </div>
+            <!-- A'zo bo'lgan - Horizontal -->
+            <div class="stat-item d-flex align-items-center justify-content-between py-2 border-bottom border-light">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-calendar text-primary me-3"></i>
+                <span class="text-muted small">A'zo bo'lgan:</span>
               </div>
-              <div class="col-4 border-start border-end border-light">
-                <div class="stat-item py-2">
-                  <div class="stat-number text-success fw-bold">
-                    {% if user.last_login %}
-                      {{ user.last_login|timesince|truncatewords:1 }}
-                    {% else %}
-                      <span class="text-warning">Hech qachon</span>
-                    {% endif %}
-                  </div>
-                  <small class="text-muted d-block mt-1">Oxirgi kirish</small>
-                </div>
+              <div class="text-primary fw-bold">
+                {{ user.date_joined|timesince|truncatewords:1 }}
               </div>
-              <div class="col-4">
-                <div class="stat-item py-2">
-                  <div class="stat-number text-info fw-bold">0</div>
-                  <small class="text-muted d-block mt-1">Postlar</small>
-                </div>
+            </div>
+
+            <!-- Oxirgi kirish - Horizontal -->
+            <div class="stat-item d-flex align-items-center justify-content-between py-2 border-bottom border-light">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-clock text-success me-3"></i>
+                <span class="text-muted small">Oxirgi kirish:</span>
               </div>
+              <div class="fw-bold">
+                {% if user.last_login %}
+                  <span class="text-success">{{ user.last_login|timesince|truncatewords:1 }}</span>
+                {% else %}
+                  <span class="text-warning">Hech qachon</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Postlar - Horizontal -->
+            <div class="stat-item d-flex align-items-center justify-content-between py-2">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-file-text text-info me-3"></i>
+                <span class="text-muted small">Postlar:</span>
+              </div>
+              <div class="text-info fw-bold">0</div>
             </div>
           </div>
         </div>
@@ -121,6 +126,17 @@
                 </div>
                 <h6 class="fw-semibold mb-1">Familiya</h6>
                 <p class="text-muted mb-0 small">{{ user.last_name|default:"Kiritilmagan" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-danger bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                    style="width: 50px; height: 50px;">
+                  <i class="fa fa-map-marker text-danger fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Manzil</h6>
+                <p class="text-muted mb-0 small">{{ user.profile.location|default:"Kiritilmagan" }}</p>
               </div>
             </div>
 

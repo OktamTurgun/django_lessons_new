@@ -769,6 +769,118 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
   }
 }
 
+/* ================= USER PROFILE ================= */
+.avatar-container img,
+.avatar-placeholder {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.avatar-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stats-container {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-number {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Info cards */
+.info-card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Security cards */
+.security-card {
+  transition: all 0.3s ease;
+}
+
+.security-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 135, 84, 0.15);
+}
+
+/* Buttons in Actions */
+.card-body .btn {
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.card-body .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= EDIT PROFILE ================= */
+form.form {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+form.form h4 {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+form.form input,
+form.form textarea,
+form.form select {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+form.form input:focus,
+form.form textarea:focus,
+form.form select:focus {
+  border-color: #007bff;
+  box-shadow: none;
+}
+
+/* Save & Cancel buttons */
+form.form .btn-primary {
+  background: #007bff;
+  border: none;
+}
+
+form.form .btn-primary:hover {
+  background: #0056b3;
+}
+
+form.form .btn-secondary {
+  background: #6c757d;
+  border: none;
+}
+
+form.form .btn-secondary:hover {
+  background: #565e64;
+}
+
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {

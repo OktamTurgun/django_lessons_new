@@ -78,6 +78,11 @@
                                                 <i class="fa fa-user"></i> Profile
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="{% url 'accounts:edit_profile' %}">
+                                                <i class="fa fa-pencil"></i> Edit Profile
+                                            </a>
+                                        </li>
                                         <li class="divider"></li>
                                         <li>
                                             <form method="post" action="{% url 'accounts:logout' %}" style="margin: 0;">

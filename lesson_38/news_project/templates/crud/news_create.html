@@ -10,7 +10,7 @@
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="btn btn-success">Saqlash</button>
-      <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">Bekor qilish</a>
+      <a href="{{ news.get_absolute_url}}" class="btn btn-secondary">Bekor qilish</a>
     </form>
   </div>
 {% endblock content %}

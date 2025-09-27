@@ -4,6 +4,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from .views import dashboard_view, user_login, SignUpView
 from .forms import CustomPasswordChangeForm
 from django.views.generic import TemplateView
+from . import views
 
 app_name = "accounts"
 
@@ -78,4 +79,6 @@ urlpatterns = [
     ),
     
     path('profile/', dashboard_view, name='user_profile'),
+    path('profile/', views.dashboard_view, name='user_profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]

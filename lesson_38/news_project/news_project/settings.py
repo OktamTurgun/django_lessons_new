@@ -39,6 +39,7 @@ INSTALLED_APPS = [
      # Local apps
     "news_app",
     "accounts",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
