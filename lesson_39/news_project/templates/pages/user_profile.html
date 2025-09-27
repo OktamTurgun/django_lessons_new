@@ -1,0 +1,228 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Foydalanuvchi profili{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Profile Card -->
+    <div class="col-lg-4 col-md-5 mb-4">
+      <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body text-center p-4">
+          <!-- Avatar -->
+          <div class="avatar-container mb-4">
+            {% if user.profile.avatar %}
+              <img src="{{ user.profile.avatar.url }}" 
+                   alt="Profil rasmi" 
+                   class="rounded-circle shadow-sm border border-3 border-light"
+                   width="130" height="130"
+                   style="object-fit: cover;">
+            {% else %}
+              <div class="avatar-placeholder rounded-circle shadow-sm mx-auto d-flex align-items-center justify-content-center border border-3 border-light" 
+                   style="width: 130px; height: 130px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i class="fa fa-user text-white" style="font-size: 52px;"></i>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- User Info -->
+          <h3 class="mb-2 fw-bold text-dark">{{ user.get_full_name|default:user.username|title }}</h3>
+          
+          <div class="mb-4">
+            <span class="badge bg-success rounded-pill px-3 py-2 fs-7">
+              <i class="fa fa-circle me-1" style="font-size: 6px;"></i>
+              Faol foydalanuvchi
+            </span>
+          </div>
+
+          <!-- Bio -->
+          {% if user.profile.bio %}
+          <div class="mb-4">
+            <p class="text-muted small lh-base">{{ user.profile.bio }}</p>
+          </div>
+          {% endif %}
+
+          <!-- Stats Card - Horizontal Layout -->
+          <div class="stats-container bg-light rounded-3 p-3">
+            <!-- A'zo bo'lgan - Horizontal -->
+            <div class="stat-item d-flex align-items-center justify-content-between py-2 border-bottom border-light">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-calendar text-primary me-3"></i>
+                <span class="text-muted small">A'zo bo'lgan:</span>
+              </div>
+              <div class="text-primary fw-bold">
+                {{ user.date_joined|timesince|truncatewords:1 }}
+              </div>
+            </div>
+
+            <!-- Oxirgi kirish - Horizontal -->
+            <div class="stat-item d-flex align-items-center justify-content-between py-2 border-bottom border-light">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-clock text-success me-3"></i>
+                <span class="text-muted small">Oxirgi kirish:</span>
+              </div>
+              <div class="fw-bold">
+                {% if user.last_login %}
+                  <span class="text-success">{{ user.last_login|timesince|truncatewords:1 }}</span>
+                {% else %}
+                  <span class="text-warning">Hech qachon</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Postlar - Horizontal -->
+            <div class="stat-item d-flex align-items-center justify-content-between py-2">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-file-text text-info me-3"></i>
+                <span class="text-muted small">Postlar:</span>
+              </div>
+              <div class="text-info fw-bold">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="col-lg-8 col-md-7">
+      <!-- Personal Information -->
+      <div class="card shadow-sm border-0 rounded-3 mb-4">
+        <div class="card-header bg-white border-0 pb-2">
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="fa fa-user text-primary me-2"></i>
+            Shaxsiy Ma'lumotlar
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="fa fa-envelope text-primary fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Email manzil</h6>
+                <p class="text-muted mb-0 small">{{ user.email|default:"Kiritilmagan" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="fa fa-id-badge text-success fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Ism</h6>
+                <p class="text-muted mb-0 small">{{ user.first_name|default:"Kiritilmagan" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="fa fa-users text-info fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Familiya</h6>
+                <p class="text-muted mb-0 small">{{ user.last_name|default:"Kiritilmagan" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-danger bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                    style="width: 50px; height: 50px;">
+                  <i class="fa fa-map-marker text-danger fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Manzil</h6>
+                <p class="text-muted mb-0 small">{{ user.profile.location|default:"Kiritilmagan" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="fa fa-calendar text-warning fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Ro'yxatdan o'tgan</h6>
+                <p class="text-muted mb-0 small">{{ user.date_joined|date:"d F Y" }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Security -->
+      <div class="card shadow-sm border-0 rounded-3 mb-4">
+        <div class="card-header bg-white border-0 pb-2">
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="fa fa-shield text-primary me-2"></i>
+            Hisob Xavfsizligi
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="security-card p-3 border border-success border-opacity-25 rounded-3 bg-success bg-opacity-5">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <i class="fa fa-check-circle text-success me-3 fs-5"></i>
+                    <div>
+                      <h6 class="mb-1 fw-semibold">Email tasdiqlangan</h6>
+                      <small class="text-muted">Email manzilingiz tasdiqlangan</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="security-card p-3 border border-success border-opacity-25 rounded-3 bg-success bg-opacity-5">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <i class="fa fa-user-check text-success me-3 fs-5"></i>
+                    <div>
+                      <h6 class="mb-1 fw-semibold">Hisob holati</h6>
+                      <small class="text-muted">Hisob faol holatda</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-header bg-white border-0 pb-2">
+          <h6 class="card-title mb-0 d-flex align-items-center">
+            <i class="fa fa-cogs text-primary me-2"></i>
+            Harakatlar
+          </h6>
+        </div>
+        <div class="card-body d-flex gap-2">
+          <!-- Logout button -->
+          <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger d-flex align-items-center" 
+                    onclick="return confirm('Rostdan ham chiqmoqchimisiz?')">
+              <i class="fa fa-sign-out me-2"></i> 
+              Chiqish
+            </button>
+          </form>
+
+          <!-- Password change link -->
+          <a href="{% url 'accounts:password_change' %}" 
+            class="btn btn-outline-primary d-flex align-items-center">
+            <i class="fa fa-lock me-2"></i> 
+            Parolni almashtirish
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
