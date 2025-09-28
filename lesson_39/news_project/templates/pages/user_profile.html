@@ -150,6 +150,17 @@
                 <p class="text-muted mb-0 small">{{ user.date_joined|date:"d F Y" }}</p>
               </div>
             </div>
+
+            <div class="col-md-6">
+              <div class="info-card h-100">
+                <div class="info-icon-wrapper bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                     style="width: 50px; height: 50px;">
+                  <i class="fa fa-calendar text-warning fs-5"></i>
+                </div>
+                <h6 class="fw-semibold mb-1">Tug'ilgan yil</h6>
+                <p class="text-muted mb-0 small">{{ user.profile.birth_date|date:"d F Y" }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -204,22 +215,29 @@
           </h6>
         </div>
         <div class="card-body d-flex gap-2">
+          <!-- Password change link -->
+          <a href="{% url 'accounts:password_change' %}" 
+            class="btn btn-outline-primary d-flex align-items-center">
+            <i class="fa-solid fa-user-lock me-2"></i> 
+            Parolni almashtirish
+          </a>
+
+          <!-- Edit profile link -->
+          <a href="{% url 'accounts:edit_profile' %}" 
+            class="btn btn-outline-primary d-flex align-items-center">
+            <i class="fa-solid fa-user-pen me-2"></i> 
+            Profilni tahrirlash
+          </a>
+
           <!-- Logout button -->
           <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-danger d-flex align-items-center" 
                     onclick="return confirm('Rostdan ham chiqmoqchimisiz?')">
-              <i class="fa fa-sign-out me-2"></i> 
+              <i class="fa-solid fa-right-from-bracket"></i>
               Chiqish
             </button>
           </form>
-
-          <!-- Password change link -->
-          <a href="{% url 'accounts:password_change' %}" 
-            class="btn btn-outline-primary d-flex align-items-center">
-            <i class="fa fa-lock me-2"></i> 
-            Parolni almashtirish
-          </a>
         </div>
       </div>
     </div>

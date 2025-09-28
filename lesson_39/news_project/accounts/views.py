@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm, ProfileEditForm, UserEditForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.views import View
@@ -33,9 +34,11 @@ def user_login(request):
 
 def dashboard_view(request):
   user = request.user
+  profile = user.profile if hasattr(user, 'profile') else None
 
   context = {
-    'user': user
+    'user': user,
+    'profile': profile
   }
 
   return render(request, 'pages/user_profile.html', context)
@@ -80,7 +83,7 @@ def edit_profile(request):
 
     # Agar profil bo'lmasa, yaratib qo'yamiz
     if not hasattr(user, 'profile'):
-        Profile.objects.create(user=user)
+        Profile.objects.create(user=user) 
 
     if request.method == 'POST':
         user_form = UserEditForm(instance=user, data=request.POST)
@@ -101,3 +104,44 @@ def edit_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+class EditProfileView(LoginRequiredMixin, View):
+    template_name = 'accounts/edit_profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+
+        # Agar profil bo‘lmasa, yaratamiz
+        if not hasattr(user, 'profile'):
+            Profile.objects.create(user=user)
+
+        user_form = UserEditForm(instance=user)
+        profile_form = ProfileEditForm(instance=user.profile)
+
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+
+        if not hasattr(user, 'profile'):
+            Profile.objects.create(user=user)
+
+        user_form = UserEditForm(instance=user, data=request.POST)
+        profile_form = ProfileEditForm(
+            instance=user.profile,
+            data=request.POST,
+            files=request.FILES
+        )
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('accounts:user_profile')
+
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
