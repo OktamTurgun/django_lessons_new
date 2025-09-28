@@ -78,7 +78,8 @@ urlpatterns = [
         name='password_reset_complete'
     ),
     
-    path('profile/', dashboard_view, name='user_profile'),
+    # path('profile/', dashboard_view, name='user_profile'),
     path('profile/', views.dashboard_view, name='user_profile'),
-    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    # path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('profile/edit/', views.EditProfileView.as_view(), name='edit_profile'),
 ]
