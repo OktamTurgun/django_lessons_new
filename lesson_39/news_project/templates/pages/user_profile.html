@@ -158,7 +158,7 @@
                   <i class="fa fa-calendar text-warning fs-5"></i>
                 </div>
                 <h6 class="fw-semibold mb-1">Tug'ilgan yil</h6>
-                <p class="text-muted mb-0 small">{{ user.profile.birth_date|date:"d F Y" }}</p>
+                <p class="text-muted mb-0 small">{{ user.profile.birth_date|date:"d F Y"|default:"Kiritilmagan" }}</p>
               </div>
             </div>
           </div>

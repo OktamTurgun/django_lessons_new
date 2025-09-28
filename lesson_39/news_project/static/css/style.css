@@ -103,7 +103,19 @@ img:hover{opacity:0.75}
 .social_area{ position:absolute; right:0; top:0; background:#fff; border-top:1px solid #ccc; border-bottom:1px solid #ccc; border-right:1px solid #ccc; height:31px}
 .social_nav{ text-align:right}
 .social_nav li{ display:block; float:left}
-.social_nav li a{ display:block; float:left; height:30px; text-indent:-9999px; width:30px; border-left:1px solid #ccc; -webkit-transition:all 0.5s; -moz-transition:all 0.5s; -ms-transition:all 0.5s;  -o-transition:all 0.5s; transition:all 0.5s}
+.social_nav li a{ 
+  display:block; 
+  float:left; 
+  height:30px; 
+  text-indent:-9999px; 
+  width:30px; 
+  border-left:1px solid #ccc;
+  -webkit-transition:all 0.5s; 
+  -moz-transition:all 0.5s; 
+  -ms-transition:all 0.5s;  
+  -o-transition:all 0.5s; 
+  transition:all 0.5s
+}
 .social_nav li.facebook a{ background-image:url("../images/socials.png"); background-position:0 -30px; background-size:270px 60px}
 .social_nav li.facebook a:hover{ background-position:0 0px; background-size:270px 60px; background-color:#436eac}
 .social_nav li.twitter a{ background-image:url("../images/socials.png"); background-position:-30px -30px; background-size:270px 60px}
@@ -346,29 +358,6 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     margin: 0 5px;
 }
 
-/* Ijtimoiy ikonalar uchun */
-.social-icons {
-    display: flex;
-    gap: 15px;
-}
-
-.social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background-color: #444;
-    color: #fff;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.social-icon:hover {
-    background-color: #4CAF50;
-    transform: translateY(-3px);
-}
 
 /* Mobil qurilmalar uchun moslashuvchanlik */
 @media (max-width: 768px) {
