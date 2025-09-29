@@ -43,6 +43,14 @@
           </div>
           {% endif %}
 
+          <!-- Edit profile link -->
+          <a href="{% url 'accounts:edit_profile' %}" 
+            class="btn btn-outline-primary d-flex align-items-center"
+            style="padding: 8px 100px; border-radius: 5px; margin-bottom: 10px;">
+            <i class="fa-solid fa-user-pen me-2"></i> 
+            Profilni tahrirlash
+          </a>
+
           <!-- Stats Card - Horizontal Layout -->
           <div class="stats-container bg-light rounded-3 p-3">
             <!-- A'zo bo'lgan - Horizontal -->
