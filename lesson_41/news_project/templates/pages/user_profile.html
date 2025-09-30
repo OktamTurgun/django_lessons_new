@@ -78,14 +78,20 @@
                 {% endif %}
               </div>
             </div>
-
+            
             <!-- Postlar - Horizontal -->
             <div class="stat-item d-flex align-items-center justify-content-between py-2">
               <div class="d-flex align-items-center">
                 <i class="fa fa-file-text text-info me-3"></i>
-                <span class="text-muted small">Postlar:</span>
+                <span class="text-muted small">
+                  {% if user.is_staff or user.is_superuser %}
+                    Postlar:
+                  {% else %}
+                    Izohlar:
+                  {% endif %}
+                </span>
               </div>
-              <div class="text-info fw-bold">0</div>
+              <div class="text-info fw-bold">{{ post_count }}</div>
             </div>
           </div>
         </div>
