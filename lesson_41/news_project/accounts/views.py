@@ -6,6 +6,8 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.views import View
 from .models import Profile
+from django.contrib.auth.views import LoginView
+from news_app.models import News
 
 # Create your views here.
 def user_login(request):
@@ -30,18 +32,26 @@ def user_login(request):
   else:
     form = LoginForm()
     return render(request, 'registration/login.html', {'form':form})
-  
+
+class CustomLoginView(LoginView):
+   template_name = 'registration/login.html'
 
 def dashboard_view(request):
-  user = request.user
-  profile = user.profile if hasattr(user, 'profile') else None
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')   # yoki istalgan sahifa
 
-  context = {
-    'user': user,
-    'profile': profile
-  }
+    user = request.user
+    # Profil mavjud bo'lmasa yaratib beradi
+    profile, created = Profile.objects.get_or_create(user=user)
 
-  return render(request, 'pages/user_profile.html', context)
+    post_count = News.objects.filter(author=user).count()
+
+    context = {
+        "user": user,
+        "profile": profile,
+        "post_count": post_count,
+    }
+    return render(request, "pages/user_profile.html", context)
 
 # variant 1 signup view uchun function bilan
 # def signup_view(request):

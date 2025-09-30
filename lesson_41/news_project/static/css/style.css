@@ -849,7 +849,7 @@ form.form select {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 10px 12px;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   transition: border-color 0.2s ease;
 }
 

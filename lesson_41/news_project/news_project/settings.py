@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
      # Local apps
     "news_app",
-    "accounts",
     "widget_tweaks",
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,8 +141,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = 'news:home'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
