@@ -83,4 +83,5 @@ urlpatterns = [
     path('profile/', views.dashboard_view, name='user_profile'),
     # path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('profile/edit/', views.EditProfileView.as_view(), name='edit_profile'),
+    path('admin-page/', views.admin_page, name='admin_page'),
 ]

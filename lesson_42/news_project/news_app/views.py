@@ -174,7 +174,7 @@ class CategoryDetailView(DetailView):
         context['categories'] = Category.objects.all()
         return context
     
-class NewsCreateView(LoginRequiredMixin, CreateView):
+class NewsCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = News
     form_class = NewsForm
     template_name = 'crud/news_create.html'
@@ -183,6 +183,9 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user 
         return super().form_valid(form)
+    
+    def test_func(self):
+        return self.request.user.is_staff or self.request.user.is_superuser
 
 class NewsUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = News

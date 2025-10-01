@@ -16,8 +16,12 @@
     </form>
   </div>
   <div class="text-center mt-3">
-    <a href="{% url 'accounts:password_reset' %}" class="text-decoration-none text-primary">
+    <a href="{% url 'accounts:password_reset' %}" class="text-decoration-none text-primary me-3">
         Parolni unutdingizmi?
     </a>
-</div>
+      <span class="mx-2">|</span>
+    <a href="{% url 'accounts:register' %}" class="text-decoration-none text-primary">
+        Ro'yxatdan o'tish
+    </a>
+  </div>
 {% endblock content %}

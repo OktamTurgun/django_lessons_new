@@ -891,3 +891,22 @@ form.form .btn-secondary:hover {
     background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%) !important;
   }
 }
+
+/* admin sahifasi uchun */
+.role-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Ranglar */
+.role-badge.super { background-color: #d9534f; }   /* Qizil (danger) */
+.role-badge.admin { background-color: #5bc0de; }   /* Moviy (info) */
+.role-badge.user  { background-color: #777; }      /* Kulrang */
+
+.bottom-space {
+  margin-bottom: 30px; /* xohlagan balandlik */
+}
