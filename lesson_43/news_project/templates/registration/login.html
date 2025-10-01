@@ -1,0 +1,27 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Login sahifasi {% endblock title %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+  <div class="text-center mt-3">
+    <a href="{% url 'accounts:password_reset' %}" class="text-decoration-none text-primary me-3">
+        Parolni unutdingizmi?
+    </a>
+      <span class="mx-2">|</span>
+    <a href="{% url 'accounts:register' %}" class="text-decoration-none text-primary">
+        Ro'yxatdan o'tish
+    </a>
+  </div>
+{% endblock content %}

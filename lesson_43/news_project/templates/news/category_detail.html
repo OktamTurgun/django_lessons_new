@@ -1,0 +1,125 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} {{ category.name }} - NewsFeed {% endblock %}
+
+{% block content %}
+<section id="contentSection">
+  <div class="row">
+    <!-- Asosiy kontent -->
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="left_content">
+        {% if request.user.is_authenticated and request.user.is_staff %}
+            <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+        {% elif request.user.is_authenticated and request.user.is_superuser %}
+            <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+        {% endif %}
+        <div class="single_post_content">
+          <h2><span>{{ category.name }}</span></h2>
+          <div class="single_post_content_left">
+            <ul class="business_catgnav wow fadeInDown">
+              {% for news_item in news_list %}
+                {% if forloop.first %}
+                  <li>
+                    <figure class="bsbig_fig">
+                      <a href="{{ news_item.get_absolute_url }}" class="featured_img">
+                        <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}">
+                        <span class="overlay"></span>
+                      </a>
+                      <figcaption>
+                        <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                      </figcaption>
+                      <p>{{ news_item.content|truncatewords:20 }}</p>
+                    </figure>
+                  </li>
+                {% endif %}
+              {% empty %}
+                <p>Bu kategoriyada yangiliklar mavjud emas.</p>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Qolgan yangiliklar -->
+          <div class="single_post_content_right">
+            <ul class="spost_nav">
+              {% for news_item in news_list %}
+                {% if forloop.counter > 1 %}
+                  <li>
+                    <div class="media wow fadeInDown">
+                      <a href="{{ news_item.get_absolute_url }}" class="media-left">
+                        <img alt="{{ news_item.title }}" src="{{ news_item.image.url }}">
+                      </a>
+                      <div class="media-body">
+                        <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a>
+                      </div>
+                    </div>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O'ng panel -->
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <aside class="right_content">
+        <div class="single_sidebar">
+          <h2><span>Ommabop</span></h2>
+          <ul class="spost_nav">
+            <li>
+              <div class="media wow fadeInDown">
+                <a href="#" class="media-left"><img src="{% static 'images/post_img1.jpg' %}" alt=""></a>
+                <div class="media-body">
+                  <a href="#" class="catg_title">Mashhur yangilik namunasi</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="single_sidebar">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
+            <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>
+            <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Izohlar</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="category">
+              <ul>
+                {% for cat in categories %}
+                  <li class="cat-item"><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="video">
+              <div class="vide_area">
+                <iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="comments">
+              <p>Izohlar bo‘limi tez orada qo‘shiladi.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="single_sidebar wow fadeInDown">
+          <h2><span>Sponsor</span></h2>
+          <a class="sideAdd" href="#"><img src="{% static 'images/add_img.jpg' %}" alt="Advertisement"></a>
+        </div>
+
+        <div class="single_sidebar wow fadeInDown">
+          <h2><span>Barcha yangiliklar</span></h2>
+          <select class="catgArchive">
+            <option>Categoriyani tanlang</option>
+            {% for cat in categories %}
+              <option>{{ cat.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,188 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}{{ news_item.title }} - NewsFeed{% endblock %}
+
+{% block content %}
+<section id="contentSection" class="my-5">
+    <div class="row">
+
+        <!-- Main Content -->
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <div class="left_content">
+
+                <!-- Single Page -->
+                <div class="single_page">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-light p-2 rounded">
+                            <li class="breadcrumb-item"><a href="{% url 'news:home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'news:category_detail' news_item.category.slug %}">{{ news_item.category.name }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ news_item.title }}</li>
+                        </ol>
+                    </nav>
+
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                        <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+                    {% elif request.user.is_authenticated and request.user.is_superuser %}
+                        <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+                    {% endif %}
+
+                    <!-- Title -->
+                    <h1 class="mb-3">{{ news_item.title }}</h1>
+
+                    <!-- Post Meta -->
+                    <div class="post_meta mb-4 text-muted">
+                        <span class="me-3"><i class="fa fa-user"></i> {{ news_item.author }}</span>
+                        <span class="me-3"><i class="fa fa-calendar"></i> {{ news_item.published_at|date:"F d, Y" }}</span>
+                        <span><i class="fa fa-tags"></i> {{ news_item.category.name }}</span>
+                    </div>
+
+                    <!-- Featured Image -->
+                    {% if news_item.image %}
+                        <div class="text-center mb-4">
+                            <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="img-fluid rounded shadow-sm" style="max-width: 100%;">
+                        </div>
+                    {% endif %}
+
+                    <!-- Content -->
+                    <div class="single_page_content" style="line-height: 1.6; font-size: 2 em; color: #333;">
+                        {{ news_item.content|safe }}
+                    </div>
+
+                    {% if request.user == news_item.author or request.user.is_superuser %}
+                        <div class="my-4">
+                            <a href="{% url 'news:news_edit' news_item.pk %}" class="btn btn-sm btn-warning me-2">
+                            ✏️ Tahrirlash
+                            </a>
+                            <a href="{% url 'news:news_delete' news_item.pk %}" class="btn btn-sm btn-danger">
+                            🗑 O‘chirish
+                            </a>
+                            <a href="{% url 'news:home' %}" class="btn btn-secondary mt-3">⬅️ Orqaga</a>
+                        </div>
+                    {% endif %}
+
+                    <!-- Social Share -->
+                    <div class="social_link">
+                        <ul class="sociallink_nav">
+                            <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Related Posts -->
+                    <div class="related_post mt-5">
+                        <h2 class="mb-3">Related News <i class="fa fa-thumbs-o-up"></i></h2>
+                        <ul class="list-unstyled">
+                            {% for item in related_news %}
+                            <li class="media mb-3">
+                                {% if item.image %}
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <img class="me-3 rounded" src="{{ item.image.url }}" alt="{{ item.title }}" style="width: 100px; height: 70px; object-fit: cover;">
+                                    </a>
+                                {% endif %}
+                                <div class="media-body">
+                                    <a href="{{ item.get_absolute_url }}" class="fw-semibold">{{ item.title }}</a>
+                                </div>
+                            </li>
+                            {% empty %}
+                                <p>No related news available.</p>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar -->
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <aside class="right_content">
+
+                <!-- Popular Posts -->
+                <div class="single_sidebar">
+                    <h2><span>Popular Post</span></h2>
+                    <ul class="spost_nav">
+                        {% for item in popular_news %}
+                        <li>
+                            <div class="media">
+                                <a href="{{ item.get_absolute_url }}" class="media-left">
+                                    {% if item.image %}
+                                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                                    {% endif %}
+                                </a>
+                                <div class="media-body">
+                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                            <p>No popular posts yet.</p>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Tabs -->
+                <div class="single_sidebar">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#category" role="tab" data-toggle="tab">Category</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#comments" role="tab" data-toggle="tab">Comments</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- Categories -->
+                        <div role="tabpanel" class="tab-pane active" id="category">
+                            <ul>
+                                {% for cat in categories %}
+                                <li class="cat-item">
+                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Comments -->
+                        <div role="tabpanel" class="tab-pane" id="comments">
+                            <ul class="spost_nav">
+                                {% for comment in latest_comments %}
+                                <li>
+                                    <div class="media">
+                                        <a href="{{ comment.news.get_absolute_url }}" class="media-left">
+                                            {% if comment.news.image %}
+                                                <img src="{{ comment.news.image.url }}" alt="{{ comment.news.title }}">
+                                            {% endif %}
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="{{ comment.news.get_absolute_url }}" class="catg_title">{{ comment.news.title }}</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% empty %}
+                                    <p>No comments yet.</p>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Sponsor -->
+                <div class="single_sidebar">
+                    <h2><span>Sponsor</span></h2>
+                    <a class="sideAdd" href="#"><img src="{% static 'images/add_img.jpg' %}" alt="Sponsor"></a>
+                </div>
+
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+
