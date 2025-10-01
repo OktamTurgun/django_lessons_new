@@ -33,6 +33,11 @@
                             <li><a href="{% url 'news:home' %}">Bosh sahifa</a></li>
                             <li><a href="{% url 'news:about' %}">Biz haqimizda</a></li>
                             <li><a href="{% url 'news:contact' %}">Biz bilan aloqa</a></li>
+                            {% if user.is_staff %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'accounts:admin_page' %}">Admin</a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                     <!-- base.html da header_top_right qismini yangilash -->

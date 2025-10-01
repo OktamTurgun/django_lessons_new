@@ -1,3 +1,4 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm, ProfileEditForm, UserEditForm
@@ -8,6 +9,7 @@ from django.views import View
 from .models import Profile
 from django.contrib.auth.views import LoginView
 from news_app.models import News
+from django.contrib.auth.models import User
 
 # Create your views here.
 def user_login(request):
@@ -25,7 +27,7 @@ def user_login(request):
         login(request, user)
         return redirect('news:home')
       else:
-        return render(request, 'accounts/login.html', {
+        return render(request, 'registration/login.html', {
           'form': form,
           'error': "Username yoki parol noto'g'ri!"
         })
@@ -155,3 +157,20 @@ class EditProfileView(LoginRequiredMixin, View):
             'user_form': user_form,
             'profile_form': profile_form
         })
+    
+@staff_member_required  # faqat staff foydalanuvchilar kira oladi
+def admin_page(request):
+    users_count = User.objects.count()
+    news_count = News.objects.count()
+    last_users = User.objects.order_by('-date_joined')[:6]
+    last_news = News.objects.select_related('author').order_by('-created_at')[:6]  # sening News modelida sana maydonini to‘g‘ri yoz
+    admin_users = User.objects.filter(is_staff=True)
+
+    context = {
+        'users_count': users_count,
+        'news_count': news_count,
+        'last_users': last_users,
+        'last_news': last_news,
+        'admin_users': admin_users,
+    }
+    return render(request, 'accounts/admin_page.html', context)
