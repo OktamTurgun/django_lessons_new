@@ -1,0 +1,16 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Yangilikni tahrirlash {% endblock title %}
+
+{% block content %}
+  <div class="container my-4">
+    <h2 class="mb-3">✏️ Yangilikni tahrirlash: {{ object.title }}</h2>
+    <form method="post" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-warning">Yangilash</button>
+      <a href="{% url 'news:news_detail' slug=object.slug %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+  </div>
+{% endblock content %}
