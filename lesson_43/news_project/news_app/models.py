@@ -71,6 +71,21 @@ class News(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+class Comment(models.Model):
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+    created_at = models.DateTimeField (auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+    def __str__(self):
+        return f'Comment by {self.author.username} - {self.news.title}'
+
 class Contact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()

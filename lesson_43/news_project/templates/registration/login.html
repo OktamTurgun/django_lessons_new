@@ -1,27 +1,181 @@
 {% extends 'news/base.html' %}
 {% load static %}
 
-{% block title %} Login sahifasi {% endblock title %}
+{% block title %}Kirish - Login{% endblock title %}
 
 {% block content %}
-  <div class="container mt-5">
-    <h2>Login</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-      {% endif %}
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-primary">
+        <div class="panel-heading text-center" style="padding: 20px;">
+          <h3 class="panel-title" style="font-size: 24px; margin: 0;">
+            <i class="glyphicon glyphicon-user"></i> Tizimga kirish
+          </h3>
+        </div>
+        
+        <div class="panel-body" style="padding: 30px;">
+          {% if error %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <i class="glyphicon glyphicon-exclamation-sign"></i> {{ error }}
+            </div>
+          {% endif %}
+
+          <form method="post" role="form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+              <label for="id_username">
+                <i class="glyphicon glyphicon-user"></i> Foydalanuvchi nomi
+              </label>
+              <input 
+                type="text" 
+                name="username" 
+                class="form-control input-lg" 
+                id="id_username" 
+                placeholder="Foydalanuvchi nomini kiriting"
+                required
+                autofocus
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="id_password">
+                <i class="glyphicon glyphicon-lock"></i> Parol
+              </label>
+              <div class="input-group">
+                <input 
+                  type="password" 
+                  name="password" 
+                  class="form-control input-lg" 
+                  id="id_password" 
+                  placeholder="Parolni kiriting"
+                  required
+                >
+                <span class="input-group-addon" style="cursor: pointer;" onclick="togglePassword()">
+                  <i class="glyphicon glyphicon-eye-open" id="eyeIcon"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="rememberMe"> Meni eslab qol
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 20px;">
+              <i class="glyphicon glyphicon-log-in"></i> Kirish
+            </button>
+          </form>
+
+          <div class="text-center" style="margin-top: 20px;">
+            <a href="{% url 'accounts:password_reset' %}" class="text-primary">
+              <i class="glyphicon glyphicon-question-sign"></i> Parolni unutdingizmi?
+            </a>
+          </div>
+        </div>
+        
+        <div class="panel-footer text-center" style="padding: 15px; background-color: #f5f5f5;">
+          <p style="margin: 0; color: #777;">
+            Akkountingiz yo'qmi? 
+            <a href="{% url 'accounts:register' %}" class="text-primary">
+              <strong><i class="glyphicon glyphicon-plus-sign"></i> Ro'yxatdan o'tish</strong>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Social Login (ixtiyoriy) -->
+      <div class="text-center" style="margin-top: 30px;">
+        <p style="color: #999; margin-bottom: 15px;">yoki ijtimoiy tarmoqlar orqali</p>
+        <div class="btn-group btn-group-justified" role="group">
+          <a href="#" class="btn btn-default">
+            <i class="glyphicon glyphicon-envelope"></i> Google
+          </a>
+          <a href="#" class="btn btn-info">
+            <i class="glyphicon glyphicon-send"></i> Telegram
+          </a>
+          <a href="#" class="btn btn-primary">
+            <i class="glyphicon glyphicon-thumbs-up"></i> Facebook
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="text-center mt-3">
-    <a href="{% url 'accounts:password_reset' %}" class="text-decoration-none text-primary me-3">
-        Parolni unutdingizmi?
-    </a>
-      <span class="mx-2">|</span>
-    <a href="{% url 'accounts:register' %}" class="text-decoration-none text-primary">
-        Ro'yxatdan o'tish
-    </a>
-  </div>
+</div>
+
+<script>
+function togglePassword() {
+  var passwordInput = document.getElementById('id_password');
+  var eyeIcon = document.getElementById('eyeIcon');
+  
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    eyeIcon.className = 'glyphicon glyphicon-eye-close';
+  } else {
+    passwordInput.type = 'password';
+    eyeIcon.className = 'glyphicon glyphicon-eye-open';
+  }
+}
+</script>
+
+<style>
+.panel {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.panel:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+}
+
+.panel-primary > .panel-heading {
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+.form-control:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.btn-primary {
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(51, 122, 183, 0.4);
+}
+
+.input-group-addon {
+  background-color: #fff;
+  border-left: none;
+}
+
+.input-group .form-control {
+  border-right: none;
+}
+
+.alert {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 {% endblock content %}
