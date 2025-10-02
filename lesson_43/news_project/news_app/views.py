@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
   ListView, 
@@ -9,9 +9,9 @@ from django.views.generic import (
   UpdateView, 
   DeleteView
 )
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, FormMixin
 from .models import News, Category
-from .forms import ContactForm, NewsForm
+from .forms import ContactForm, NewsForm, CommentForm
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -124,9 +124,10 @@ class ContactPageView(FormView):
         return context
     
 
-class SinglePageView(DetailView):
+class SinglePageView(FormMixin, DetailView):
     model = News
     template_name = 'news/news_detail.html'
+    form_class = CommentForm
     context_object_name = 'news_item'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
@@ -150,6 +151,10 @@ class SinglePageView(DetailView):
         # Latest news (oxirgi 10 ta)
         context['latest_news'] = News.published.order_by('-published_at')[:10]
 
+        # Comments (faol kommentariyalar)
+        context['comments'] = news_item.comments.filter(active=True)
+        context['comment_form'] = self.get_form()
+
         # Latest comments (agar comment modeli bo‘lsa)
         if hasattr(news_item, 'comments'):
             context['latest_comments'] = news_item.comments.all()[:4]
@@ -160,6 +165,23 @@ class SinglePageView(DetailView):
         context['sponsor_image'] = getattr(news_item, 'sponsor_image', None)
 
         return context
+    def get_success_url(self):
+        return reverse_lazy('news:news_detail', kwargs={'slug': self.object.slug})
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.author = self.request.user
+        comment.news = self.object
+        comment.save()
+        return redirect(self.get_success_url())
 
 class CategoryDetailView(DetailView):
     model = Category

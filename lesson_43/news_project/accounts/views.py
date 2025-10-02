@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from .models import Profile
 from django.contrib.auth.views import LoginView
-from news_app.models import News
+from news_app.models import News, Comment
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -46,7 +46,11 @@ def dashboard_view(request):
     # Profil mavjud bo'lmasa yaratib beradi
     profile, created = Profile.objects.get_or_create(user=user)
 
-    post_count = News.objects.filter(author=user).count()
+    # Shartli hisoblash
+    if user.is_staff or user.is_superuser:
+        post_count = News.objects.filter(author=user).count()
+    else:
+        post_count = Comment.objects.filter(author=user).count()
 
     context = {
         "user": user,

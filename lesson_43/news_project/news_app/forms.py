@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact, News
+from .models import Contact, News, Comment
 
 class ContactForm(forms.ModelForm):
 
@@ -74,4 +74,19 @@ class NewsForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-select'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
+        }
+    
+class CommentForm(forms.ModelForm):
+  class Meta:
+    model = Comment
+    fields = ['text']
+    widgets = {
+      "text": forms.Textarea(attrs={
+        'class': 'form-control', 
+        'rows': 3, 
+        'placeholder': 'Izohingizni yozing...'
+        }),
+    }
+    labels = {
+            "text": "Izoh qoldirish"
         }
