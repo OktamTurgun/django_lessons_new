@@ -13,6 +13,8 @@ from django.views.generic.edit import FormView, FormMixin
 from .models import News, Category
 from .forms import ContactForm, NewsForm, CommentForm
 from django.urls import reverse_lazy
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 # Create your views here.
 # def news_list(request):
@@ -227,11 +229,22 @@ class NewsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         news = self.get_object()
         return self.request.user == news.author or self.request.user.is_superuser
     
+
 def search_view(request):
     query = request.GET.get("q")
-    results = []
+    results = News.objects.none()
+
     if query:
-        results = News.objects.filter(title__icontains=query)  # sarlavhadan qidiradi
+        queryset = News.objects.filter(
+            Q(title__icontains=query) | 
+            Q(content__icontains=query) |
+            Q(category__name__icontains=query)
+        )
+
+        # Pagination (6 ta natija per page)
+        paginator = Paginator(queryset, 6)
+        page_number = request.GET.get("page")
+        results = paginator.get_page(page_number)
 
     return render(request, "news/search_results.html", {
         "query": query,
