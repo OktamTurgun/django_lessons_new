@@ -882,7 +882,6 @@ form.form .btn-secondary:hover {
   background: #565e64;
 }
 
-
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .info-card {
@@ -912,4 +911,20 @@ form.form .btn-secondary:hover {
 
 .bottom-space {
   margin-bottom: 30px; /* xohlagan balandlik */
+}
+
+/* Qidiruv natijalari topilmaganda */
+.empty-state-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #daa8d9;
+    border-radius: 50%;
+}
+
+.icon-search {
+    color: #fff;
 }

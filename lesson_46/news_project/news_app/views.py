@@ -15,8 +15,11 @@ from .forms import ContactForm, NewsForm, CommentForm
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
-# Create your views here.
+# ================================
+# NewsList view - FUNCTION BASED
+# ================================
 # def news_list(request):
 #     news = News.objects.filter(status=News.Status.PUBLISHED)
 #     #news = News.published.all()
@@ -32,6 +35,10 @@ from django.core.paginator import Paginator
 #     }
 #     return render(request, 'news/news_detail.html', context)
 
+
+# ================================
+# NewsList view - CLASS BASED
+# ================================
 class NewsListView(ListView):
     model = News
     template_name = 'news/news_list.html'
@@ -139,7 +146,7 @@ class SinglePageView(FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         news_item = self.object
 
-        # Related news (o‘sha kategoriyadagi boshqa yangiliklar)
+        # Related news (o'sha kategoriyadagi boshqa yangiliklar)
         context['related_news'] = News.published.filter(
             category=news_item.category
         ).exclude(id=news_item.id)[:3]
@@ -147,7 +154,7 @@ class SinglePageView(FormMixin, DetailView):
         # Categories (sidebar uchun)
         context['categories'] = Category.objects.all()
 
-        # Popular news (views bo‘yicha)
+        # Popular news (views bo'yicha)
         context['popular_news'] = News.published.order_by('-published_at')[:4]
 
         # Latest news (oxirgi 10 ta)
@@ -155,18 +162,22 @@ class SinglePageView(FormMixin, DetailView):
 
         # Comments (faol kommentariyalar)
         context['comments'] = news_item.comments.filter(active=True)
-        context['comment_form'] = self.get_form()
+        
+        # Comment form - agar POST da xato bo'lsa, xatoli formani ko'rsatish
+        if 'comment_form' not in context:
+            context['comment_form'] = self.get_form()
 
-        # Latest comments (agar comment modeli bo‘lsa)
+        # Latest comments (agar comment modeli bo'lsa)
         if hasattr(news_item, 'comments'):
             context['latest_comments'] = news_item.comments.all()[:4]
         else:
             context['latest_comments'] = []
 
-        # Sponsor image (agar mavjud bo‘lsa)
+        # Sponsor image (agar mavjud bo'lsa)
         context['sponsor_image'] = getattr(news_item, 'sponsor_image', None)
 
         return context
+    
     def get_success_url(self):
         return reverse_lazy('news:news_detail', kwargs={'slug': self.object.slug})
     
@@ -183,7 +194,14 @@ class SinglePageView(FormMixin, DetailView):
         comment.author = self.request.user
         comment.news = self.object
         comment.save()
+        messages.success(self.request, "✅ Izohingiz muvaffaqiyatli qo'shildi!")
         return redirect(self.get_success_url())
+    
+    def form_invalid(self, form):
+        """Agar forma xato bo'lsa, xatolarni ko'rsatish"""
+        return self.render_to_response(
+            self.get_context_data(comment_form=form)
+        )
 
 class CategoryDetailView(DetailView):
     model = Category
@@ -229,7 +247,9 @@ class NewsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         news = self.get_object()
         return self.request.user == news.author or self.request.user.is_superuser
     
-
+# ================================
+# SEARCH VIEW - FUNCTION BASED
+# ================================
 def search_view(request):
     query = request.GET.get("q")
     results = News.objects.none()
@@ -250,3 +270,72 @@ def search_view(request):
         "query": query,
         "results": results
     })
+
+# ================================
+# SEARCH VIEW - CLASS BASED
+# ================================
+class SearchResultsView(ListView):
+    model = News
+    template_name = "news/search_results.html"
+    paginate_by = 6  # bir sahifada nechta natija
+    context_object_name = "object_list"  # default; keyinalgi kodda 'results' ni qo'shamiz
+
+    def get_queryset(self):
+        """
+        Qidiruv so'rovini oladi va queryset qaytaradi.
+        .distinct() qo'shish duplikatlarni olib tashlash uchun foydali bo'lishi mumkin
+        (masalan, join natijasida takroriy yozuvlar paydo bo'lsa).
+        select_related bilan author va category ni oldindan yuklash (N+1 muammosini kamaytirish)
+        """
+        q = self.request.GET.get("q", "").strip()
+        if not q:
+            # Hech qidiruv bo'lmasa bo'sh queryset qaytaramiz
+            return News.objects.none()
+
+        qs = News.objects.filter(
+            Q(title__icontains=q) |
+            Q(content__icontains=q) |
+            Q(category__name__icontains=q)
+        ).select_related("category", "author").order_by("-published_at").distinct()
+
+        # Full-Text Search
+        # search_vector = SearchVector("title", "content", "category__name")
+        # search_query = SearchQuery(q)
+
+        # qs = (News.objects
+        #       .annotate(search=search_vector, rank=SearchRank(search_vector, search_query))
+        #       .filter(search=search_query)
+        #       .select_related("category", "author")
+        #       .order_by("-rank"))
+
+        return qs
+
+    def get_context_data(self, **kwargs):
+        """
+        Template uchun qo'shimcha kontekst: qidiruv so'zi va
+        'results' nomi bilan page_obj (template'ni o'zgartirmaslik uchun).
+        Shuningdek GET parametrlaridan page ni olib tashlab querystring yaratamiz,
+        pagination linklarida boshqa GET paramlarni saqlash uchun qulay.
+        """
+        context = super().get_context_data(**kwargs)
+
+        # original qidiruv so'zi
+        context["query"] = self.request.GET.get("q", "")
+
+        # Templateingiz FBV versiyasida `results` page obyekti sifatida foydalanilgani uchun:
+        context["results"] = context.get("page_obj")
+
+        # GET paramlarni saqlab paginationda ishlatamiz (page dan tashqari)
+        # params = self.request.GET.copy()
+        # if "page" in params:
+        #     params.pop("page")
+        # context["querystring"] = params.urlencode()  # "" yoki "q=term&other=val"
+
+        params = self.request.GET.copy()
+        params.pop("page", None)
+        context["querystring"] = params.urlencode()
+        
+        return context
+
+        
+

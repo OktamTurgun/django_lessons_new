@@ -1,5 +1,7 @@
 {% extends "news/base.html" %}
 
+{% load static %}
+
 {% block content %}
 <div class="container-fluid my-5">
 
@@ -17,7 +19,7 @@
     </div>
 
     <!-- 📌 Qidiruv natijalari sarlavhasi -->
-    <h3 class="mb-4">
+    <h3 class="text-center mb-4">
         Qidiruv natijalari{% if query %}: "{{ query }}"{% endif %}
     </h3>
 
@@ -63,27 +65,37 @@
         <nav aria-label="Page navigation" class="text-center">
             <ul class="pagination">
                 {% if results.has_previous %}
-                <li><a href="?q={{ query }}&page={{ results.previous_page_number }}">« Oldingi</a></li>
+                <!-- <li><a href="?q={{ query }}&page={{ results.previous_page_number }}">« Oldingi</a></li> -->
+                <li><a href="?{{ querystring }}&page={{ results.previous_page_number }}">« Oldingi</a></li>
                 {% endif %}
 
                 {% for num in results.paginator.page_range %}
                     {% if results.number == num %}
                         <li class="active"><span>{{ num }}</span></li>
                     {% elif num > results.number|add:-2 and num < results.number|add:2 %}
-                        <li><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
+                        <!-- <li><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li> -->
+                        <li><a href="?{{ querystring }}&page={{ num }}">{{ num }}</a></li>
                     {% endif %}
                 {% endfor %}
 
                 {% if results.has_next %}
-                <li><a href="?q={{ query }}&page={{ results.next_page_number }}">Keyingi »</a></li>
+                <!-- <li><a href="?q={{ query }}&page={{ results.next_page_number }}">Keyingi »</a></li> -->
+                <li><a href="?{{ querystring }}&page={{ results.next_page_number }}">Keyingi »</a></li>
                 {% endif %}
             </ul>
         </nav>
         {% endif %}
 
     {% else %}
-        <div class="alert alert-warning text-center mt-4" role="alert">
-            ❌ Hech narsa topilmadi.
+        <div class="empty-state text-center py-5 px-3">
+            <div class="empty-state-icon mb-4">
+                <i class="fa-solid fa-search fs-1 icon-search"></i>
+            </div>
+            <h4 class="fw-semibold text-dark mb-2">Hech narsa topilmadi</h4>
+            <p class="text-muted mb-0">
+                Qidiruv natijasi bo'yicha ma'lumot mavjud emas.<br>
+                Iltimos, boshqa kalit so'zlardan foydalanib ko'ring.
+            </p>
         </div>
     {% endif %}
 
