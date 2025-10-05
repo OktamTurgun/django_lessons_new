@@ -35,12 +35,12 @@
                             <li><a href="{% url 'news:contact' %}">Biz bilan aloqa</a></li>
                             {% if user.is_staff %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'accounts:admin_page' %}">Admin</a>
+                                <a class="nav-link" href="{% url 'accounts:admin_page' %}">Admin sahifasi</a>
                             </li>
                             {% endif %}
                         </ul>
                     </div>
-                    <!-- base.html da header_top_right qismini yangilash -->
+                    <!--  header_top_right qismi -->
                     <div class="header_top_right pull-right">
                         <!-- Sana va vaqt -->
                         <p id="current-date" class="pull-left navbar-date">

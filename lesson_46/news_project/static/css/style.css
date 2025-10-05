@@ -915,16 +915,24 @@ form.form .btn-secondary:hover {
 
 /* Qidiruv natijalari topilmaganda */
 .empty-state-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #daa8d9;
-    border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #daa8d9;
+  border-radius: 50%;
 }
 
 .icon-search {
-    color: #fff;
+  color: #fff;
+}
+
+/* Ko'rishllar soni, news_detail.html da */
+.views-count {
+  display: inline-flex;  
+  align-items: center;         
+  gap: 6px;                             
+  font-weight: 500;
 }

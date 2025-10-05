@@ -13,7 +13,7 @@ from django.views.generic.edit import FormView, FormMixin
 from .models import News, Category
 from .forms import ContactForm, NewsForm, CommentForm
 from django.urls import reverse_lazy
-from django.db.models import Q
+from django.db.models import Q, F
 from django.core.paginator import Paginator
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
@@ -141,6 +141,22 @@ class SinglePageView(FormMixin, DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
     queryset = News.published.all()
+
+    def get(self, request, *args, **kwargs):
+        # obyektni olamiz
+        self.object = self.get_object()
+
+        # sessiya asosida views hisoblash
+        session_key = f"viewed_news_{self.object.slug}"
+        if not request.session.get(session_key, False):
+            # views++ DB darajasida atomik
+            News.objects.filter(slug=self.object.slug).update(views=F('views') + 1)
+            request.session[session_key] = True
+
+        # yangilangan qiymatni olish
+        self.object.refresh_from_db(fields=['views'])
+
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

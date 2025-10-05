@@ -53,6 +53,8 @@ class News(models.Model):
         default=Status.DRAFT
     )
 
+    views = models.PositiveIntegerField(default=0) # Ko'rishlar soni
+
     # Managers
     objects = models.Manager()   # Default manager
     published = PublishedManager()  # Custom manager faqat PUBLISHED postlarni qaytaradi

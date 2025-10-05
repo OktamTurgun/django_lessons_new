@@ -28,6 +28,14 @@
                       </a>
                       <figcaption>
                         <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                        <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
+                          <span>
+                            <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                          </span>
+                          <span style="margin-left: 10px;">
+                            <i class="fa fa-eye"></i> {{ news_item.views }}
+                          </span>
+                        </div>
                       </figcaption>
                       <p>{{ news_item.content|truncatewords:20 }}</p>
                     </figure>
@@ -49,8 +57,16 @@
                       <a href="{{ news_item.get_absolute_url }}" class="media-left">
                         <img alt="{{ news_item.title }}" src="{{ news_item.image.url }}">
                       </a>
-                      <div class="media-body">
+                      <div class="media-body"> 
                         <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a>
+                        <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
+                          <span>
+                            <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                          </span>
+                          <span style="margin-left: 10px;">
+                            <i class="fa fa-eye"></i> {{ news_item.views }}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </li>
