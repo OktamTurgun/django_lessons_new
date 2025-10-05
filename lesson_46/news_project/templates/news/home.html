@@ -31,13 +31,28 @@
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
               {% for item in news_list %}
-                <li>
-                  <div class="media"> <a href="{{ item.get_absolute_url }}" class="media-left"> <img alt="Post image" src="{{ item.image.url }}"> </a>
-                    <div class="media-body"> <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a> </div>
+              <li>
+                <div class="media">
+                  <a href="{{ item.get_absolute_url }}" class="media-left">
+                    {% if item.image %}
+                      <img alt="Post image" src="{{ item.image.url }}">
+                    {% endif %}
+                  </a>
+                  <div class="media-body">
+                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a>
+                    <!-- Category va Views -->
+                    <div class="post_meta text-muted small mt-1 d-flex align-items-center gap-2">
+                      <span>
+                        {{ item.category.name }}
+                      </span>
+                      <span class="views-count">
+                        <i class="fa-solid fa-eye me-1"></i> {{ item.views }}
+                      </span>
+                    </div>
                   </div>
-                </li>
+                </div>
+              </li>
               {% endfor %}
-              
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
           </div>
@@ -61,8 +76,22 @@
                 {% for local in local_news %}
                   {% if forloop.first %}
                     <li>
-                      <figure class="bsbig_fig"> <a href="{{ local.get_absolute_url }}" class="featured_img"> <img alt="Featured image" src="{{ local.image.url }}"> <span class="overlay"></span> </a>
-                        <figcaption> <a href="{{ local.get_absolute_url }}">{{ local.title }}</a> </figcaption>
+                      <figure class="bsbig_fig"> 
+                        <a href="{{ local.get_absolute_url }}" class="featured_img"> 
+                          <img alt="Featured image" src="{{ local.image.url }}"> 
+                          <span class="overlay"></span> 
+                        </a>
+                        <figcaption> 
+                          <a href="{{ local.get_absolute_url }}">{{ local.title }}</a>
+                          <div class="post_meta" style="margin-top: 8px; font-size: 13px; color: #999;">
+                            <span>
+                              <i class="fa fa-clock-o"></i> {{ local.published_at|date:"d.m.Y H:i" }}
+                            </span>
+                            <span style="margin-left: 15px;">
+                              <i class="fa fa-eye"></i> {{ local.views }}
+                            </span>
+                          </div>
+                        </figcaption>
                         <p>{{ local.content | truncatewords:20 }}</p>
                       </figure>
                     </li>
@@ -75,8 +104,21 @@
                 {% for news_item in local_news %}
                   {% if forloop.counter > 1 %}
                 <li>
-                  <div class="media wow fadeInDown"> <a href="{{ news_item.get_absolute_url }}" class="media-left"> <img alt="Post image" src="{{ news_item.image.url }}"> </a>
-                    <div class="media-body"> <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a> </div>
+                  <div class="media wow fadeInDown"> 
+                    <a href="{{ news_item.get_absolute_url }}" class="media-left"> 
+                      <img alt="Post image" src="{{ news_item.image.url }}"> 
+                    </a>
+                    <div class="media-body"> 
+                      <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a>
+                      <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
+                        <span>
+                          <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                        </span>
+                        <span style="margin-left: 10px;">
+                          <i class="fa fa-eye"></i> {{ news_item.views }}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </li>
                   {% endif %}
@@ -92,8 +134,22 @@
                   {% for news_item in xorij_news %}
                     {% if forloop.first %}
                       <li>
-                        <figure class="bsbig_fig"> <a href="{{ news_item.get_absolute_url }}" class="featured_img"> <img alt="Featured image" src="{{ news_item.image.url }}"> <span class="overlay"></span> </a>
-                          <figcaption> <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a> </figcaption>
+                        <figure class="bsbig_fig"> 
+                          <a href="{{ news_item.get_absolute_url }}" class="featured_img"> 
+                            <img alt="Featured image" src="{{ news_item.image.url }}"> 
+                            <span class="overlay"></span> 
+                          </a>
+                          <figcaption> 
+                            <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                            <div class="post_meta" style="margin-top: 8px; font-size: 13px; color: #999;">
+                              <span>
+                                <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                              </span>
+                              <span style="margin-left: 15px;">
+                                <i class="fa fa-eye"></i> {{ news_item.views }}
+                              </span>
+                            </div>
+                          </figcaption>
                           <p>{{ news_item.content | truncatewords:20 }}</p>
                         </figure>
                       </li>
@@ -104,8 +160,21 @@
                   {% for news_item in xorij_news %}
                     {% if forloop.counter > 1 %}
                       <li>
-                        <div class="media wow fadeInDown"> <a href="{{ news_item.get_absolute_url }}" class="media-left"> <img alt="Post image" src="{{ news_item.image.url }}"> </a>
-                          <div class="media-body"> <a href="{{ news_item.get_absolute_url }}" class="catg_title"> {{ news_item.title }}</a> </div>
+                        <div class="media wow fadeInDown"> 
+                          <a href="{{ news_item.get_absolute_url }}" class="media-left"> 
+                            <img alt="Post image" src="{{ news_item.image.url }}"> 
+                          </a>
+                          <div class="media-body"> 
+                            <a href="{{ news_item.get_absolute_url }}" class="catg_title"> {{ news_item.title }}</a>
+                            <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
+                              <span>
+                                <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                              </span>
+                              <span style="margin-left: 10px;">
+                                <i class="fa fa-eye"></i> {{ news_item.views }}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </li>
                     {% endif %}
@@ -120,8 +189,22 @@
                   {% for news_item in texnologiya %}
                     {% if forloop.first %}
                       <li>
-                        <figure class="bsbig_fig wow fadeInDown"> <a href="{{ news_item.get_absolute_url }}" class="featured_img"> <img alt="Featured image" src="{{ news_item.image.url }}"> <span class="overlay"></span> </a>
-                          <figcaption> <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a> </figcaption>
+                        <figure class="bsbig_fig wow fadeInDown"> 
+                          <a href="{{ news_item.get_absolute_url }}" class="featured_img"> 
+                            <img alt="Featured image" src="{{ news_item.image.url }}"> 
+                            <span class="overlay"></span> 
+                          </a>
+                          <figcaption> 
+                            <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                            <div class="post_meta" style="margin-top: 8px; font-size: 13px; color: #999;">
+                              <span>
+                                <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                              </span>
+                              <span style="margin-left: 15px;">
+                                <i class="fa fa-eye"></i> {{ news_item.views }}
+                              </span>
+                            </div>
+                          </figcaption>
                           <p>{{ news_item.content | truncatewords:20 }}</p>
                         </figure>
                       </li>
@@ -132,8 +215,21 @@
                   {% for news_item in texnologiya %}
                     {% if forloop.counter > 1 %}
                       <li>
-                        <div class="media wow fadeInDown"> <a href="{{ news_item.get_absolute_url }}" class="media-left"> <img alt="Post image" src="{{ news_item.image.url }}"> </a>
-                          <div class="media-body"> <a href="{{ news_item.get_absolute_url }}" class="catg_title"> {{ news_item.title }}</a> </div>
+                        <div class="media wow fadeInDown"> 
+                          <a href="{{ news_item.get_absolute_url }}" class="media-left"> 
+                            <img alt="Post image" src="{{ news_item.image.url }}"> 
+                          </a>
+                          <div class="media-body"> 
+                            <a href="{{ news_item.get_absolute_url }}" class="catg_title"> {{ news_item.title }}</a>
+                            <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
+                              <span>
+                                <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                              </span>
+                              <span style="margin-left: 10px;">
+                                <i class="fa fa-eye"></i> {{ news_item.views }}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </li>
                     {% endif %}
@@ -184,10 +280,24 @@
                 {% for news_item in sport %}
                   {% if forloop.first %}
                     <li>
-                      <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{{ news_item.get_absolute_url }}"> <img src="{{ news_item.image.url }}" alt="Featured image"> <span class="overlay"></span> </a>
-                        <figcaption> <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a> </figcaption>
+                      <figure class="bsbig_fig  wow fadeInDown"> 
+                        <a class="featured_img" href="{{ news_item.get_absolute_url }}"> 
+                          <img src="{{ news_item.image.url }}" alt="Featured image"> 
+                          <span class="overlay"></span> 
+                        </a>
+                        <figcaption> 
+                          <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                          <div class="post_meta" style="margin-top: 8px; font-size: 13px; color: #999;">
+                            <span>
+                              <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                            </span>
+                            <span style="margin-left: 15px;">
+                              <i class="fa fa-eye"></i> {{ news_item.views }}
+                            </span>
+                          </div>
+                        </figcaption>
                         <p>{{ news_item.content | truncatewords:20 }}</p>
-                        </figure>
+                      </figure>
                     </li>
                   {% endif %}
                 {% endfor %}
@@ -198,8 +308,21 @@
                 {% for news_item in sport %}
                   {% if forloop.counter > 1 %}
                     <li>
-                      <div class="media wow fadeInDown"> <a href="{{ news_item.get_absolute_url }}" class="media-left"> <img alt="Post image" src="{{ news_item.image.url }}"> </a>
-                        <div class="media-body"> <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a> </div>
+                      <div class="media wow fadeInDown"> 
+                        <a href="{{ news_item.get_absolute_url }}" class="media-left"> 
+                          <img alt="Post image" src="{{ news_item.image.url }}"> 
+                        </a>
+                        <div class="media-body"> 
+                          <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a>
+                          <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
+                            <span>
+                              <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
+                            </span>
+                            <span style="margin-left: 10px;">
+                              <i class="fa fa-eye"></i> {{ news_item.views }}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </li>
                   {% endif %}
