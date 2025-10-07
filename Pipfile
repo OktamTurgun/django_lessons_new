@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 pillow = "*"
+django = "*"
+django-modeltranslation = "*"
+django-widget-tweaks = "*"
+deep-translator = "*"
 
 [dev-packages]
 
