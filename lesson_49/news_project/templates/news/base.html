@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,6 +151,20 @@
 
                     <li><a href="{% url 'news:contact' %}">Biz bilan aloqa</a></li>
                     <li><a href="{% url 'news:404' %}">404 Sahifa</a></li>
+                    <li class="lang-form" style="list-style:none;">
+                        <form action="{% url 'set_language' %}" method="post" class="lang-form" style="margin:0;">
+                            {% csrf_token %}
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            <select name="language" onchange="this.form.submit()" class="nav-lang-select">
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                                {{ lang_code|upper }}
+                                </option>
+                            {% endfor %}
+                            </select>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </nav>

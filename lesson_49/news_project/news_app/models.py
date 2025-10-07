@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.utils import translation
 
 
 class Category(models.Model):
@@ -41,6 +42,14 @@ class News(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
     content = models.TextField()
+    # 🌍 Tarjima maydonlari
+    
+    title_en = models.CharField(max_length=250, blank=True, null=True)
+    title_ru = models.CharField(max_length=250, blank=True, null=True)
+
+    content_en = models.TextField(blank=True, null=True)
+    content_ru = models.TextField(blank=True, null=True)
+
     image = models.ImageField(upload_to='news/images/', blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='news', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='news')
@@ -59,6 +68,21 @@ class News(models.Model):
     objects = models.Manager()   # Default manager
     published = PublishedManager()  # Custom manager faqat PUBLISHED postlarni qaytaradi
 
+    def get_translated_title(self):
+        lang = translation.get_language()
+        if lang == 'en' and self.title_en:
+            return self.title_en
+        elif lang == 'ru' and self.title_ru:
+            return self.title_ru
+        return self.title  # default uzbekcha
+
+    def get_translated_content(self):
+        lang = translation.get_language()
+        if lang == 'en' and self.content_en:
+            return self.content_en
+        elif lang == 'ru' and self.content_ru:
+            return self.content_ru
+        return self.content  # default uzbekcha
     class Meta:
         ordering = ['-published_at']
 

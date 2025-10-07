@@ -1,6 +1,8 @@
 {% extends 'news/base.html' %}
 {% load static %}
 
+{% load i18n %}
+
 {% block title %}{{ news_item.title }} - NewsFeed{% endblock %}
 
 {% block content %}
@@ -19,7 +21,7 @@
                         <ol class="breadcrumb bg-light p-2 rounded">
                             <li class="breadcrumb-item"><a href="{% url 'news:home' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{% url 'news:category_detail' news_item.category.slug %}">{{ news_item.category.name }}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ news_item.title }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ news_item.get_translated_title }}</li>
                         </ol>
                     </nav>
 
@@ -30,7 +32,7 @@
                     {% endif %}
 
                     <!-- Title -->
-                    <h1 class="mb-3">{{ news_item.title }}</h1>
+                    <h1 class="mb-3">{{ news_item.get_translated_title }}</h1>
 
                     <!-- Post Meta -->
                     <div class="post_meta mb-4 text-muted" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
@@ -55,7 +57,7 @@
 
                     <!-- Content -->
                     <div class="single_page_content" style="line-height: 1.6; font-size: 2 em; color: #333;">
-                        {{ news_item.content|safe }}
+                        {{ news_item.get_translated_content|safe }}
                     </div>
 
                     <!-- Edit/Delete/Back Comment Buttons -->
@@ -96,7 +98,7 @@
                                     💡 Izoh qoldirish uchun 
                                     <a href="{% url 'accounts:login' %}" class="alert-link">login</a> qiling.
                                     Agar hisobingiz bo'lmasa 
-                                    <a href="{% url 'accounts:signup' %}" class="alert-link">ro'yxatdan o'ting</a>.
+                                    <a href="{% url 'accounts:register' %}" class="alert-link">ro'yxatdan o'ting</a>.
                                 </div>
                             {% endif %}
                         {% endif %}
@@ -185,7 +187,7 @@
                                     </a>
                                 {% endif %}
                                 <div class="media-body">
-                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a>
+                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.get_translated_title }}</a>
                                     <div class="post_meta" style="font-size: 12px; color: #999;">
                                         <span>
                                         <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
@@ -222,7 +224,7 @@
                                     {% endif %}
                                 </a>
                                 <div class="media-body">
-                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.title }}</a>
+                                    <a href="{{ item.get_absolute_url }}" class="catg_title">{{ item.get_translated_title }}</a>
                                     <div class="post_meta" style="font-size: 12px; color: #999;">
                                         <span>
                                         <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
@@ -257,7 +259,7 @@
                             <ul>
                                 {% for cat in categories %}
                                 <li class="cat-item">
-                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.name }}</a>
+                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.get_translated_name }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>

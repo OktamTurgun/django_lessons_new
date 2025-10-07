@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %} {{ category.name }} - NewsFeed {% endblock %}
 
@@ -27,7 +28,7 @@
                         <span class="overlay"></span>
                       </a>
                       <figcaption>
-                        <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                        <a href="{{ news_item.get_absolute_url }}">{{ news_item.get_translated_title }}</a>
                         <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
                           <span>
                             <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
@@ -37,7 +38,7 @@
                           </span>
                         </div>
                       </figcaption>
-                      <p>{{ news_item.content|truncatewords:20 }}</p>
+                      <p>{{ news_item.get_translated_content|safe|truncatewords:20 }}</p>
                     </figure>
                   </li>
                 {% endif %}
@@ -58,7 +59,7 @@
                         <img alt="{{ news_item.title }}" src="{{ news_item.image.url }}">
                       </a>
                       <div class="media-body"> 
-                        <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.title }}</a>
+                        <a href="{{ news_item.get_absolute_url }}" class="catg_title">{{ news_item.get_translated_title }}</a>
                         <div class="post_meta" style="margin-top: 5px; font-size: 12px; color: #999;">
                           <span>
                             <i class="fa fa-clock-o"></i> {{ news_item.published_at|date:"d.m.Y H:i" }}
