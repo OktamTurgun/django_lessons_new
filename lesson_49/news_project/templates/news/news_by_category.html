@@ -1,5 +1,8 @@
 {% extends 'news/base.html' %}
 
+{% load static %}
+{% load i18n %}
+
 {% block title %}Category: {{ current_category }}{% endblock %}
 
 {% block content %}
@@ -11,8 +14,8 @@
             {% if news_list %}
                 {% for news in news_list %}
                     <div class="news_item">
-                        <h3><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h3>
-                        <p>{{ news.content|truncatewords:30 }}</p>
+                        <h3><a href="{{ news.get_absolute_url }}">{{ news.get_translated_title }}</a></h3>
+                        <p>{{ news.get_translated_content|safe|truncatewords:30 }}</p>
                         <small>{{ news.published_at|date:"d M Y" }}</small>
                         <hr>
                     </div>
@@ -60,7 +63,7 @@
                 <h2><span>Eng so‘nggi yangiliklar</span></h2>
                 <ul>
                     {% for news in latest_news %}
-                        <li><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></li>
+                        <li><a href="{{ news.get_absolute_url }}">{{ news.get_transated_title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

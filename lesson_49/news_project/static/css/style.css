@@ -936,3 +936,79 @@ form.form .btn-secondary:hover {
   gap: 6px;                             
   font-weight: 500;
 }
+
+/* === Faqat #navArea navbar uchun === */
+#navArea .main_nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* menyular chapdan boshlansin */
+  width: 100%;
+}
+
+#navArea .main_nav .lang-form {
+  margin-left: auto; /* 🔥 o‘ng chekka */
+  display: flex;
+  align-items: center;
+  height: 50px; /* navbar balandligi bilan mos */
+}
+
+#navArea .main_nav .lang-form form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+#navArea .main_nav .nav-lang-select {
+  background-color: #222222; /* navbar foniga mos */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  height: 100%; /* navbar balandligi bilan bir xil */
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover va active holatlar */
+#navArea .main_nav .nav-lang-select:hover,
+#navArea .main_nav .nav-lang-select:focus,
+#navArea .main_nav .nav-lang-select:active,
+#navArea .main_nav .nav-lang-select option:checked {
+  background-color: #D083CF;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+/* === Mobil uchun === */
+@media (max-width: 768px) {
+  #navArea .main_nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #navArea .main_nav .lang-form {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px; /* biroz bo‘sh joy */
+  }
+
+  #navArea .main_nav .nav-lang-select {
+    width: 100%;
+    height: 45px;
+  }
+}
+/* news_detail uchun */
+.alert-info {
+    color: #31708f;
+    background-color: #fff; 
+    border-color: #fff;
+}
+

@@ -20,12 +20,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
+]
+
+urlpatterns += i18n_patterns(
     path("admin/", admin.site.urls),
     path("", include("news_app.urls", namespace="news")),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-]
+)
 
 handler404 = "news_app.views.custom_404_view"
 
