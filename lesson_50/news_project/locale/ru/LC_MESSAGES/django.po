@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-08 09:06+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\templates\news\base.html:34
+msgid "Bosh sahifa"
+msgstr "Главная страница"
+
+#: .\templates\news\base.html:36 .\templates\news\base.html:152
+msgid "Biz bilan aloqa"
+msgstr "Связаться с нами"
+
+#: .\templates\news\base.html:39
+msgid "Admin sahifasi"
+msgstr "Страница администратора"
+
+#: .\templates\news\base.html:153
+msgid "404 sahifa"
+msgstr "Страница 404"
+
+#: .\templates\registration\password_reset_complete.html:5
+msgid "Parol tiklandi"
+msgstr "Пароль восстановлен"
+
+#: .\templates\registration\password_reset_complete.html:8
+msgid "Parol muvaffaqiyatli tiklandi"
+msgstr "Пароль успешно восстановлен"
+
+#: .\templates\registration\password_reset_complete.html:11
+msgid ""
+"Sizning parolingiz muvaffaqiyatli o'zgartirildi. Endi yangi parol bilan "
+"tizimga kirishingiz mumkin."
+msgstr "Ваш пароль был успешно изменён. Теперь вы можете войти с новым паролем."
+
+#: .\templates\registration\password_reset_complete.html:15
+msgid "Tizimga kirish"
+msgstr "Войти в систему"
+
+#: .\templates\registration\password_reset_confirm.html:5
+#: .\templates\registration\password_reset_confirm.html:8
+#: .\templates\registration\password_reset_confirm.html:37
+msgid "Parolni tiklash"
+msgstr "Восстановление пароля"
+
+#: .\templates\registration\password_reset_confirm.html:11
+msgid "Yangi parolni kiritish uchun quyidagi maydonlarni to'ldiring:"
+msgstr "Пожалуйста, заполните поля ниже, чтобы установить новый пароль:"
+
+#: .\templates\registration\password_reset_confirm.html:43
+msgid ""
+"Parolni tiklash havolasi noto'g'ri yoki muddati o'tgan. Iltimos, yangi parol "
+"so'rang."
+msgstr "Ссылка для восстановления пароля недействительна или устарела. Пожалуйста, запросите новую."
+
+#: .\templates\registration\password_reset_confirm.html:46
+msgid "Yangi parol so'rash"
+msgstr "Запросить новый пароль"
+
+#: .\templates\registration\password_reset_email.html:2
+#, python-format
+msgid "Salom %(user.get_username)s,"
+msgstr "Здравствуйте, %(user.get_username)s,"
+
+#: .\templates\registration\password_reset_email.html:4
+msgid ""
+"Parolni qayta tiklash bo‘yicha so‘rov qabul qilindi. Parolingizni quyidagi "
+"havola orqali yangilashingiz mumkin:"
+msgstr "Мы получили запрос на восстановление вашего пароля. Вы можете изменить его по ссылке ниже:"
+
+#: .\templates\registration\password_reset_email.html:8
+msgid ""
+"Agar siz parolni qayta tiklashni so‘ramagan bo‘lsangiz, bu xabarni "
+"e’tiborsiz qoldiring. Sizning profilingiz xavfsizligicha qoladi."
+msgstr "Если вы не запрашивали восстановление пароля, просто проигнорируйте это сообщение. Ваш аккаунт в безопасности."
+
+#: .\templates\registration\password_reset_email.html:10
+msgid "Hurmat bilan,"
+msgstr "С уважением,"

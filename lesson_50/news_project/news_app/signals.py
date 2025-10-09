@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from deep_translator import GoogleTranslator
-from .models import News
+from .models import News, Category
 
 @receiver(post_save, sender=News)
 def auto_translate_news(sender, instance, created, **kwargs):
@@ -34,3 +34,26 @@ def auto_translate_news(sender, instance, created, **kwargs):
     if changed:
         instance.save()
         print("✅ Tarjima saqlandi:", instance.title)
+
+# --- CATEGORY TRANSLATION ---
+@receiver(post_save, sender=Category)
+def auto_tarnslate_category(snder, instance, created, **kwargs):
+    if not created:
+        return
+    changed = False
+    try:
+        print("🟢 Tarjima jarayoni boshlandi (Category):", instance.name)
+
+        if not instance.name_en:
+            instance.name_en = GoogleTranslator(source='uz', target='en').translate(instance.name)
+            changed = True
+        if not instance.name_ru:
+            instance.name_ru = GoogleTranslator(source='uz', target='ru').translate(instance.name)
+            changed = True
+
+    except Exception as e:
+        print(f"❌ Tarjima xatosi (Category): {e}")
+
+    if changed:
+        instance.save()
+        print("✅ Tarjima saqlandi (Category):", instance.name)

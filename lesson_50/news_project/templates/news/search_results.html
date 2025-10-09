@@ -46,14 +46,14 @@
                                     {{ item.title }}
                                 </a>
                             </h4>
-                            <p class="text-muted">{{ item.content|truncatechars:120 }}</p>
+                            <p class="text-muted">{{ item.get_translated_content|truncatechars:120 }}</p>
                         </div>
 
                         <!-- 📅 Sana, 👤 Muallif va 🏷 Kategoriya -->
                         <div class="panel-footer small text-muted">
                             <span><i class="fa fa-user"></i> {{ item.author }}</span> | 
                             <span><i class="fa fa-calendar"></i> {{ item.published_at|date:"d M Y" }}</span> | 
-                            <span><i class="fa fa-tag"></i> {{ item.category.name }}</span>
+                            <span><i class="fa fa-tag"></i> {{ item.category.get_translate_name }}</span>
                         </div>
                     </div>
                 </div>

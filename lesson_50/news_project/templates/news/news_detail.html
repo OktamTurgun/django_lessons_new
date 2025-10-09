@@ -20,7 +20,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-light p-2 rounded">
                             <li class="breadcrumb-item"><a href="{% url 'news:home' %}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{% url 'news:category_detail' news_item.category.slug %}">{{ news_item.category.name }}</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'news:category_detail' news_item.category.slug %}">{{ news_item.category.get_translate_name }}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ news_item.get_translated_title }}</li>
                         </ol>
                     </nav>
@@ -38,7 +38,7 @@
                     <div class="post_meta mb-4 text-muted" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                         <span class="me-3"><i class="fa fa-user"></i> {{ news_item.author }}</span>
                         <span class="me-3"><i class="fa fa-calendar"></i> {{ news_item.published_at|date:"F d, Y" }}</span>
-                        <span><i class="fa fa-tags"></i> {{ news_item.category.name }}</span>
+                        <span><i class="fa fa-tags"></i> {{ news_item.category.get_translate_name }}</span>
                         <span class="views-count">
                             <i class="fa-solid fa-eye"></i>
                             {{ news_item.views }}
@@ -259,7 +259,7 @@
                             <ul>
                                 {% for cat in categories %}
                                 <li class="cat-item">
-                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.get_translated_name }}</a>
+                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.get_translate_name }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -277,7 +277,7 @@
                                             {% endif %}
                                         </a>
                                         <div class="media-body">
-                                            <a href="{{ comment.news.get_absolute_url }}" class="catg_title">{{ comment.news.title }}</a>
+                                            <a href="{{ comment.news.get_absolute_url }}" class="catg_title">{{ comment.news.get_translated_title }}</a>
                                         </div>
                                     </div>
                                 </li>

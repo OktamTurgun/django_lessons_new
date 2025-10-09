@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %} {{ category.name }} - NewsFeed {% endblock %}
+{% block title %} {{ category.get_translate_name }} - NewsFeed {% endblock %}
 
 {% block content %}
 <section id="contentSection">
@@ -16,7 +16,7 @@
             <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
         {% endif %}
         <div class="single_post_content">
-          <h2><span>{{ category.name }}</span></h2>
+          <h2><span>{{ category.get_translate_name }}</span></h2>
           <div class="single_post_content_left">
             <ul class="business_catgnav wow fadeInDown">
               {% for news_item in news_list %}
@@ -131,7 +131,7 @@
           <select class="catgArchive">
             <option>Categoriyani tanlang</option>
             {% for cat in categories %}
-              <option>{{ cat.name }}</option>
+              <option>{{ cat.get_translate_name }}</option>
             {% endfor %}
           </select>
         </div>
