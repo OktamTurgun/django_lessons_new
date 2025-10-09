@@ -259,7 +259,7 @@
                             <ul>
                                 {% for cat in categories %}
                                 <li class="cat-item">
-                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.get_translated_name }}</a>
+                                    <a href="{% url 'news:category_detail' cat.slug %}">{{ cat.get_translate_name }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
