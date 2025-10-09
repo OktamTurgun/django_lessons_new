@@ -10,6 +10,9 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
 
+    name_en = models.CharField(max_length=100, blank=True, null=True)
+    name_ru = models.CharField(max_length=100, blank=True, null=True)
+
     class Meta:
         verbose_name_plural = 'Categories'
 
@@ -24,6 +27,15 @@ class Category(models.Model):
     
     def get_absolute_url(self):
         return reverse("news:category_detail", kwargs={"slug": self.slug})
+    
+    def get_translate_name(self):
+        from django.utils import translation
+        lang = translation.get_language()
+        if lang == "en" and self.name_en:
+            return self.name_en
+        elif lang == "ru" and self.name_ru:
+            return self.name_ru
+        return self.name
 
 
 # Custom Manager (PublishedManager) ni tashqarida aniqlaymiz

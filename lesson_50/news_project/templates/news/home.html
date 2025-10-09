@@ -43,7 +43,7 @@
                     <!-- Category va Views -->
                     <div class="post_meta text-muted small mt-1 d-flex align-items-center gap-2">
                       <span>
-                        {{ item.category.name }}
+                        {{ item.category.get_translate_name }}
                       </span>
                       <span class="views-count">
                         <i class="fa-solid fa-eye me-1"></i> {{ item.views }}
@@ -369,7 +369,7 @@
               <div role="tabpanel" class="tab-pane active" id="category">
                 <ul>
                   {% for cat in categories %}
-                  <li class="cat-item"><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                  <li class="cat-item"><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
                   {% endfor %}
                 </ul>
               </div>
@@ -412,7 +412,7 @@
             <select class="catgArchive">
               <option>Categoriyani tanlang</option>
                 {% for cat in categories %}
-                  <option>{{ cat.name }}</option>
+                  <option>{{ cat.get_translate_name }}</option>
                 {% endfor %}
             </select>
           </div>

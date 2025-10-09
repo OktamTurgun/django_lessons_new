@@ -31,12 +31,12 @@
                 <div class="header_top">
                     <div class="header_top_left">
                         <ul class="top_nav">
-                            <li><a href="{% url 'news:home' %}">Bosh sahifa</a></li>
-                            <li><a href="{% url 'news:about' %}">Biz haqimizda</a></li>
-                            <li><a href="{% url 'news:contact' %}">Biz bilan aloqa</a></li>
+                            <li><a href="{% url 'news:home' %}">{% trans "Bosh sahifa" %}</a></li>
+                            <li><a href="{% url 'news:about' %}">{% trans "Biz haqimizda" %}</a></li>
+                            <li><a href="{% url 'news:contact' %}">{% trans "Biz bilan aloqa" %}</a></li>
                             {% if user.is_staff %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'accounts:admin_page' %}">Admin sahifasi</a>
+                                <a class="nav-link" href="{% url 'accounts:admin_page' %}">{% trans "Admin sahifasi" %}</a>
                             </li>
                             {% endif %}
                         </ul>
@@ -146,11 +146,11 @@
                     </li>
 
                     {% for cat in categories %}
-                        <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                        <li><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
                     {% endfor %}
 
-                    <li><a href="{% url 'news:contact' %}">Biz bilan aloqa</a></li>
-                    <li><a href="{% url 'news:404' %}">404 Sahifa</a></li>
+                    <li><a href="{% url 'news:contact' %}">{% trans "Biz bilan aloqa" %}</a></li>
+                    <li><a href="{% url 'news:404' %}">{% trans "404 sahifa" %}</a></li>
                     <li class="lang-form" style="list-style:none;">
                         <form action="{% url 'set_language' %}" method="post" class="lang-form" style="margin:0;">
                             {% csrf_token %}
@@ -175,7 +175,7 @@
                 <div class="latest_newsarea"> <span>So'nggi yangiliklar</span>
                     <ul id="ticker01" class="news_sticker">
                         {% for news in latest_news %}
-                        <li><a href="{{ news.get_absolute_url }}"><img src="{{ news.image.url }}" alt="News thumbnail">{{ news.title }}</a></li>
+                        <li><a href="{{ news.get_absolute_url }}"><img src="{{ news.image.url }}" alt="News thumbnail">{{ news.get_translated_title }}</a></li>
                         {% endfor %}
                     </ul>
                     <div class="social_area">
@@ -213,7 +213,7 @@
                         <h2>Teglar</h2>
                         <ul class="tag_nav">
                             {% for cat in categories %}
-                            <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                            <li><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
