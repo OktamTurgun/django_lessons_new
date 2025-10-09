@@ -412,7 +412,7 @@
             <select class="catgArchive">
               <option>Categoriyani tanlang</option>
                 {% for cat in categories %}
-                  <option>{{ cat.name }}</option>
+                  <option>{{ cat.get_translate_name }}</option>
                 {% endfor %}
             </select>
           </div>

@@ -1,8 +1,10 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from deep_translator import GoogleTranslator
-from .models import News
+from .models import News, Category
 
+
+# --- NEWS TRANSLATION ---
 @receiver(post_save, sender=News)
 def auto_translate_news(sender, instance, created, **kwargs):
     if not created:
@@ -34,3 +36,5 @@ def auto_translate_news(sender, instance, created, **kwargs):
     if changed:
         instance.save()
         print("✅ Tarjima saqlandi:", instance.title)
+
+             

@@ -106,7 +106,7 @@
             <div role="tabpanel" class="tab-pane active" id="category">
               <ul>
                 {% for cat in categories %}
-                  <li class="cat-item"><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                  <li class="cat-item"><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
                 {% endfor %}
               </ul>
             </div>
@@ -131,7 +131,7 @@
           <select class="catgArchive">
             <option>Categoriyani tanlang</option>
             {% for cat in categories %}
-              <option>{{ cat.name }}</option>
+              <option>{{ cat.get_translate_name }}</option>
             {% endfor %}
           </select>
         </div>

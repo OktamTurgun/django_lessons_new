@@ -53,7 +53,7 @@
                 <ul>
                     {% for cat in categories %}
                         <li class="cat-item">
-                            <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                            <a href="{{ cat.get_absolute_url }}">{{ cat.get_transated_name }}</a>
                         </li>
                     {% endfor %}
                 </ul>

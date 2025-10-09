@@ -146,7 +146,7 @@
                     </li>
 
                     {% for cat in categories %}
-                        <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                        <li><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
                     {% endfor %}
 
                     <li><a href="{% url 'news:contact' %}">Biz bilan aloqa</a></li>
@@ -175,7 +175,7 @@
                 <div class="latest_newsarea"> <span>So'nggi yangiliklar</span>
                     <ul id="ticker01" class="news_sticker">
                         {% for news in latest_news %}
-                        <li><a href="{{ news.get_absolute_url }}"><img src="{{ news.image.url }}" alt="News thumbnail">{{ news.title }}</a></li>
+                        <li><a href="{{ news.get_absolute_url }}"><img src="{{ news.image.url }}" alt="News thumbnail">{{ news.get_translate_title }}</a></li>
                         {% endfor %}
                     </ul>
                     <div class="social_area">
@@ -213,7 +213,7 @@
                         <h2>Teglar</h2>
                         <ul class="tag_nav">
                             {% for cat in categories %}
-                            <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                            <li><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
