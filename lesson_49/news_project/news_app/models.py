@@ -24,6 +24,7 @@ class Category(models.Model):
     
     def get_absolute_url(self):
         return reverse("news:category_detail", kwargs={"slug": self.slug})
+    
 
 
 # Custom Manager (PublishedManager) ni tashqarida aniqlaymiz

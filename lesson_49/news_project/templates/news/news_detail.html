@@ -38,7 +38,7 @@
                     <div class="post_meta mb-4 text-muted" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                         <span class="me-3"><i class="fa fa-user"></i> {{ news_item.author }}</span>
                         <span class="me-3"><i class="fa fa-calendar"></i> {{ news_item.published_at|date:"F d, Y" }}</span>
-                        <span><i class="fa fa-tags"></i> {{ news_item.category.name }}</span>
+                        <span><i class="fa fa-tags"></i> {{ news_item.category.get_translate_name }}</span>
                         <span class="views-count">
                             <i class="fa-solid fa-eye"></i>
                             {{ news_item.views }}
