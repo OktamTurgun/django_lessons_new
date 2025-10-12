@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 16:34+0500\n"
+"POT-Creation-Date: 2025-10-12 07:56+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\news\base.html:34
+#: .\templates\news\base.html:34 .\templates\news\base.html:144
 msgid "Bosh sahifa"
 msgstr "Home"
 
@@ -27,6 +27,7 @@ msgid "Biz haqimizda"
 msgstr "About us"
 
 #: .\templates\news\base.html:36 .\templates\news\base.html:152
+#: .\templates\news\base.html:223
 msgid "Biz bilan aloqa"
 msgstr "Contact us"
 
@@ -38,9 +39,102 @@ msgstr "Admin page"
 msgid "404 sahifa"
 msgstr "404 Page"
 
-#: .\templates\news\home.html:30
+#: .\templates\news\base.html:175 .\templates\news\home.html:30
 msgid "So'nggi yangiliklar"
 msgstr "Latest news"
+
+#: .\templates\news\base.html:213
+msgid "Teglar"
+msgstr "Tegs"
+
+#: .\templates\news\base.html:224
+msgid "Agar savol yoki takliflaringiz bo'lsa biz bilan bog'laning."
+msgstr "Please contact us if you have any questions or suggestions."
+
+#: .\templates\news\base.html:226
+msgid "Email:"
+msgstr "Email:"
+
+#: .\templates\news\base.html:228
+msgid "Manzil:"
+msgstr "Address:"
+
+#: .\templates\news\base.html:228
+msgid "Toshkent shahri, Chilonzor tumani, 12-uy"
+msgstr "Tashkent city, Chilanzar district, house 12"
+
+#: .\templates\news\base.html:230
+msgid "Telefon:"
+msgstr "Phone"
+
+#: .\templates\news\base.html:241
+msgid "Copyright © 2025"
+msgstr "Copyright © 2025"
+
+#: .\templates\news\base.html:243
+msgid "Barcha huquqlar himoyalangan."
+msgstr "All rights reserved."
+
+#: .\templates\news\base.html:249
+msgid "Developed By "
+msgstr "Developed By "
+
+#: .\templates\news\base.html:254
+msgid "Maxfiylik siyosati"
+msgstr "Privacy Policy"
+
+#: .\templates\news\base.html:256
+msgid "Foydalanish shartlari"
+msgstr "Terms of use"
+
+#: .\templates\news\base.html:258
+msgid "Aloqa"
+msgstr "Communication"
+
+#: .\templates\news\category_detail.html:14
+#: .\templates\news\category_detail.html:16
+#: .\templates\news\news_detail.html:29 .\templates\news\news_detail.html:31
+
+msgid " Yangi Yangilik Qo'shish"
+msgstr "Add News"
+
+#: .\templates\news\category_detail.html:46
+msgid "Bu kategoriyada yangiliklar mavjud emas."
+msgstr "There are no news in this category."
+
+#: .\templates\news\category_detail.html:86 .\templates\news\home.html:339
+msgid "Ommabop"
+msgstr "Popular"
+
+#: .\templates\news\category_detail.html:92
+msgid "Mashhur yangilik namunasi"
+msgstr "Popular news example"
+
+#: .\templates\news\category_detail.html:101
+#, fuzzy
+#| msgid "Categoriyani tanlang"
+msgid "Kategoriya"
+msgstr "Select a category"
+
+#: .\templates\news\category_detail.html:102
+msgid "Video"
+msgstr "Video"
+
+#: .\templates\news\category_detail.html:103
+msgid "Izohlar"
+msgstr "Comments"
+
+#: .\templates\news\category_detail.html:119
+msgid "Izohlar bo‘limi tez orada qo‘shiladi."
+msgstr "The comments section will be added soon."
+
+#: .\templates\news\category_detail.html:130 .\templates\news\home.html:412
+msgid "Barcha yangiliklar"
+msgstr "All news"
+
+#: .\templates\news\category_detail.html:132 .\templates\news\home.html:414
+msgid "Categoriyani tanlang"
+msgstr "Select a category"
 
 #: .\templates\news\home.html:74
 msgid "Mahalliy"
@@ -58,21 +152,53 @@ msgstr "Technology"
 msgid "Sport"
 msgstr "Sport"
 
-#: .\templates\news\home.html:339
-msgid "Ommabop"
-msgstr "Popular"
-
-#: .\templates\news\home.html:412
-msgid "Barcha yangiliklar"
-msgstr "All news"
-
-#: .\templates\news\home.html:414
-msgid "Categoriyani tanlang"
-msgstr "Select a category"
-
 #: .\templates\news\home.html:421
 msgid "Havolalar"
 msgstr "Links"
+
+#: .\templates\news\news_detail.html:67
+msgid "✏️ Tahrirlash"
+msgstr "✏️ Edit"
+
+#: .\templates\news\news_detail.html:70
+msgid "🗑 O'chirish"
+msgstr "🗑 Delete"
+
+#: .\templates\news\news_detail.html:73
+msgid " Orqaga"
+msgstr " Back"
+
+#: .\templates\news\news_detail.html:81 .\templates\news\news_detail.html:93
+msgid "Izoh qoldirish"
+msgstr "Leave a comment"
+
+#: .\templates\news\news_detail.html:98
+msgid "💡 Izoh qoldirish uchun "
+msgstr "💡 To leave a comment"
+
+#: .\templates\news\news_detail.html:100
+msgid "Agar hisobingiz bo'lmasa "
+msgstr "If you don't have an account"
+
+#: .\templates\news\news_detail.html:101
+msgid "ro'yxatdan o'ting"
+msgstr "register"
+
+#: .\templates\news\news_detail.html:112
+msgid "Izoh qoldiring"
+msgstr "Leave a comment"
+
+#: .\templates\news\news_detail.html:132
+msgid "Yuborish"
+msgstr "Sending"
+
+#: .\templates\news\news_detail.html:135
+msgid "Bekor qilish"
+msgstr "Cancellation"
+
+#: .\templates\news\news_detail.html:163
+msgid "Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!"
+msgstr "There are no comments yet. Be the first to comment!"
 
 #: .\templates\registration\password_reset_complete.html:5
 msgid "Parol tiklandi"

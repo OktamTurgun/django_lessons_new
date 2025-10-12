@@ -11,9 +11,9 @@
     <div class="col-lg-8 col-md-8 col-sm-8">
       <div class="left_content">
         {% if request.user.is_authenticated and request.user.is_staff %}
-            <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+            <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3">{% trans " Yangi Yangilik Qo'shish" %}</a>
         {% elif request.user.is_authenticated and request.user.is_superuser %}
-            <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+            <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3">{% trans " Yangi Yangilik Qo'shish" %}</a>
         {% endif %}
         <div class="single_post_content">
           <h2><span>{{ category.get_translate_name }}</span></h2>
@@ -43,7 +43,7 @@
                   </li>
                 {% endif %}
               {% empty %}
-                <p>Bu kategoriyada yangiliklar mavjud emas.</p>
+                <p>{% trans "Bu kategoriyada yangiliklar mavjud emas." %}</p>
               {% endfor %}
             </ul>
           </div>
@@ -83,13 +83,13 @@
     <div class="col-lg-4 col-md-4 col-sm-4">
       <aside class="right_content">
         <div class="single_sidebar">
-          <h2><span>Ommabop</span></h2>
+          <h2><span>{% trans "Ommabop" %}</span></h2>
           <ul class="spost_nav">
             <li>
               <div class="media wow fadeInDown">
                 <a href="#" class="media-left"><img src="{% static 'images/post_img1.jpg' %}" alt=""></a>
                 <div class="media-body">
-                  <a href="#" class="catg_title">Mashhur yangilik namunasi</a>
+                  <a href="#" class="catg_title">{% trans "Mashhur yangilik namunasi" %}</a>
                 </div>
               </div>
             </li>
@@ -98,9 +98,9 @@
 
         <div class="single_sidebar">
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
-            <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>
-            <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Izohlar</a></li>
+            <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">{% trans "Kategoriya" %}</a></li>
+            <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">{% trans "Video" %}</a></li>
+            <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">{% trans "Izohlar" %}</a></li>
           </ul>
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="category">
@@ -116,7 +116,7 @@
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="comments">
-              <p>Izohlar bo‘limi tez orada qo‘shiladi.</p>
+              <p>{% trans "Izohlar bo‘limi tez orada qo‘shiladi." %}</p>
             </div>
           </div>
         </div>
@@ -127,9 +127,9 @@
         </div>
 
         <div class="single_sidebar wow fadeInDown">
-          <h2><span>Barcha yangiliklar</span></h2>
+          <h2><span>{% trans "Barcha yangiliklar" %}</span></h2>
           <select class="catgArchive">
-            <option>Categoriyani tanlang</option>
+            <option>{% trans "Categoriyani tanlang" %}</option>
             {% for cat in categories %}
               <option>{{ cat.get_translate_name }}</option>
             {% endfor %}
