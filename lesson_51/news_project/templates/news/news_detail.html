@@ -26,9 +26,9 @@
                     </nav>
 
                     {% if request.user.is_authenticated and request.user.is_staff %}
-                        <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+                        <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3">{% trans " Yangi Yangilik Qo'shish" %}</a>
                     {% elif request.user.is_authenticated and request.user.is_superuser %}
-                        <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3"> Yangi Yangilik Qo'shish</a>
+                        <a href="{% url 'news:news_create' %}" class="btn btn-purple mb-3">{% trans " Yangi Yangilik Qo'shish" %}</a>
                     {% endif %}
 
                     <!-- Title -->
@@ -64,13 +64,13 @@
                     {% if request.user == news_item.author or request.user.is_superuser %}
                         <div class="my-4">
                             <a href="{% url 'news:news_edit' news_item.pk %}" class="btn btn-sm btn-warning me-2">
-                                ✏️ Tahrirlash
+                                {% trans "✏️ Tahrirlash" %}
                             </a>
                             <a href="{% url 'news:news_delete' news_item.pk %}" class="btn btn-sm btn-danger me-2">
-                                🗑 O'chirish
+                                {% trans "🗑 O'chirish" %}
                             </a>
                             <a href="{% url 'news:home' %}" class="btn btn-sm btn-secondary">
-                                <i class="fa-solid fa-backward"></i> Orqaga
+                                <i class="fa-solid fa-backward"></i>{% trans " Orqaga" %}
                             </a>
 
                             <!-- faqat admin va staff uchun tugma -->
@@ -78,7 +78,7 @@
                                 <button class="btn btn-sm btn-primary"
                                         id="toggle-comment-form-admin"
                                         style="background-color: #D083CF; border-color: #D083CF; outline: none;">
-                                    <i class="fa-regular fa-comment"></i> {{ comments.count }} Izoh qoldirish
+                                    <i class="fa-regular fa-comment"></i> {{ comments.count }} {% trans "Izoh qoldirish" %}
                                 </button>
                             {% endif %}
                         </div>
@@ -90,15 +90,15 @@
                             <button class="btn btn-sm btn-primary"
                                     id="toggle-comment-form-user"
                                     style="background-color: #D083CF; border-color: #D083CF; outline: none;">
-                                <i class="fa-regular fa-comment"></i> {{ comments.count }} Izoh qoldirish
+                                <i class="fa-regular fa-comment"></i> {{ comments.count }} {% trans "Izoh qoldirish" %}
                             </button>
                         {% else %}
                             {% if not request.user.is_authenticated %}
                                 <div class="alert alert-info mt-4">
-                                    💡 Izoh qoldirish uchun 
+                                    {% trans "💡 Izoh qoldirish uchun " %}
                                     <a href="{% url 'accounts:login' %}" class="alert-link">login</a> qiling.
-                                    Agar hisobingiz bo'lmasa 
-                                    <a href="{% url 'accounts:register' %}" class="alert-link">ro'yxatdan o'ting</a>.
+                                    {% trans "Agar hisobingiz bo'lmasa " %}
+                                    <a href="{% url 'accounts:register' %}" class="alert-link">{% trans "ro'yxatdan o'ting" %}</a>.
                                 </div>
                             {% endif %}
                         {% endif %}
@@ -109,7 +109,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <h4 class="card-title mb-3">
-                                    <i class="fa-regular fa-comment-dots"></i> Izoh qoldiring
+                                    <i class="fa-regular fa-comment-dots"></i> {% trans "Izoh qoldiring" %}
                                 </h4>
                                 <form method="POST">
                                     {% csrf_token %}
@@ -129,10 +129,10 @@
                                         {% endfor %}
                                     </div>
                                     <button type="submit" class="btn btn-primary" style="background-color: #D083CF; border-color: #D083CF;">
-                                        <i class="fa-solid fa-paper-plane"></i> Yuborish
+                                        <i class="fa-solid fa-paper-plane"></i> {% trans "Yuborish" %}
                                     </button>
                                     <button type="button" class="btn btn-secondary" onclick="document.getElementById('comment-form-wrapper').style.display='none'">
-                                        <i class="fa-solid fa-xmark"></i> Bekor qilish
+                                        <i class="fa-solid fa-xmark"></i> {% trans "Bekor qilish" %}
                                     </button>
                                 </form>
                             </div>
@@ -160,7 +160,7 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <p class="text-muted fst-italic">Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!</p>
+                            <p class="text-muted fst-italic">{% trans "Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!" %}</p>
                         {% endif %}
                     </div>
                     

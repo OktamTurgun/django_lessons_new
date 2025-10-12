@@ -141,7 +141,7 @@
                     <li class="active">
                         <a href="{% url 'news:home' %}">
                         <span class="fa fa-home desktop-home"></span>
-                        <span class="mobile-show">Bosh sahifa</span>
+                        <span class="mobile-show">{% trans "Bosh sahifa" %}</span>
                         </a>
                     </li>
 
@@ -172,7 +172,7 @@
     <section id="newsSection">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                <div class="latest_newsarea"> <span>So'nggi yangiliklar</span>
+                <div class="latest_newsarea"> <span>{% trans "So'nggi yangiliklar" %}</span>
                     <ul id="ticker01" class="news_sticker">
                         {% for news in latest_news %}
                         <li><a href="{{ news.get_absolute_url }}"><img src="{{ news.image.url }}" alt="News thumbnail">{{ news.get_translated_title }}</a></li>
@@ -210,7 +210,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="footer_widget wow fadeInDown">
-                        <h2>Teglar</h2>
+                        <h2>{% trans "Teglar" %}</h2>
                         <ul class="tag_nav">
                             {% for cat in categories %}
                             <li><a href="{{ cat.get_absolute_url }}">{{ cat.get_translate_name }}</a></li>
@@ -220,14 +220,14 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="footer_widget wow fadeInRightBig">
-                        <h2>Biz bilan aloqa</h2>
-                        <p>Agar savol yoki takliflaringiz bo'lsa biz bilan bog'laning.</p>
+                        <h2>{% trans "Biz bilan aloqa" %}</h2>
+                        <p>{% trans "Agar savol yoki takliflaringiz bo'lsa biz bilan bog'laning." %}</p>
                         <address>
-                            <strong>Email:</strong> info@uktamdev.uz
+                            <strong>{% trans "Email:" %}</strong> info@uktamdev.uz
                             <br>
-                            <strong>Manzil:</strong> Toshkent shahri, Chilonzor tumani, 12-uy
+                            <strong>{% trans "Manzil:" %}</strong>{% trans "Toshkent shahri, Chilonzor tumani, 12-uy" %}
                             <br>
-                            <strong>Telefon:</strong> +998 90 123 45 67
+                            <strong>{% trans "Telefon:" %}</strong> +998 90 123 45 67
                         </address>
                     </div>
                 </div>
@@ -237,18 +237,25 @@
             <div class="container">
                 <div class="footer-row">
                     <div class="footer-col">
-                        <p class="copyright">Copyright &copy; 2025 <a href="{% url 'news:home' %}">UktamDev</a>. Barcha huquqlar himoyalangan.</p>
+                        <p class="copyright">
+                            {% trans "Copyright © 2025" %}
+                            <a href="{% url 'news:home' %}">UktamDev</a>.
+                             {% trans "Barcha huquqlar himoyalangan." %}
+                        </p>
                     </div>
                     <div class="footer-col">
-                        <p class="developer">Developed By <a href="https://wpfreeware.com/" target="_blank">Wpfreeware</a></p>
+                        <p class="developer">
+                            
+                                {% trans "Developed By " %}<a href="https://wpfreeware.com/" target="_blank">Wpfreeware</a>
+                        </p>
                     </div>
                     <div class="footer-col">
                         <div class="footer-links">
-                            <a href="#">Maxfiylik siyosati</a>
+                            <a href="#">{% trans "Maxfiylik siyosati" %}</a>
                             <span>|</span>
-                            <a href="#">Foydalanish shartlari</a>
+                            <a href="#">{% trans "Foydalanish shartlari" %}</a>
                             <span>|</span>
-                            <a href="{% url 'news:contact' %}">Aloqa</a>
+                            <a href="{% url 'news:contact' %}">{% trans "Aloqa" %}</a>
                         </div>
                     </div>
                 </div>
