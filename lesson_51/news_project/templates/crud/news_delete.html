@@ -1,0 +1,16 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Yangilikni o'chirish {% endblock title %}
+
+{% block content %}
+  <div class="container my-4">
+    <h2 class="mb-3">🗑 O'chirishni tasdiqlash</h2>
+    <p>Xaqiqattan ham "<strong>{{ object.title }}</strong>" yangilikni o‘chirmoqchimisiz?</p>
+    <form method="post" class="mt-3">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Ha, o'chir</button>
+      <a href="{{ news.get_absolute_url }}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+  </div>
+{% endblock content %}
