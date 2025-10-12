@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 09:06+0500\n"
+"POT-Creation-Date: 2025-10-11 16:34+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,9 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
 #: .\templates\news\base.html:34
 msgid "Bosh sahifa"
 msgstr "Главная страница"
+
+#: .\templates\news\base.html:35
+msgid "Biz haqimizda"
+msgstr ""
 
 #: .\templates\news\base.html:36 .\templates\news\base.html:152
 msgid "Biz bilan aloqa"
@@ -35,6 +40,42 @@ msgstr "Страница администратора"
 msgid "404 sahifa"
 msgstr "Страница 404"
 
+#: .\templates\news\home.html:30
+msgid "So'nggi yangiliklar"
+msgstr ""
+
+#: .\templates\news\home.html:74
+msgid "Mahalliy"
+msgstr ""
+
+#: .\templates\news\home.html:133
+msgid "Xorij"
+msgstr ""
+
+#: .\templates\news\home.html:188
+msgid "Texnologiya"
+msgstr ""
+
+#: .\templates\news\home.html:278
+msgid "Sport"
+msgstr ""
+
+#: .\templates\news\home.html:339
+msgid "Ommabop"
+msgstr ""
+
+#: .\templates\news\home.html:412
+msgid "Barcha yangiliklar"
+msgstr ""
+
+#: .\templates\news\home.html:414
+msgid "Categoriyani tanlang"
+msgstr ""
+
+#: .\templates\news\home.html:421
+msgid "Havolalar"
+msgstr ""
+
 #: .\templates\registration\password_reset_complete.html:5
 msgid "Parol tiklandi"
 msgstr "Пароль восстановлен"
@@ -47,7 +88,8 @@ msgstr "Пароль успешно восстановлен"
 msgid ""
 "Sizning parolingiz muvaffaqiyatli o'zgartirildi. Endi yangi parol bilan "
 "tizimga kirishingiz mumkin."
-msgstr "Ваш пароль был успешно изменён. Теперь вы можете войти с новым паролем."
+msgstr ""
+"Ваш пароль был успешно изменён. Теперь вы можете войти с новым паролем."
 
 #: .\templates\registration\password_reset_complete.html:15
 msgid "Tizimga kirish"
@@ -67,7 +109,9 @@ msgstr "Пожалуйста, заполните поля ниже, чтобы �
 msgid ""
 "Parolni tiklash havolasi noto'g'ri yoki muddati o'tgan. Iltimos, yangi parol "
 "so'rang."
-msgstr "Ссылка для восстановления пароля недействительна или устарела. Пожалуйста, запросите новую."
+msgstr ""
+"Ссылка для восстановления пароля недействительна или устарела. Пожалуйста, "
+"запросите новую."
 
 #: .\templates\registration\password_reset_confirm.html:46
 msgid "Yangi parol so'rash"
@@ -82,13 +126,17 @@ msgstr "Здравствуйте, %(user.get_username)s,"
 msgid ""
 "Parolni qayta tiklash bo‘yicha so‘rov qabul qilindi. Parolingizni quyidagi "
 "havola orqali yangilashingiz mumkin:"
-msgstr "Мы получили запрос на восстановление вашего пароля. Вы можете изменить его по ссылке ниже:"
+msgstr ""
+"Мы получили запрос на восстановление вашего пароля. Вы можете изменить его "
+"по ссылке ниже:"
 
 #: .\templates\registration\password_reset_email.html:8
 msgid ""
 "Agar siz parolni qayta tiklashni so‘ramagan bo‘lsangiz, bu xabarni "
 "e’tiborsiz qoldiring. Sizning profilingiz xavfsizligicha qoladi."
-msgstr "Если вы не запрашивали восстановление пароля, просто проигнорируйте это сообщение. Ваш аккаунт в безопасности."
+msgstr ""
+"Если вы не запрашивали восстановление пароля, просто проигнорируйте это "
+"сообщение. Ваш аккаунт в безопасности."
 
 #: .\templates\registration\password_reset_email.html:10
 msgid "Hurmat bilan,"
