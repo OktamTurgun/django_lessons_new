@@ -1,6 +1,7 @@
 {% extends "news/base.html" %}
 
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="container-fluid my-5">
@@ -9,9 +10,9 @@
     <div class="row mb-4">
         <div class="col-md-8 col-md-offset-2">
             <form method="get" action="{% url 'news:search' %}" class="input-group">
-                <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Qidiruv...">
+                <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="{% trans 'Qidiruv...' %}">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary search-btn" type="submit">Qidirish</button>
+                    <button class="btn btn-primary search-btn" type="submit">{% trans "Qidirish" %}</button>
                 </span>
             </form>
 
@@ -20,7 +21,15 @@
 
     <!-- 📌 Qidiruv natijalari sarlavhasi -->
     <h3 class="text-center mb-4">
-        Qidiruv natijalari{% if query %}: "{{ query }}"{% endif %}
+        {% if query %}
+            {% blocktrans with search=query %}
+                Qidiruv natijalari: "{{ search }}"
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans %}
+                Qidiruv natijalari
+            {% endblocktrans %}
+        {% endif %}
     </h3>
 
     {% if results %}
@@ -66,7 +75,7 @@
             <ul class="pagination">
                 {% if results.has_previous %}
                 <!-- <li><a href="?q={{ query }}&page={{ results.previous_page_number }}">« Oldingi</a></li> -->
-                <li><a href="?{{ querystring }}&page={{ results.previous_page_number }}">« Oldingi</a></li>
+                <li><a href="?{{ querystring }}&page={{ results.previous_page_number }}">« {% trans "Oldingi" %}</a></li>
                 {% endif %}
 
                 {% for num in results.paginator.page_range %}
@@ -80,7 +89,7 @@
 
                 {% if results.has_next %}
                 <!-- <li><a href="?q={{ query }}&page={{ results.next_page_number }}">Keyingi »</a></li> -->
-                <li><a href="?{{ querystring }}&page={{ results.next_page_number }}">Keyingi »</a></li>
+                <li><a href="?{{ querystring }}&page={{ results.next_page_number }}">{% trans "Keyingi" %} »</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -91,10 +100,10 @@
             <div class="empty-state-icon mb-4">
                 <i class="fa-solid fa-search fs-1 icon-search"></i>
             </div>
-            <h4 class="fw-semibold text-dark mb-2">Hech narsa topilmadi</h4>
+            <h4 class="fw-semibold text-dark mb-2">{% trans "Hech narsa topilmadi" %}</h4>
             <p class="text-muted mb-0">
-                Qidiruv natijasi bo'yicha ma'lumot mavjud emas.<br>
-                Iltimos, boshqa kalit so'zlardan foydalanib ko'ring.
+                {% trans "Qidiruv natijasi bo'yicha ma'lumot mavjud emas." %}<br>
+                {% trans "Iltimos, boshqa kalit so'zlardan foydalanib ko'ring." %}
             </p>
         </div>
     {% endif %}
