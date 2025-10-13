@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-12 07:56+0500\n"
+"POT-Creation-Date: 2025-10-13 07:16+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,36 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: .\templates\news\about.html:13
+#, fuzzy
+#| msgid "Biz haqimizda"
+msgid "Biz Haqimizda"
+msgstr "О нас"
+
+#: .\templates\news\about.html:23
+msgid "Bizning Missiyamiz"
+msgstr ""
+
+#: .\templates\news\about.html:30
+msgid "Bizning Jamoamiz"
+msgstr ""
+
+#: .\templates\news\about.html:60
+msgid "Bizning Jamoa"
+msgstr ""
+
+#: .\templates\news\about.html:104
+#, fuzzy
+#| msgid "Mashhur yangilik namunasi"
+msgid "Eng Mashhur Yangilik 1"
+msgstr "Пример популярных новостей"
+
+#: .\templates\news\about.html:114
+#, fuzzy
+#| msgid "Mashhur yangilik namunasi"
+msgid "Eng Mashhur Yangilik 2"
+msgstr "Пример популярных новостей"
+
 #: .\templates\news\base.html:34 .\templates\news\base.html:144
 msgid "Bosh sahifa"
 msgstr "Главная страница"
@@ -29,7 +59,7 @@ msgid "Biz haqimizda"
 msgstr "О нас"
 
 #: .\templates\news\base.html:36 .\templates\news\base.html:152
-#: .\templates\news\base.html:223
+#: .\templates\news\base.html:223 .\templates\news\contact.html:12
 msgid "Biz bilan aloqa"
 msgstr "Связаться с нами"
 
@@ -105,7 +135,8 @@ msgstr "Запросить новый пароль"
 msgid "Bu kategoriyada yangiliklar mavjud emas."
 msgstr "В этой категории нет новостей."
 
-#: .\templates\news\category_detail.html:86 .\templates\news\home.html:339
+#: .\templates\news\category_detail.html:86 .\templates\news\contact.html:34
+#: .\templates\news\home.html:339
 msgid "Ommabop"
 msgstr "Популярный"
 
@@ -159,6 +190,29 @@ msgstr "Спорт"
 msgid "Havolalar"
 msgstr "Ссылки"
 
+#: .\templates\news\news_by_category.html:13
+#, python-format
+msgid "Yangiliklar: %(current_category|title)s"
+msgstr ""
+
+#: .\templates\news\news_by_category.html:24
+#, fuzzy
+#| msgid "Bu kategoriyada yangiliklar mavjud emas."
+msgid "Bu kategoriya bo‘yicha yangiliklar topilmadi."
+msgstr "В этой категории нет новостей."
+
+#: .\templates\news\news_by_category.html:52
+#, fuzzy
+#| msgid "Categoriyani tanlang"
+msgid "Kategoriyalar"
+msgstr "Выберите категорию"
+
+#: .\templates\news\news_by_category.html:63
+#, fuzzy
+#| msgid "So'nggi yangiliklar"
+msgid "Eng so‘nggi yangiliklar"
+msgstr "Последние новости"
+
 #: .\templates\news\news_detail.html:67
 msgid "✏️ Tahrirlash"
 msgstr "✏️ Редактировать"
@@ -202,6 +256,49 @@ msgstr "Отмена"
 #: .\templates\news\news_detail.html:163
 msgid "Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!"
 msgstr "Комментариев пока нет. Оставьте комментарий первым!"
+
+#: .\templates\news\search_results.html:13
+msgid "Qidiruv..."
+msgstr ""
+
+#: .\templates\news\search_results.html:15
+msgid "Qidirish"
+msgstr ""
+
+#: .\templates\news\search_results.html:25
+#, python-format
+msgid ""
+"\n"
+"                Qidiruv natijalari: \"%(search)s\"\n"
+"            "
+msgstr ""
+
+#: .\templates\news\search_results.html:29
+msgid ""
+"\n"
+"                Qidiruv natijalari\n"
+"            "
+msgstr ""
+
+#: .\templates\news\search_results.html:78
+msgid "Oldingi"
+msgstr ""
+
+#: .\templates\news\search_results.html:92
+msgid "Keyingi"
+msgstr ""
+
+#: .\templates\news\search_results.html:103
+msgid "Hech narsa topilmadi"
+msgstr ""
+
+#: .\templates\news\search_results.html:105
+msgid "Qidiruv natijasi bo'yicha ma'lumot mavjud emas."
+msgstr ""
+
+#: .\templates\news\search_results.html:106
+msgid "Iltimos, boshqa kalit so'zlardan foydalanib ko'ring."
+msgstr ""
 
 #: .\templates\registration\password_reset_complete.html:5
 msgid "Parol tiklandi"

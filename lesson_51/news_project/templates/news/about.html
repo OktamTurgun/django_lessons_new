@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %} About - NewsFeed {% endblock %}
 
@@ -9,7 +10,7 @@
         <div class="col-lg-8 col-md-8 col-sm-8">
             <div class="left_content">
                 <div class="single_page">
-                    <h1>Biz Haqimizda</h1>
+                    <h1>{% trans "Biz Haqimizda" %}</h1>
                     <div class="post_commentbox">
                         <a href="#"><i class="fa fa-user"></i>Admin</a>
                         <a href="#"><i class="fa fa-calendar"></i>{% now "F j, Y" %}</a>
@@ -19,14 +20,14 @@
                     <div class="single_page_content">
                         <img class="img-center" src="{% static 'images/about_us.jpg' %}" alt="About Us">
                         
-                        <h2>Bizning Missiyamiz</h2>
+                        <h2>{% trans "Bizning Missiyamiz" %}</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         
                         <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         
                         <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</blockquote>
                         
-                        <h2>Bizning Jamoamiz</h2>
+                        <h2>{% trans "Bizning Jamoamiz" %}</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua:</p>
                         
                         <ul>
@@ -56,7 +57,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4">
             <aside class="right_content">
                 <div class="single_sidebar">
-                    <h2><span>Bizning Jamoa</span></h2>
+                    <h2><span>{% trans "Bizning Jamoa" %}</span></h2>
                     <ul class="spost_nav">
                         <li>
                             <div class="media wow fadeInDown"> 
@@ -92,7 +93,7 @@
                 </div>
                 
                 <div class="single_sidebar">
-                    <h2><span>Ko'p O'qilgan Yangiliklar</span></h2>
+                    <h2><span>{% tarns "Ko'p O'qilgan Yangiliklar" %}</span></h2>
                     <ul class="spost_nav">
                         <li>
                             <div class="media wow fadeInDown"> 
@@ -100,7 +101,7 @@
                                     <img alt="" src="{% static 'images/post_img1.jpg' %}"> 
                                 </a>
                                 <div class="media-body"> 
-                                    <a href="#" class="catg_title">Eng Mashhur Yangilik 1</a> 
+                                    <a href="#" class="catg_title">{% trans "Eng Mashhur Yangilik 1" %}</a> 
                                 </div>
                             </div>
                         </li>
@@ -110,7 +111,7 @@
                                     <img alt="" src="{% static 'images/post_img2.jpg' %}"> 
                                 </a>
                                 <div class="media-body"> 
-                                    <a href="#" class="catg_title">Eng Mashhur Yangilik 2</a> 
+                                    <a href="#" class="catg_title">{% trans "Eng Mashhur Yangilik 2" %}</a> 
                                 </div>
                             </div>
                         </li>
