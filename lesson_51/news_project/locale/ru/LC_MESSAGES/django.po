@@ -1,18 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Russian translations for Django News Project
+# Copyright (C) 2025
+# This file is distributed under the same license as the News Project package.
+# Uktam Turgunov <info@uktamdev.uz>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: News Project 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-13 07:16+0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-10-13 10:30+0500\n"
+"Last-Translator: Uktam Turgunov <info@uktamdev.uz>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,38 +20,32 @@ msgstr ""
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: .\templates\news\about.html:13
-#, fuzzy
-#| msgid "Biz haqimizda"
 msgid "Biz Haqimizda"
 msgstr "О нас"
 
 #: .\templates\news\about.html:23
 msgid "Bizning Missiyamiz"
-msgstr ""
+msgstr "Наша миссия"
 
 #: .\templates\news\about.html:30
 msgid "Bizning Jamoamiz"
-msgstr ""
+msgstr "Наша команда"
 
 #: .\templates\news\about.html:60
 msgid "Bizning Jamoa"
-msgstr ""
+msgstr "Наша команда"
 
 #: .\templates\news\about.html:104
-#, fuzzy
-#| msgid "Mashhur yangilik namunasi"
 msgid "Eng Mashhur Yangilik 1"
-msgstr "Пример популярных новостей"
+msgstr "Самая популярная новость 1"
 
 #: .\templates\news\about.html:114
-#, fuzzy
-#| msgid "Mashhur yangilik namunasi"
 msgid "Eng Mashhur Yangilik 2"
-msgstr "Пример популярных новостей"
+msgstr "Самая популярная новость 2"
 
 #: .\templates\news\base.html:34 .\templates\news\base.html:144
 msgid "Bosh sahifa"
-msgstr "Главная страница"
+msgstr "Главная"
 
 #: .\templates\news\base.html:35
 msgid "Biz haqimizda"
@@ -81,11 +74,11 @@ msgstr "Теги"
 
 #: .\templates\news\base.html:224
 msgid "Agar savol yoki takliflaringiz bo'lsa biz bilan bog'laning."
-msgstr "Пожалуйста, свяжитесь с нами, если у вас есть вопросы или предложения."
+msgstr "Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами."
 
 #: .\templates\news\base.html:226
 msgid "Email:"
-msgstr "Электронная почта:"
+msgstr "Эл. почта:"
 
 #: .\templates\news\base.html:228
 msgid "Manzil:"
@@ -117,153 +110,28 @@ msgstr "Политика конфиденциальности"
 
 #: .\templates\news\base.html:256
 msgid "Foydalanish shartlari"
-msgstr "Условия эксплуатации"
+msgstr "Условия использования"
 
 #: .\templates\news\base.html:258
 msgid "Aloqa"
-msgstr "Коммуникация"
-
-#: .\templates\news\category_detail.html:14
-#: .\templates\news\category_detail.html:16
-#: .\templates\news\news_detail.html:29 .\templates\news\news_detail.html:31
-#, fuzzy
-#| msgid "Yangi parol so'rash"
-msgid " Yangi Yangilik Qo'shish"
-msgstr "Запросить новый пароль"
-
-#: .\templates\news\category_detail.html:46
-msgid "Bu kategoriyada yangiliklar mavjud emas."
-msgstr "В этой категории нет новостей."
-
-#: .\templates\news\category_detail.html:86 .\templates\news\contact.html:34
-#: .\templates\news\home.html:339
-msgid "Ommabop"
-msgstr "Популярный"
-
-#: .\templates\news\category_detail.html:92
-msgid "Mashhur yangilik namunasi"
-msgstr "Пример популярных новостей"
-
-#: .\templates\news\category_detail.html:101
-#, fuzzy
-#| msgid "Categoriyani tanlang"
-msgid "Kategoriya"
-msgstr "Выберите категорию"
-
-#: .\templates\news\category_detail.html:102
-msgid "Video"
-msgstr "Видео"
-
-#: .\templates\news\category_detail.html:103
-msgid "Izohlar"
-msgstr "Примечания"
-
-#: .\templates\news\category_detail.html:119
-msgid "Izohlar bo‘limi tez orada qo‘shiladi."
-msgstr "Раздел комментариев будет добавлен в ближайшее время."
-
-#: .\templates\news\category_detail.html:130 .\templates\news\home.html:412
-msgid "Barcha yangiliklar"
-msgstr "Все новости"
-
-#: .\templates\news\category_detail.html:132 .\templates\news\home.html:414
-msgid "Categoriyani tanlang"
-msgstr "Выберите категорию"
-
-#: .\templates\news\home.html:74
-msgid "Mahalliy"
-msgstr "Местный"
-
-#: .\templates\news\home.html:133
-msgid "Xorij"
-msgstr "Международный"
-
-#: .\templates\news\home.html:188
-msgid "Texnologiya"
-msgstr "Технология"
-
-#: .\templates\news\home.html:278
-msgid "Sport"
-msgstr "Спорт"
-
-#: .\templates\news\home.html:421
-msgid "Havolalar"
-msgstr "Ссылки"
+msgstr "Контакты"
 
 #: .\templates\news\news_by_category.html:13
 #, python-format
 msgid "Yangiliklar: %(current_category|title)s"
-msgstr ""
+msgstr "Новости: %(current_category|title)s"
 
 #: .\templates\news\news_by_category.html:24
-#, fuzzy
-#| msgid "Bu kategoriyada yangiliklar mavjud emas."
 msgid "Bu kategoriya bo‘yicha yangiliklar topilmadi."
-msgstr "В этой категории нет новостей."
-
-#: .\templates\news\news_by_category.html:52
-#, fuzzy
-#| msgid "Categoriyani tanlang"
-msgid "Kategoriyalar"
-msgstr "Выберите категорию"
-
-#: .\templates\news\news_by_category.html:63
-#, fuzzy
-#| msgid "So'nggi yangiliklar"
-msgid "Eng so‘nggi yangiliklar"
-msgstr "Последние новости"
-
-#: .\templates\news\news_detail.html:67
-msgid "✏️ Tahrirlash"
-msgstr "✏️ Редактировать"
-
-#: .\templates\news\news_detail.html:70
-msgid "🗑 O'chirish"
-msgstr "🗑 Удалить"
-
-#: .\templates\news\news_detail.html:73
-msgid " Orqaga"
-msgstr "Назад"
-
-#: .\templates\news\news_detail.html:81 .\templates\news\news_detail.html:93
-msgid "Izoh qoldirish"
-msgstr "Оставить комментарий"
-
-#: .\templates\news\news_detail.html:98
-msgid "💡 Izoh qoldirish uchun "
-msgstr "💡 Чтобы оставить комментарий "
-
-#: .\templates\news\news_detail.html:100
-msgid "Agar hisobingiz bo'lmasa "
-msgstr "Если у вас нет учетной записи"
-
-#: .\templates\news\news_detail.html:101
-msgid "ro'yxatdan o'ting"
-msgstr "зарегистрироваться"
-
-#: .\templates\news\news_detail.html:112
-msgid "Izoh qoldiring"
-msgstr "Оставить комментарий"
-
-#: .\templates\news\news_detail.html:132
-msgid "Yuborish"
-msgstr "Отправка"
-
-#: .\templates\news\news_detail.html:135
-msgid "Bekor qilish"
-msgstr "Отмена"
-
-#: .\templates\news\news_detail.html:163
-msgid "Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!"
-msgstr "Комментариев пока нет. Оставьте комментарий первым!"
+msgstr "По этой категории новости не найдены."
 
 #: .\templates\news\search_results.html:13
 msgid "Qidiruv..."
-msgstr ""
+msgstr "Поиск..."
 
 #: .\templates\news\search_results.html:15
 msgid "Qidirish"
-msgstr ""
+msgstr "Найти"
 
 #: .\templates\news\search_results.html:25
 #, python-format
@@ -272,6 +140,9 @@ msgid ""
 "                Qidiruv natijalari: \"%(search)s\"\n"
 "            "
 msgstr ""
+"\n"
+"                Результаты поиска: \"%(search)s\"\n"
+"            "
 
 #: .\templates\news\search_results.html:29
 msgid ""
@@ -279,89 +150,27 @@ msgid ""
 "                Qidiruv natijalari\n"
 "            "
 msgstr ""
+"\n"
+"                Результаты поиска\n"
+"            "
 
 #: .\templates\news\search_results.html:78
 msgid "Oldingi"
-msgstr ""
+msgstr "Предыдущая"
 
 #: .\templates\news\search_results.html:92
 msgid "Keyingi"
-msgstr ""
+msgstr "Следующая"
 
 #: .\templates\news\search_results.html:103
 msgid "Hech narsa topilmadi"
-msgstr ""
+msgstr "Ничего не найдено"
 
 #: .\templates\news\search_results.html:105
 msgid "Qidiruv natijasi bo'yicha ma'lumot mavjud emas."
-msgstr ""
+msgstr "Нет данных по вашему запросу."
 
 #: .\templates\news\search_results.html:106
 msgid "Iltimos, boshqa kalit so'zlardan foydalanib ko'ring."
-msgstr ""
+msgstr "Попробуйте использовать другие ключевые слова."
 
-#: .\templates\registration\password_reset_complete.html:5
-msgid "Parol tiklandi"
-msgstr "Пароль восстановлен"
-
-#: .\templates\registration\password_reset_complete.html:8
-msgid "Parol muvaffaqiyatli tiklandi"
-msgstr "Пароль успешно восстановлен"
-
-#: .\templates\registration\password_reset_complete.html:11
-msgid ""
-"Sizning parolingiz muvaffaqiyatli o'zgartirildi. Endi yangi parol bilan "
-"tizimga kirishingiz mumkin."
-msgstr ""
-"Ваш пароль был успешно изменён. Теперь вы можете войти с новым паролем."
-
-#: .\templates\registration\password_reset_complete.html:15
-msgid "Tizimga kirish"
-msgstr "Войти в систему"
-
-#: .\templates\registration\password_reset_confirm.html:5
-#: .\templates\registration\password_reset_confirm.html:8
-#: .\templates\registration\password_reset_confirm.html:37
-msgid "Parolni tiklash"
-msgstr "Восстановление пароля"
-
-#: .\templates\registration\password_reset_confirm.html:11
-msgid "Yangi parolni kiritish uchun quyidagi maydonlarni to'ldiring:"
-msgstr "Пожалуйста, заполните поля ниже, чтобы установить новый пароль:"
-
-#: .\templates\registration\password_reset_confirm.html:43
-msgid ""
-"Parolni tiklash havolasi noto'g'ri yoki muddati o'tgan. Iltimos, yangi parol "
-"so'rang."
-msgstr ""
-"Ссылка для восстановления пароля недействительна или устарела. Пожалуйста, "
-"запросите новую."
-
-#: .\templates\registration\password_reset_confirm.html:46
-msgid "Yangi parol so'rash"
-msgstr "Запросить новый пароль"
-
-#: .\templates\registration\password_reset_email.html:2
-#, python-format
-msgid "Salom %(user.get_username)s,"
-msgstr "Здравствуйте, %(user.get_username)s,"
-
-#: .\templates\registration\password_reset_email.html:4
-msgid ""
-"Parolni qayta tiklash bo‘yicha so‘rov qabul qilindi. Parolingizni quyidagi "
-"havola orqali yangilashingiz mumkin:"
-msgstr ""
-"Мы получили запрос на восстановление вашего пароля. Вы можете изменить его "
-"по ссылке ниже:"
-
-#: .\templates\registration\password_reset_email.html:8
-msgid ""
-"Agar siz parolni qayta tiklashni so‘ramagan bo‘lsangiz, bu xabarni "
-"e’tiborsiz qoldiring. Sizning profilingiz xavfsizligicha qoladi."
-msgstr ""
-"Если вы не запрашивали восстановление пароля, просто проигнорируйте это "
-"сообщение. Ваш аккаунт в безопасности."
-
-#: .\templates\registration\password_reset_email.html:10
-msgid "Hurmat bilan,"
-msgstr "С уважением,"
