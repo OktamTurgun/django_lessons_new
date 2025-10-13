@@ -1,0 +1,112 @@
+{% extends "news/base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid my-5">
+
+    <!-- 🔍 Qidiruv formasi -->
+    <div class="row mb-4">
+        <div class="col-md-8 col-md-offset-2">
+            <form method="get" action="{% url 'news:search' %}" class="input-group">
+                <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="{% trans 'Qidiruv...' %}">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary search-btn" type="submit">{% trans "Qidirish" %}</button>
+                </span>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- 📌 Qidiruv natijalari sarlavhasi -->
+    <h3 class="text-center mb-4">
+        {% if query %}
+            {% blocktrans with search=query %}
+                Qidiruv natijalari: "{{ search }}"
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans %}
+                Qidiruv natijalari
+            {% endblocktrans %}
+        {% endif %}
+    </h3>
+
+    {% if results %}
+        <div class="row">
+            {% for item in results %}
+                <div class="col-md-6 mb-4">
+                    <div class="panel panel-default">
+                        
+                        <!-- 🖼 Yangilik rasmi -->
+                        {% if item.image %}
+                            <div style="height: 300px; overflow: hidden;">
+                                <img src="{{ item.image.url }}" 
+                                    alt="{{ item.title }}" 
+                                    class="img-responsive" 
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        {% endif %}
+
+                        <!-- 📄 Kontent -->
+                        <div class="panel-body">
+                            <h4>
+                                <a href="{{ item.get_absolute_url }}" class="text-decoration-none">
+                                    {{ item.title }}
+                                </a>
+                            </h4>
+                            <p class="text-muted">{{ item.get_translated_content|truncatechars:120 }}</p>
+                        </div>
+
+                        <!-- 📅 Sana, 👤 Muallif va 🏷 Kategoriya -->
+                        <div class="panel-footer small text-muted">
+                            <span><i class="fa fa-user"></i> {{ item.author }}</span> | 
+                            <span><i class="fa fa-calendar"></i> {{ item.published_at|date:"d M Y" }}</span> | 
+                            <span><i class="fa fa-tag"></i> {{ item.category.get_translate_name }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- 📄 Pagination -->
+        {% if results.has_other_pages %}
+        <nav aria-label="Page navigation" class="text-center">
+            <ul class="pagination">
+                {% if results.has_previous %}
+                <!-- <li><a href="?q={{ query }}&page={{ results.previous_page_number }}">« Oldingi</a></li> -->
+                <li><a href="?{{ querystring }}&page={{ results.previous_page_number }}">« {% trans "Oldingi" %}</a></li>
+                {% endif %}
+
+                {% for num in results.paginator.page_range %}
+                    {% if results.number == num %}
+                        <li class="active"><span>{{ num }}</span></li>
+                    {% elif num > results.number|add:-2 and num < results.number|add:2 %}
+                        <!-- <li><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li> -->
+                        <li><a href="?{{ querystring }}&page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if results.has_next %}
+                <!-- <li><a href="?q={{ query }}&page={{ results.next_page_number }}">Keyingi »</a></li> -->
+                <li><a href="?{{ querystring }}&page={{ results.next_page_number }}">{% trans "Keyingi" %} »</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+    {% else %}
+        <div class="empty-state text-center py-5 px-3">
+            <div class="empty-state-icon mb-4">
+                <i class="fa-solid fa-search fs-1 icon-search"></i>
+            </div>
+            <h4 class="fw-semibold text-dark mb-2">{% trans "Hech narsa topilmadi" %}</h4>
+            <p class="text-muted mb-0">
+                {% trans "Qidiruv natijasi bo'yicha ma'lumot mavjud emas." %}<br>
+                {% trans "Iltimos, boshqa kalit so'zlardan foydalanib ko'ring." %}
+            </p>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
