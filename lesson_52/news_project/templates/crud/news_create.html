@@ -1,0 +1,16 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Yangi yangilik {% endblock title %}
+
+{% block content %}
+  <div class="container my-4">
+    <h2 class="mb-3">➕ Yangi yangilik qo'shish</h2>
+    <form method="post" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success">Saqlash</button>
+      <a href="{{ news.get_absolute_url}}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+  </div>
+{% endblock content %}
