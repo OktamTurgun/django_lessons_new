@@ -9,6 +9,8 @@ django = "*"
 django-modeltranslation = "*"
 django-widget-tweaks = "*"
 deep-translator = "*"
+python-decouple = "*"
+whitenoise = "*"
 
 [dev-packages]
 
