@@ -37,7 +37,7 @@ def auto_translate_news(sender, instance, created, **kwargs):
 
 # --- CATEGORY TRANSLATION ---
 @receiver(post_save, sender=Category)
-def auto_tarnslate_category(snder, instance, created, **kwargs):
+def auto_tarnslate_category(sender, instance, created, **kwargs):
     if not created:
         return
     changed = False

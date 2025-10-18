@@ -1,16 +1,16 @@
 {% extends 'news/base.html' %}
-
 {% load static %}
+{% load i18n %}
 
 {% block title %}Ro'yxatdan o'tish{% endblock title %}
 
 {% block content %}
 <div class="container">
-    <h2>Ro'yxatdan o'tish</h2>
+    <h2>{% trans "Ro'yxatdan o'tish" %}</h2>
     <form method="post" action="{% url 'accounts:register' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Ro'yxatdan o'tish</button>
+        <button type="submit" class="btn btn-primary">{% trans "Ro'yxatdan o'tish" %}</button>
     </form>
 </div>
 {% endblock content %}

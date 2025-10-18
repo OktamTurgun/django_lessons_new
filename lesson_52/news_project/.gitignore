@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -28,10 +29,17 @@ static/
 
 # VS Code
 .vscode/
+=======
+# Virtual muhit
+venv/
+*.env
+*.venv
+>>>>>>> a4f2b21ef1d8b9baa748d9c7481ab51d535f041a
 
 # PyCharm
 .idea/
 
+<<<<<<< HEAD
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -53,3 +61,26 @@ Pipfile.lock
 # System files
 .DS_Store
 Thumbs.db
+=======
+# Python fayllari
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Django
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+media/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+>>>>>>> a4f2b21ef1d8b9baa748d9c7481ab51d535f041a

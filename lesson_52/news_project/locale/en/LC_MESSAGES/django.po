@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-13 07:16+0500\n"
+"POT-Creation-Date: 2025-10-18 08:04+0500\n"
 "PO-Revision-Date: 2025-10-13 07:16+0500\n"
 "Last-Translator: ChatGPT Assistant <chatgpt@openai.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -16,6 +16,91 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\accounts\register.html:9 .\templates\accounts\register.html:13
+#: .\templates\registration\login.html:87
+#, fuzzy
+#| msgid "ro'yxatdan o'ting"
+msgid "Ro'yxatdan o'tish"
+msgstr "Register"
+
+#: .\templates\accounts\register_done.html:5
+msgid "Ro'yxatdan o'tish yakunlandi"
+msgstr "Registration completed"
+
+#: .\templates\accounts\register_done.html:10
+msgid "Tabriklaymiz!"
+msgstr "Congratulations!"
+
+#: .\templates\accounts\register_done.html:11
+msgid "Siz muvaffaqiyatli ro'yxatdan o'tdingiz."
+msgstr "You have successfully registered."
+
+#: .\templates\accounts\register_done.html:14
+#, python-format
+msgid ""
+"\n"
+"            Endi <a href=\"%(login_url)s\" class=\"text-primary\">login</a> "
+"sahifasidan tizimga kirishingiz mumkin.\n"
+"        "
+msgstr ""
+"\n"
+"            You can now log in from the <a href=\"%(login_url)s\" class=\"text-primary\">login</a> page.\n"
+"        "
+
+#: .\templates\crud\news_create.html:9
+#, fuzzy
+#| msgid " Yangi Yangilik Qo'shish"
+msgid "➕ Yangi yangilik qo'shish"
+msgstr "➕ Add New Article"
+
+#: .\templates\crud\news_create.html:13
+msgid "Saqlash"
+msgstr "Save"
+
+#: .\templates\crud\news_create.html:14 .\templates\crud\news_delete.html:17
+#: .\templates\crud\news_edit.html:18 .\templates\news\news_detail.html:135
+msgid "Bekor qilish"
+msgstr "Cancel"
+
+#: .\templates\crud\news_delete.html:9
+#, fuzzy
+#| msgid "🗑 O'chirish"
+msgid "🗑 O'chirishni tasdiqlash"
+msgstr "🗑 Confirm Deletion"
+
+#: .\templates\crud\news_delete.html:10
+#, python-format
+msgid ""
+"\n"
+"      Xaqiqattan ham \"<strong>%(title)s</strong>\" yangilikni "
+"o'chirmoqchimisiz?\n"
+"    "
+msgstr ""
+"\n"
+"      Are you sure you want to delete \"<strong>%(title)s</strong>\" article?\n"
+"    "
+
+#: .\templates\crud\news_delete.html:16
+msgid "Ha, o'chir"
+msgstr "Yes, delete"
+
+#: .\templates\crud\news_edit.html:10
+#, python-format
+msgid ""
+"\n"
+"      ✏️ Yangilikni tahrirlash: %(title)s\n"
+"      "
+msgstr ""
+"\n"
+"      ✏️ Edit Article: %(title)s\n"
+"      "
+
+#: .\templates\crud\news_edit.html:17
+#, fuzzy
+#| msgid "Yangi parol so'rash"
+msgid "Yangilash"
+msgstr "Update"
 
 #: .\templates\news\about.html:13
 msgid "Biz Haqimizda"
@@ -33,6 +118,12 @@ msgstr "Our Team"
 msgid "Bizning Jamoa"
 msgstr "Our Team"
 
+#: .\templates\news\about.html:96
+#, fuzzy
+#| msgid "So'nggi yangiliklar"
+msgid "Ko'p O'qilgan Yangiliklar"
+msgstr "Most Read News"
+
 #: .\templates\news\about.html:104
 msgid "Eng Mashhur Yangilik 1"
 msgstr "Most Popular News 1"
@@ -49,7 +140,8 @@ msgstr "Home"
 msgid "Biz haqimizda"
 msgstr "About Us"
 
-#: .\templates\news\base.html:36 .\templates\news\base.html:152 .\templates\news\base.html:223 .\templates\news\contact.html:12
+#: .\templates\news\base.html:36 .\templates\news\base.html:152
+#: .\templates\news\base.html:223 .\templates\news\contact.html:12
 msgid "Biz bilan aloqa"
 msgstr "Contact Us"
 
@@ -113,15 +205,18 @@ msgstr "Terms of Use"
 msgid "Aloqa"
 msgstr "Contact"
 
-#: .\templates\news\category_detail.html:14 .\templates\news\category_detail.html:16 .\templates\news\news_detail.html:29 .\templates\news\news_detail.html:31
+#: .\templates\news\category_detail.html:14
+#: .\templates\news\category_detail.html:16
+#: .\templates\news\news_detail.html:29 .\templates\news\news_detail.html:31
 msgid " Yangi Yangilik Qo'shish"
-msgstr "Add News"
+msgstr "Add New Article"
 
 #: .\templates\news\category_detail.html:46
 msgid "Bu kategoriyada yangiliklar mavjud emas."
 msgstr "There are no news in this category."
 
-#: .\templates\news\category_detail.html:86 .\templates\news\contact.html:34 .\templates\news\home.html:339
+#: .\templates\news\category_detail.html:86 .\templates\news\contact.html:34
+#: .\templates\news\home.html:339
 msgid "Ommabop"
 msgstr "Popular"
 
@@ -142,7 +237,7 @@ msgid "Izohlar"
 msgstr "Comments"
 
 #: .\templates\news\category_detail.html:119
-msgid "Izohlar bo‘limi tez orada qo‘shiladi."
+msgid "Izohlar bo'limi tez orada qo'shiladi."
 msgstr "The comments section will be added soon."
 
 #: .\templates\news\category_detail.html:130 .\templates\news\home.html:412
@@ -153,13 +248,19 @@ msgstr "All News"
 msgid "Categoriyani tanlang"
 msgstr "Select a category"
 
+#: .\templates\news\home.html:69 .\templates\news\home.html:71
+#, fuzzy
+#| msgid " Yangi Yangilik Qo'shish"
+msgid "Yangi Yangilik Qo'shish"
+msgstr "Add New Article"
+
 #: .\templates\news\home.html:74
 msgid "Mahalliy"
 msgstr "Local"
 
 #: .\templates\news\home.html:133
 msgid "Xorij"
-msgstr "Foreign"
+msgstr "International"
 
 #: .\templates\news\home.html:188
 msgid "Texnologiya"
@@ -179,7 +280,7 @@ msgid "Yangiliklar: %(current_category|title)s"
 msgstr "News: %(current_category|title)s"
 
 #: .\templates\news\news_by_category.html:24
-msgid "Bu kategoriya bo‘yicha yangiliklar topilmadi."
+msgid "Bu kategoriya bo'yicha yangiliklar topilmadi."
 msgstr "No news found for this category."
 
 #: .\templates\news\news_by_category.html:52
@@ -187,7 +288,7 @@ msgid "Kategoriyalar"
 msgstr "Categories"
 
 #: .\templates\news\news_by_category.html:63
-msgid "Eng so‘nggi yangiliklar"
+msgid "Eng so'nggi yangiliklar"
 msgstr "Latest News"
 
 #: .\templates\news\news_detail.html:67
@@ -200,7 +301,7 @@ msgstr "🗑 Delete"
 
 #: .\templates\news\news_detail.html:73
 msgid " Orqaga"
-msgstr " Back"
+msgstr "Back"
 
 #: .\templates\news\news_detail.html:81 .\templates\news\news_detail.html:93
 msgid "Izoh qoldirish"
@@ -208,11 +309,11 @@ msgstr "Leave a Comment"
 
 #: .\templates\news\news_detail.html:98
 msgid "💡 Izoh qoldirish uchun "
-msgstr "💡 To leave a comment"
+msgstr "💡 To leave a comment "
 
 #: .\templates\news\news_detail.html:100
 msgid "Agar hisobingiz bo'lmasa "
-msgstr "If you don't have an account"
+msgstr "If you don't have an account "
 
 #: .\templates\news\news_detail.html:101
 msgid "ro'yxatdan o'ting"
@@ -223,12 +324,9 @@ msgid "Izoh qoldiring"
 msgstr "Leave a Comment"
 
 #: .\templates\news\news_detail.html:132
+#: .\templates\registration\password_reset_form.html:18
 msgid "Yuborish"
 msgstr "Send"
-
-#: .\templates\news\news_detail.html:135
-msgid "Bekor qilish"
-msgstr "Cancel"
 
 #: .\templates\news\news_detail.html:163
 msgid "Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!"
@@ -243,13 +341,26 @@ msgid "Qidirish"
 msgstr "Search"
 
 #: .\templates\news\search_results.html:25
-#, python-format
-msgid "Qidiruv natijalari: \"%(search)s\""
-msgstr "Search results for: \"%(search)s\""
+#, fuzzy, python-format
+#| msgid "Qidiruv natijalari: \"%(search)s\""
+msgid ""
+"\n"
+"                Qidiruv natijalari: \"%(search)s\"\n"
+"            "
+msgstr ""
+"\n"
+"                Search results for: \"%(search)s\"\n"
+"            "
 
 #: .\templates\news\search_results.html:29
-msgid "Qidiruv natijalari"
-msgstr "Search results"
+msgid ""
+"\n"
+"                Qidiruv natijalari\n"
+"            "
+msgstr ""
+"\n"
+"                Search Results\n"
+"            "
 
 #: .\templates\news\search_results.html:78
 msgid "Oldingi"
@@ -271,6 +382,83 @@ msgstr "No results found for your search."
 msgid "Iltimos, boshqa kalit so'zlardan foydalanib ko'ring."
 msgstr "Please try using different keywords."
 
+#: .\templates\pages\user_profile.html:36
+msgid "Faol foydalanuvchi"
+msgstr "Active user"
+
+#: .\templates\pages\user_profile.html:52
+#, fuzzy
+#| msgid "Parolni tiklash"
+msgid "Profilni tahrirlash"
+msgstr "Edit Profile"
+
+#: .\templates\pages\user_profile.html:61
+msgid "A'zo bo'lgan:"
+msgstr "Member since:"
+
+#: .\templates\registration\logged_out.html:5
+#, fuzzy
+#| msgid "Tizimga kirish"
+msgid "Tizimdan chiqish"
+msgstr "Logout"
+
+#: .\templates\registration\logged_out.html:10
+msgid "🔒 Tizimdan chiqdingiz"
+msgstr "🔒 You have logged out"
+
+#: .\templates\registration\logged_out.html:11
+msgid "Siz tizimdan muvaffaqiyatli chiqdingiz."
+msgstr "You have successfully logged out."
+
+#: .\templates\registration\logged_out.html:13
+#, fuzzy
+#| msgid "Tizimga kirish"
+msgid "Qayta kirish"
+msgstr "Log in again"
+
+#: .\templates\registration\logged_out.html:14
+#, fuzzy
+#| msgid "Bosh sahifa"
+msgid "Bosh sahifaga qaytish"
+msgstr "Return to Home"
+
+#: .\templates\registration\login.html:14
+#: .\templates\registration\password_reset_complete.html:15
+msgid "Tizimga kirish"
+msgstr "Login"
+
+#: .\templates\registration\login.html:33
+#, fuzzy
+#| msgid "Faol foydalanuvchi"
+msgid "Foydalanuvchi nomi"
+msgstr "Username"
+
+#: .\templates\registration\login.html:48
+msgid "Parol"
+msgstr "Password"
+
+#: .\templates\registration\login.html:67
+msgid "Meni eslab qol"
+msgstr "Remember me"
+
+#: .\templates\registration\login.html:72
+#, fuzzy
+#| msgid "Qidirish"
+msgid "Kirish"
+msgstr "Login"
+
+#: .\templates\registration\login.html:78
+msgid "Parolni unutdingizmi?"
+msgstr "Forgot your password?"
+
+#: .\templates\registration\login.html:85
+msgid "Akkountingiz yo'qmi? "
+msgstr "Don't have an account? "
+
+#: .\templates\registration\login.html:95
+msgid "yoki ijtimoiy tarmoqlar orqali"
+msgstr "or via social networks"
+
 #: .\templates\registration\password_reset_complete.html:5
 msgid "Parol tiklandi"
 msgstr "Password Reset"
@@ -280,14 +468,16 @@ msgid "Parol muvaffaqiyatli tiklandi"
 msgstr "Password successfully reset"
 
 #: .\templates\registration\password_reset_complete.html:11
-msgid "Sizning parolingiz muvaffaqiyatli o'zgartirildi. Endi yangi parol bilan tizimga kirishingiz mumkin."
-msgstr "Your password has been successfully changed. You can now log in with your new password."
+msgid ""
+"Sizning parolingiz muvaffaqiyatli o'zgartirildi. Endi yangi parol bilan "
+"tizimga kirishingiz mumkin."
+msgstr ""
+"Your password has been successfully changed. You can now log in with your "
+"new password."
 
-#: .\templates\registration\password_reset_complete.html:15
-msgid "Tizimga kirish"
-msgstr "Login"
-
-#: .\templates\registration\password_reset_confirm.html:5 .\templates\registration\password_reset_confirm.html:8 .\templates\registration\password_reset_confirm.html:37
+#: .\templates\registration\password_reset_confirm.html:5
+#: .\templates\registration\password_reset_confirm.html:8
+#: .\templates\registration\password_reset_confirm.html:37
 msgid "Parolni tiklash"
 msgstr "Reset Password"
 
@@ -296,12 +486,44 @@ msgid "Yangi parolni kiritish uchun quyidagi maydonlarni to'ldiring:"
 msgstr "Please fill in the following fields to set a new password:"
 
 #: .\templates\registration\password_reset_confirm.html:43
-msgid "Parolni tiklash havolasi noto'g'ri yoki muddati o'tgan. Iltimos, yangi parol so'rang."
-msgstr "The password reset link is invalid or has expired. Please request a new one."
+msgid ""
+"Parolni tiklash havolasi noto'g'ri yoki muddati o'tgan. Iltimos, yangi parol "
+"so'rang."
+msgstr ""
+"The password reset link is invalid or has expired. Please request a new one."
 
 #: .\templates\registration\password_reset_confirm.html:46
 msgid "Yangi parol so'rash"
 msgstr "Request new password"
+
+#: .\templates\registration\password_reset_done.html:5
+#: .\templates\registration\password_reset_done.html:9
+#, fuzzy
+#| msgid "Parolni tiklash"
+msgid "Parolni tiklash havolasi yuborildi"
+msgstr "Password reset link sent"
+
+#: .\templates\registration\password_reset_done.html:10
+msgid ""
+"Parolni tiklash havolasi sizning elektron pochta manzilingizga yuborildi. "
+"Iltimos, elektron pochtangizni tekshiring."
+msgstr ""
+"A password reset link has been sent to your email address. Please check your email."
+
+#: .\templates\registration\password_reset_done.html:13
+#, python-format
+msgid ""
+"\n"
+"      Agar siz emailni topa olmasangiz, spam/junk papkangizni tekshiring "
+"yoki\n"
+"      <a href=\"%(password_reset_url)s\" class=\"text-primary\">yangi parol "
+"so'rang</a>.\n"
+"    "
+msgstr ""
+"\n"
+"      If you can't find the email, check your spam/junk folder or\n"
+"      <a href=\"%(password_reset_url)s\" class=\"text-primary\">request a new password</a>.\n"
+"    "
 
 #: .\templates\registration\password_reset_email.html:2
 #, python-format
@@ -309,13 +531,43 @@ msgid "Salom %(user.get_username)s,"
 msgstr "Hello %(user.get_username)s,"
 
 #: .\templates\registration\password_reset_email.html:4
-msgid "Parolni qayta tiklash bo‘yicha so‘rov qabul qilindi. Parolingizni quyidagi havola orqali yangilashingiz mumkin:"
-msgstr "A request to reset your password has been received. You can reset it using the link below:"
+msgid ""
+"Parolni qayta tiklash bo'yicha so'rov qabul qilindi. Parolingizni quyidagi "
+"havola orqali yangilashingiz mumkin:"
+msgstr ""
+"A request to reset your password has been received. You can reset it using "
+"the link below:"
 
 #: .\templates\registration\password_reset_email.html:8
-msgid "Agar siz parolni qayta tiklashni so‘ramagan bo‘lsangiz, bu xabarni e’tiborsiz qoldiring. Sizning profilingiz xavfsizligicha qoladi."
-msgstr "If you did not request a password reset, please ignore this message. Your account remains secure."
+msgid ""
+"Agar siz parolni qayta tiklashni so'ramagan bo'lsangiz, bu xabarni "
+"e'tiborsiz qoldiring. Sizning profilingiz xavfsizligicha qoladi."
+msgstr ""
+"If you did not request a password reset, please ignore this message. Your "
+"account remains secure."
 
 #: .\templates\registration\password_reset_email.html:10
 msgid "Hurmat bilan,"
 msgstr "Best regards,"
+
+#: .\templates\registration\password_reset_form.html:5
+#, fuzzy
+#| msgid "Parolni tiklash"
+msgid "Parolni qayta tiklash"
+msgstr "Reset Password"
+
+#: .\templates\registration\password_reset_form.html:9
+#, fuzzy
+#| msgid "Parolni tiklash"
+msgid "🔒 Parolni qayta tiklash"
+msgstr "🔒 Reset Password"
+
+#: .\templates\registration\password_reset_form.html:11
+msgid ""
+"Parolni qayta tiklash uchun elektron pochta manzilingizni kiriting. Sizga "
+"parolni tiklash havolasi yuboriladi."
+msgstr ""
+"Enter your email address to reset your password. You will receive a password reset link."
+
+#~ msgid "Qidiruv natijalari"
+#~ msgstr "Search results"
