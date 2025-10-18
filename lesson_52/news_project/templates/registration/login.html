@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}Kirish - Login{% endblock title %}
 
@@ -10,7 +11,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading text-center" style="padding: 20px;">
           <h3 class="panel-title" style="font-size: 24px; margin: 0;">
-            <i class="glyphicon glyphicon-user"></i> Tizimga kirish
+            <i class="glyphicon glyphicon-user"></i> {% trans "Tizimga kirish" %}
           </h3>
         </div>
         
@@ -29,7 +30,7 @@
             
             <div class="form-group">
               <label for="id_username">
-                <i class="glyphicon glyphicon-user"></i> Foydalanuvchi nomi
+                <i class="glyphicon glyphicon-user"></i> {% trans "Foydalanuvchi nomi" %}
               </label>
               <input 
                 type="text" 
@@ -44,7 +45,7 @@
 
             <div class="form-group">
               <label for="id_password">
-                <i class="glyphicon glyphicon-lock"></i> Parol
+                <i class="glyphicon glyphicon-lock"></i> {% trans "Parol" %}
               </label>
               <div class="input-group">
                 <input 
@@ -63,27 +64,27 @@
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" id="rememberMe"> Meni eslab qol
+                <input type="checkbox" id="rememberMe"> {% trans "Meni eslab qol" %}
               </label>
             </div>
 
             <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 20px;">
-              <i class="glyphicon glyphicon-log-in"></i> Kirish
+              <i class="glyphicon glyphicon-log-in"></i> {% trans "Kirish" %}
             </button>
           </form>
 
           <div class="text-center" style="margin-top: 20px;">
             <a href="{% url 'accounts:password_reset' %}" class="text-primary">
-              <i class="glyphicon glyphicon-question-sign"></i> Parolni unutdingizmi?
+              <i class="glyphicon glyphicon-question-sign"></i> {% trans "Parolni unutdingizmi?" %}
             </a>
           </div>
         </div>
         
         <div class="panel-footer text-center" style="padding: 15px; background-color: #f5f5f5;">
           <p style="margin: 0; color: #777;">
-            Akkountingiz yo'qmi? 
+            {% trans "Akkountingiz yo'qmi? " %}
             <a href="{% url 'accounts:register' %}" class="text-primary">
-              <strong><i class="glyphicon glyphicon-plus-sign"></i> Ro'yxatdan o'tish</strong>
+              <strong><i class="glyphicon glyphicon-plus-sign"></i> {% trans "Ro'yxatdan o'tish" %}</strong>
             </a>
           </p>
         </div>
@@ -91,7 +92,7 @@
 
       <!-- Social Login (ixtiyoriy) -->
       <div class="text-center" style="margin-top: 30px;">
-        <p style="color: #999; margin-bottom: 15px;">yoki ijtimoiy tarmoqlar orqali</p>
+        <p style="color: #999; margin-bottom: 15px;">{% trans "yoki ijtimoiy tarmoqlar orqali" %}</p>
         <div class="btn-group btn-group-justified" role="group">
           <a href="#" class="btn btn-default">
             <i class="glyphicon glyphicon-envelope"></i> Google

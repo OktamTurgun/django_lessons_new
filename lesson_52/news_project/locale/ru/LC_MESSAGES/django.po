@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: News Project 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-13 07:16+0500\n"
-"PO-Revision-Date: 2025-10-13 10:30+0500\n"
+"POT-Creation-Date: 2025-10-18 08:04+0500\n"
+"PO-Revision-Date: 2025-10-18 08:30+0500\n"
 "Last-Translator: Uktam Turgunov <info@uktamdev.uz>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -19,121 +19,17 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\templates\news\about.html:13
-msgid "Biz Haqimizda"
-msgstr "О нас"
+#: templates/news/search_results.html:29
+msgid ""
+"\n"
+"                Qidiruv natijalari\n"
+"            "
+msgstr ""
+"\n"
+"                Результаты поиска\n"
+"            "
 
-#: .\templates\news\about.html:23
-msgid "Bizning Missiyamiz"
-msgstr "Наша миссия"
-
-#: .\templates\news\about.html:30
-msgid "Bizning Jamoamiz"
-msgstr "Наша команда"
-
-#: .\templates\news\about.html:60
-msgid "Bizning Jamoa"
-msgstr "Наша команда"
-
-#: .\templates\news\about.html:104
-msgid "Eng Mashhur Yangilik 1"
-msgstr "Самая популярная новость 1"
-
-#: .\templates\news\about.html:114
-msgid "Eng Mashhur Yangilik 2"
-msgstr "Самая популярная новость 2"
-
-#: .\templates\news\base.html:34 .\templates\news\base.html:144
-msgid "Bosh sahifa"
-msgstr "Главная"
-
-#: .\templates\news\base.html:35
-msgid "Biz haqimizda"
-msgstr "О нас"
-
-#: .\templates\news\base.html:36 .\templates\news\base.html:152
-#: .\templates\news\base.html:223 .\templates\news\contact.html:12
-msgid "Biz bilan aloqa"
-msgstr "Связаться с нами"
-
-#: .\templates\news\base.html:39
-msgid "Admin sahifasi"
-msgstr "Страница администратора"
-
-#: .\templates\news\base.html:153
-msgid "404 sahifa"
-msgstr "Страница 404"
-
-#: .\templates\news\base.html:175 .\templates\news\home.html:30
-msgid "So'nggi yangiliklar"
-msgstr "Последние новости"
-
-#: .\templates\news\base.html:213
-msgid "Teglar"
-msgstr "Теги"
-
-#: .\templates\news\base.html:224
-msgid "Agar savol yoki takliflaringiz bo'lsa biz bilan bog'laning."
-msgstr "Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами."
-
-#: .\templates\news\base.html:226
-msgid "Email:"
-msgstr "Эл. почта:"
-
-#: .\templates\news\base.html:228
-msgid "Manzil:"
-msgstr "Адрес:"
-
-#: .\templates\news\base.html:228
-msgid "Toshkent shahri, Chilonzor tumani, 12-uy"
-msgstr "Город Ташкент, Чиланзарский район, дом 12"
-
-#: .\templates\news\base.html:230
-msgid "Telefon:"
-msgstr "Телефон:"
-
-#: .\templates\news\base.html:241
-msgid "Copyright © 2025"
-msgstr "Авторское право © 2025"
-
-#: .\templates\news\base.html:243
-msgid "Barcha huquqlar himoyalangan."
-msgstr "Все права защищены."
-
-#: .\templates\news\base.html:249
-msgid "Developed By "
-msgstr "Разработано "
-
-#: .\templates\news\base.html:254
-msgid "Maxfiylik siyosati"
-msgstr "Политика конфиденциальности"
-
-#: .\templates\news\base.html:256
-msgid "Foydalanish shartlari"
-msgstr "Условия использования"
-
-#: .\templates\news\base.html:258
-msgid "Aloqa"
-msgstr "Контакты"
-
-#: .\templates\news\news_by_category.html:13
-#, python-format
-msgid "Yangiliklar: %(current_category|title)s"
-msgstr "Новости: %(current_category|title)s"
-
-#: .\templates\news\news_by_category.html:24
-msgid "Bu kategoriya bo‘yicha yangiliklar topilmadi."
-msgstr "По этой категории новости не найдены."
-
-#: .\templates\news\search_results.html:13
-msgid "Qidiruv..."
-msgstr "Поиск..."
-
-#: .\templates\news\search_results.html:15
-msgid "Qidirish"
-msgstr "Найти"
-
-#: .\templates\news\search_results.html:25
+#: templates/news/search_results.html:25
 #, python-format
 msgid ""
 "\n"
@@ -144,33 +40,222 @@ msgstr ""
 "                Результаты поиска: \"%(search)s\"\n"
 "            "
 
-#: .\templates\news\search_results.html:29
-msgid ""
-"\n"
-"                Qidiruv natijalari\n"
-"            "
-msgstr ""
-"\n"
-"                Результаты поиска\n"
-"            "
+#: templates/news/search_results.html:13
+msgid "Qidiruv..."
+msgstr "Поиск..."
 
-#: .\templates\news\search_results.html:78
+#: templates/news/search_results.html:15
+msgid "Qidirish"
+msgstr "Найти"
+
+#: templates/news/search_results.html:78
 msgid "Oldingi"
 msgstr "Предыдущая"
 
-#: .\templates\news\search_results.html:92
+#: templates/news/search_results.html:92
 msgid "Keyingi"
 msgstr "Следующая"
 
-#: .\templates\news\search_results.html:103
+#: templates/news/search_results.html:103
 msgid "Hech narsa topilmadi"
 msgstr "Ничего не найдено"
 
-#: .\templates\news\search_results.html:105
+#: templates/news/search_results.html:105
 msgid "Qidiruv natijasi bo'yicha ma'lumot mavjud emas."
 msgstr "Нет данных по вашему запросу."
 
-#: .\templates\news\search_results.html:106
+#: templates/news/search_results.html:106
 msgid "Iltimos, boshqa kalit so'zlardan foydalanib ko'ring."
 msgstr "Попробуйте использовать другие ключевые слова."
 
+#: templates/news/base.html:34 templates/news/base.html:144
+msgid "Bosh sahifa"
+msgstr "Главная"
+
+#: templates/news/base.html:35
+msgid "Biz haqimizda"
+msgstr "О нас"
+
+#: templates/news/base.html:36 templates/news/base.html:152 templates/news/base.html:223 templates/news/contact.html:12
+msgid "Biz bilan aloqa"
+msgstr "Связаться с нами"
+
+#: templates/news/base.html:39
+msgid "Admin sahifasi"
+msgstr "Страница администратора"
+
+#: templates/news/base.html:175 templates/news/home.html:30
+msgid "So'nggi yangiliklar"
+msgstr "Последние новости"
+
+#: templates/news/base.html:213
+msgid "Teglar"
+msgstr "Теги"
+
+#: templates/news/base.html:224
+msgid "Agar savol yoki takliflaringiz bo'lsa biz bilan bog'laning."
+msgstr "Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами."
+
+#: templates/news/base.html:226
+msgid "Email:"
+msgstr "Эл. почта:"
+
+#: templates/news/base.html:228
+msgid "Manzil:"
+msgstr "Адрес:"
+
+#: templates/news/base.html:230
+msgid "Telefon:"
+msgstr "Телефон:"
+
+#: templates/news/base.html:241
+msgid "Copyright © 2025"
+msgstr "Авторское право © 2025"
+
+#: templates/news/base.html:243
+msgid "Barcha huquqlar himoyalangan."
+msgstr "Все права защищены."
+
+#: templates/news/base.html:249
+msgid "Developed By "
+msgstr "Разработано "
+
+#: templates/news/base.html:254
+msgid "Maxfiylik siyosati"
+msgstr "Политика конфиденциальности"
+
+#: templates/news/base.html:256
+msgid "Foydalanish shartlari"
+msgstr "Условия использования"
+
+#: templates/news/base.html:258
+msgid "Aloqa"
+msgstr "Контакты"
+
+#: templates/news/category_detail.html:46
+msgid "Bu kategoriyada yangiliklar mavjud emas."
+msgstr "По этой категории новости не найдены."
+
+#: templates/news/category_detail.html:101
+msgid "Kategoriya"
+msgstr "Категория"
+
+#: templates/news/category_detail.html:102
+msgid "Video"
+msgstr "Видео"
+
+#: templates/news/category_detail.html:103
+msgid "Izohlar"
+msgstr "Примечания"
+
+#: templates/news/category_detail.html:119
+msgid "Izohlar bo‘limi tez orada qo‘shiladi."
+msgstr "Раздел комментариев будет добавлен в ближайшее время."
+
+#: templates/news/category_detail.html:130 templates/news/home.html:412
+msgid "Barcha yangiliklar"
+msgstr "Все новости"
+
+#: templates/news/category_detail.html:132 templates/news/home.html:414
+msgid "Categoriyani tanlang"
+msgstr "Выберите категорию"
+
+#: templates/news/home.html:69
+msgid "Yangi Yangilik Qo'shish"
+msgstr "Добавить новость"
+
+#: templates/news/home.html:74
+msgid "Mahalliy"
+msgstr "Местные"
+
+#: templates/news/home.html:133
+msgid "Xorij"
+msgstr "Зарубежные"
+
+#: templates/news/home.html:188
+msgid "Texnologiya"
+msgstr "Технология"
+
+#: templates/news/home.html:278
+msgid "Sport"
+msgstr "Спорт"
+
+#: templates/news/home.html:421
+msgid "Havolalar"
+msgstr "Ссылки"
+
+#: templates/news/news_detail.html:67
+msgid "✏️ Tahrirlash"
+msgstr "✏️ Редактировать"
+
+#: templates/news/news_detail.html:70
+msgid "🗑 O'chirish"
+msgstr "🗑 Удалить"
+
+#: templates/news/news_detail.html:73
+msgid " Orqaga"
+msgstr "Назад"
+
+#: templates/news/news_detail.html:81 templates/news/news_detail.html:93
+msgid "Izoh qoldirish"
+msgstr "Оставить комментарий"
+
+#: templates/news/news_detail.html:132
+msgid "Yuborish"
+msgstr "Отправить"
+
+#: templates/news/news_detail.html:163
+msgid "Hozircha izoh yo'q. Birinchi bo'lib izoh qoldiring!"
+msgstr "Комментариев пока нет. Оставьте комментарий первым!"
+
+#: templates/registration/login.html:14
+msgid "Tizimga kirish"
+msgstr "Войти в систему"
+
+#: templates/registration/login.html:33
+msgid "Foydalanuvchi nomi"
+msgstr "Имя пользователя"
+
+#: templates/registration/login.html:48
+msgid "Parol"
+msgstr "Пароль"
+
+#: templates/registration/login.html:72
+msgid "Kirish"
+msgstr "Войти"
+
+#: templates/registration/login.html:78
+msgid "Parolni unutdingizmi?"
+msgstr "Забыли пароль?"
+
+#: templates/registration/login.html:85
+msgid "Akkountingiz yo'qmi? "
+msgstr "Нет учетной записи?"
+
+#: templates/registration/password_reset_complete.html:5
+msgid "Parol tiklandi"
+msgstr "Пароль восстановлен"
+
+#: templates/registration/password_reset_complete.html:8
+msgid "Parol muvaffaqiyatli tiklandi"
+msgstr "Пароль успешно сброшен"
+
+#: templates/registration/password_reset_confirm.html:5
+msgid "Parolni tiklash"
+msgstr "Сбросить пароль"
+
+#: templates/registration/password_reset_form.html:5
+msgid "Parolni qayta tiklash"
+msgstr "Восстановить пароль"
+
+#: templates/registration/password_reset_done.html:5
+msgid "Parolni tiklash havolasi yuborildi"
+msgstr "Ссылка для восстановления пароля отправлена"
+
+#: templates/registration/logged_out.html:5
+msgid "Tizimdan chiqish"
+msgstr "Выйти из системы"
+
+#: templates/registration/logged_out.html:14
+msgid "Bosh sahifaga qaytish"
+msgstr "Вернуться на главную"
