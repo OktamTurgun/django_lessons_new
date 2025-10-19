@@ -131,8 +131,8 @@ STATICFILES_DIRS = [
 
 # Production yoki local bo‘lishiga qarab yo‘lni aniqlaymiz
 if not DEBUG:  # Production
-    STATIC_ROOT = '/home/djangomo/django-mohirdev-demo.uz/django/staticfiles'
-    MEDIA_ROOT = '/home/djangomo/django-mohirdev-demo.uz/django/media'
+    STATIC_ROOT = '/home/UktamTurgun/news-Project/staticfiles'
+    MEDIA_ROOT = '/home/UktamTurgun/news-Project/media'
 else:  # Development
     STATIC_ROOT = BASE_DIR / "staticfiles"
     MEDIA_ROOT = BASE_DIR / "media"
